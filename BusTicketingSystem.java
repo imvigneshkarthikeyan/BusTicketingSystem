@@ -1,4 +1,5 @@
 import java.util.*;
+import java.text.*;
 
 class BusInfo {
     private int BusNumber;
@@ -46,31 +47,62 @@ class BusInfo {
 class PassengerInfo {
     private String PassengerName;
     private String PassengerPhoneNumber;
+    private int BusNumber;
     private Date DateOfJourney;
     //GettersSetters for private attributes
     public String getPassengerName() {
         return PassengerName;
     }
-    public void setPassengerName(String passengerName) {
-        PassengerName = passengerName;
+    //Using this when the attributes are same
+    public void setPassengerName(String PassengerName) {
+        this.PassengerName = PassengerName;
     }
     public String getPassengerPhoneNumber() {
         return PassengerPhoneNumber;
     }
-    public void setPassengerPhoneNumber(String passengerPhoneNumber) {
-        PassengerPhoneNumber = passengerPhoneNumber;
+    public void setPassengerPhoneNumber(String PassengerPhoneNumber) {
+        this.PassengerPhoneNumber = PassengerPhoneNumber;
+    }
+    public int getBusNumber(){
+        return BusNumber;
+    }
+    public void setBusNumber(int BusNumber){
+        this.BusNumber = BusNumber;
     }
     public Date getDateOfJourney() {
         return DateOfJourney;
     }
-    public void setDateOfJourney(Date dateOfJourney) {
-        DateOfJourney = dateOfJourney;
+    public void setDateOfJourney(Date DateOfJourney) {
+        this.DateOfJourney = DateOfJourney;
+    }
+    // Constructor
+    PassengerInfo(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name of the Passenger");
+        PassengerName = scanner.next();
+        System.out.println("Enter the phone number");
+        PassengerPhoneNumber = scanner.next();
+        System.out.println("Enter the bus number");
+        BusNumber = scanner.nextInt();
+        System.out.println("Enter the date of journey in DD-MM-YYYY");
+        String DateInput = scanner.next();
+        //Converting the string to date
+        SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            DateOfJourney = DateFormat.parse(DateInput);
+        } catch (ParseException e) {
+            //Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
 
 public class BusTicketingSystem {
     public static void main(String [] args) {
+        // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
+        ArrayList<PassengerInfo> passengerList = new ArrayList<>();
+        //Adding new buses into ArrayList
         busList.add(new BusInfo(1, 20, "AC", 750));
         busList.add(new BusInfo(2, 32, "Sleeper", 600));
         busList.add(new BusInfo(3, 20, "Semi-Sleeper", 400));
@@ -87,7 +119,7 @@ public class BusTicketingSystem {
             System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
-                System.out.println("Initiating new Booking");
+                System.out.println("Initiated Booking...");
             } else if (SelectedOption == 2) {
                 System.out.println("Entering into Admin Login");
             } else {
