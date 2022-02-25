@@ -95,6 +95,28 @@ class PassengerInfo {
             e.printStackTrace();
         }
     }
+    public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        //Fetching the BusCapacity from the BusNumber entered by the user
+        int BusCapacity = 0;
+        for (BusInfo bus : busList) { 
+            if (bus.getBusNumber() ==  BusNumber) {
+                BusCapacity = bus.getBusCapacity();
+            }
+        }
+        //Using this as a counter
+        int ReservedTickets = 0;
+        for (PassengerInfo p : passengerList) {
+            if (p.BusNumber == BusNumber && p.DateOfJourney.equals(DateOfJourney)) {
+                ReservedTickets = ReservedTickets + 1;
+            }
+        }
+        // Checking the capacity and returning accordingly
+        if (ReservedTickets < BusCapacity) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 public class BusTicketingSystem {
@@ -103,7 +125,7 @@ public class BusTicketingSystem {
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
         //Adding new buses into ArrayList
-        busList.add(new BusInfo(1, 20, "AC", 750));
+        busList.add(new BusInfo(1, 2, "AC", 750));
         busList.add(new BusInfo(2, 32, "Sleeper", 600));
         busList.add(new BusInfo(3, 20, "Semi-Sleeper", 400));
         busList.add(new BusInfo(4, 20, "Normal", 250));
@@ -119,7 +141,15 @@ public class BusTicketingSystem {
             System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
-                System.out.println("Initiated Booking...");
+                // System.out.println("Initiated Booking...");
+                PassengerInfo ticketForPassenger = new PassengerInfo();
+                if (ticketForPassenger.IsAvailable(passengerList, busList)) {
+                    passengerList.add(ticketForPassenger);
+                    System.out.println("The Ticket Reserved Sucessfully...!");
+                } else {
+                    System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
+                }
+
             } else if (SelectedOption == 2) {
                 System.out.println("Entering into Admin Login");
             } else {
