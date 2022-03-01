@@ -47,7 +47,7 @@ class BusInfo {
 
     // Display Method
     public void DisplayBusInfo() {
-        System.out.println("Bus Number:" + BusNumber + " | Seats Available:" + BusCapacity + " | Facility:"
+        System.out.println("Bus Number:" + BusNumber + " | Capacity of Bus:" + BusCapacity + " | Facility:"
                 + BusFacility + " | Ticket Cost:" + CostOfTicket);
     }
 }

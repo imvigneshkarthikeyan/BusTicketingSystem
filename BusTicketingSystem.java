@@ -18,7 +18,7 @@ public class BusTicketingSystem {
             b.DisplayBusInfo();
         }
         // Loop for Booking
-        while (SelectedOption == 1) {
+        while (SelectedOption == 1 || SelectedOption == 2) {
             //Main Booking
             System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
             SelectedOption = scanner.nextInt();
@@ -36,10 +36,41 @@ public class BusTicketingSystem {
                 //Admin Portal
                 int AdminKey = 123;
                 System.out.println("Entering into Admin Login...");
-                System.out.println("Enter the key to proceed: ");
-                int passKey = scanner.nextInt();
-                if (AdminKey == passKey) {
+                System.out.println("Enter the pin to proceed: ");
+                int pinNumber = scanner.nextInt();
+                if (AdminKey == pinNumber) {
                     System.out.println("The key is correct...Redirecting to Admin portal");
+                    //To display the list of Bus to the admin
+                    System.out.println("The following buses are available:");
+                    for (BusInfo b : busList) {
+                        b.DisplayBusInfo();
+                    }
+                    //Operations which can be performed by the admin
+                    System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \nEnter any other number to logout");
+                    int OperationOption = scanner.nextInt();
+                    //Adding new Bus
+                    if (OperationOption == 1) {
+                        System.out.println("Enter the Bus Number");
+                        int newBusNumber = scanner.nextInt();
+                        System.out.println("Enter the capacity of the bus");
+                        int newBusCapacity = scanner.nextInt();
+                        System.out.println("Enter the Bus Facility");
+                        String newBusFacility = scanner.next();
+                        System.out.println("Enter the Cost of the ticket");
+                        float newCostOfTicket = scanner.nextFloat();
+                        busList.add(new BusInfo(newBusNumber, newBusCapacity, newBusFacility, newCostOfTicket));
+                        //Displaying the list of buses after adding
+                        System.out.println("The updated bus list is given below:");
+                        for (BusInfo b : busList) {
+                            b.DisplayBusInfo();
+                        }
+                    } else if (OperationOption == 2) {
+                        System.out.println("Editing the Bus...");
+                    } else if (OperationOption == 3) {
+                        System.out.println("Deleting the Bus...");
+                    } else {
+                        System.out.println("Logging out from admin portal...!");
+                    }
                 } else {
                     System.out.println("The key is incorrect, Retry!");
                 }
