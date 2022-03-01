@@ -44,10 +44,6 @@ class PassengerInfo {
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the name of the Passenger");
-        PassengerName = scanner.next();
-        System.out.println("Enter the phone number");
-        PassengerPhoneNumber = scanner.next();
         System.out.println("Enter the bus number");
         BusNumber = scanner.nextInt();
         System.out.println("Enter the date of journey in DD-MM-YYYY");
@@ -60,6 +56,10 @@ class PassengerInfo {
             // Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println("Enter the name of the Passenger");
+        PassengerName = scanner.next();
+        System.out.println("Enter the phone number");
+        PassengerPhoneNumber = scanner.next();
     }
 
     public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {

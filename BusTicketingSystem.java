@@ -19,6 +19,7 @@ public class BusTicketingSystem {
         }
         // Loop for Booking
         while (SelectedOption == 1) {
+            //Main Booking
             System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
@@ -32,7 +33,16 @@ public class BusTicketingSystem {
                 }
 
             } else if (SelectedOption == 2) {
-                System.out.println("Entering into Admin Login");
+                //Admin Portal
+                int AdminKey = 123;
+                System.out.println("Entering into Admin Login...");
+                System.out.println("Enter the key to proceed: ");
+                int passKey = scanner.nextInt();
+                if (AdminKey == passKey) {
+                    System.out.println("The key is correct...Redirecting to Admin portal");
+                } else {
+                    System.out.println("The key is incorrect, Retry!");
+                }
             } else {
                 System.out.println("Quiting the application");
             }

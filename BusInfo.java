@@ -29,15 +29,15 @@ class BusInfo {
         BusFacility = busFacility;
     }
 
-    public float setCostOfTicket() {
+    public float getCostOfTicket() {
         return CostOfTicket;
     }
 
-    public void getCostOfTicket(float costOfTicket) {
+    public void setCostOfTicket(float costOfTicket) {
         CostOfTicket = costOfTicket;
     }
 
-    // Constructor for Bus
+    // Constructor to create new Bus
     BusInfo(int busNumber, int busCapacity, String busFacility, float costOfTicket) {
         BusNumber = busNumber;
         BusCapacity = busCapacity;
