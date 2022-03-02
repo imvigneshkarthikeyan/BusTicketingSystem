@@ -68,6 +68,20 @@ public class BusTicketingSystem {
                         System.out.println("Editing the Bus...");
                     } else if (OperationOption == 3) {
                         System.out.println("Deleting the Bus...");
+                        //Displaying the BusInfo along with index as unique number
+                        int index = 0;
+                        for (BusInfo b : busList) {
+                            System.out.print("Unique Number: " + index++ + "| ");
+                            b.DisplayBusInfo();
+                        }
+                        System.out.println("Enter the unique number of the Bus that has to be removed.");
+                        int BusToBeRemoved = scanner.nextInt();
+                        busList.remove(BusToBeRemoved);
+                        //Displaying the BusList after removing
+                        System.out.println("The updated bus list after removal is:");
+                        for (BusInfo b : busList) {
+                            b.DisplayBusInfo();
+                        }
                     } else {
                         System.out.println("Logging out from admin portal...!");
                     }
