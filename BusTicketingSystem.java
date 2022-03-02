@@ -6,10 +6,10 @@ public class BusTicketingSystem {
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
         //Adding new buses into ArrayList
-        busList.add(new BusInfo(1, 2, "AC", 750));
-        busList.add(new BusInfo(2, 32, "Sleeper", 600));
-        busList.add(new BusInfo(3, 20, "Semi-Sleeper", 400));
-        busList.add(new BusInfo(4, 20, "Normal", 250));
+        busList.add(new BusInfo(1001, 2, "AC", 750));
+        busList.add(new BusInfo(1012, 32, "Sleeper", 600));
+        busList.add(new BusInfo(1053, 20, "Semi-Sleeper", 400));
+        busList.add(new BusInfo(1055, 20, "Normal", 250));
         // Option given by User
         int SelectedOption = 1;
         Scanner scanner = new Scanner(System.in);
@@ -28,6 +28,7 @@ public class BusTicketingSystem {
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("The Ticket Reserved Sucessfully...!");
+                    
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
@@ -66,6 +67,42 @@ public class BusTicketingSystem {
                         }
                     } else if (OperationOption == 2) {
                         System.out.println("Editing the Bus...");
+                        //Displaying the BusInfo along with index as unique number
+                        int index = 0;
+                        for (BusInfo b : busList) {
+                            System.out.print("Unique Number: " + index++ + "| ");
+                            b.DisplayBusInfo();
+                        }
+                        //Getting the index number that has to be updated from user
+                        System.out.println("Enter the Unique number of the bus to be updated: ");
+                        int BusToBeUpdated = scanner.nextInt();
+                        //Asking for the field that has to be updated
+                        System.out.println("Select the option of the field which has to be updated: ");
+                        System.out.println("1.Bus Number \n2.Bus Capacity \n3.Bus Facility \n4.Cost of the ticket \nEnter any other number to quit");
+                        int OptionToBeUpdated = scanner.nextInt();
+                        if (OptionToBeUpdated == 1) {
+                            System.out.println("Enter the new Bus Number that has to be updated: ");
+                            int updatedBusNumber = scanner.nextInt();
+                            busList.get(BusToBeUpdated).setBusNumber(updatedBusNumber);
+                        } else if (OptionToBeUpdated == 2) {
+                            System.out.println("Enter the new Capacity that has to be updated: ");
+                            int updatedBusCapacity = scanner.nextInt();
+                            busList.get(BusToBeUpdated).setBusCapacity(updatedBusCapacity);
+                        } else if (OptionToBeUpdated == 3) {
+                            System.out.println("Enter the new Facility that has to be updated: ");
+                            String updatedBusFacility = scanner.next();
+                            busList.get(BusToBeUpdated).setBusFacility(updatedBusFacility);
+                        } else if (OptionToBeUpdated == 4) {
+                            System.out.println("Enter the new Cost that has to be updated: ");
+                            float updatedBusTicketCost = scanner.nextFloat();
+                            busList.get(BusToBeUpdated).setCostOfTicket(updatedBusTicketCost);
+                        } else {
+                            System.out.println("Getting out from admin panel");
+                        }
+                        System.out.println("The new bus list after updation is:");
+                        for (BusInfo b : busList) {
+                            b.DisplayBusInfo();
+                        }
                     } else if (OperationOption == 3) {
                         System.out.println("Deleting the Bus...");
                         //Displaying the BusInfo along with index as unique number
