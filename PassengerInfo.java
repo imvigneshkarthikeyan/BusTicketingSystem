@@ -84,4 +84,13 @@ class PassengerInfo {
             return false;
         }
     }
+    public float getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        float TicketPrice = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                TicketPrice = bus.getCostOfTicket();
+            }
+        }
+        return TicketPrice;
+    }
 }

@@ -28,7 +28,10 @@ public class BusTicketingSystem {
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("The Ticket Reserved Sucessfully...!");
-                    
+                    //Displaying the cost of ticket before tax calculation 
+                    float Price = ticketForPassenger.getCostOfTicket(passengerList, busList);
+                    System.out.println("The Cost of the Ticket before including GST is:" + Price);
+
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
