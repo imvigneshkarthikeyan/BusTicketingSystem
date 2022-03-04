@@ -84,13 +84,17 @@ class PassengerInfo {
             return false;
         }
     }
-    public float getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        float TicketPrice = 0;
+    //Cost of the Ticket including Taxes
+    public double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        double TicketPrice = 0;
+        double TicketPriceWithTax = 0;
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
+                TicketPriceWithTax = TicketPrice + (TicketPrice * 0.05);
             }
         }
-        return TicketPrice;
+        return TicketPriceWithTax;
     }
+    
 }

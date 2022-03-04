@@ -28,9 +28,9 @@ public class BusTicketingSystem {
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("The Ticket Reserved Sucessfully...!");
-                    //Displaying the cost of ticket before tax calculation 
-                    float Price = ticketForPassenger.getCostOfTicket(passengerList, busList);
-                    System.out.println("The Cost of the Ticket before including GST is:" + Price);
+                    //Displaying the cost of ticket after tax calculation 
+                    double Price = ticketForPassenger.getCostOfTicket(passengerList, busList);
+                    System.out.println("The Cost of the Ticket after including GST is:" + Price);
 
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
@@ -61,7 +61,7 @@ public class BusTicketingSystem {
                         System.out.println("Enter the Bus Facility");
                         String newBusFacility = scanner.next();
                         System.out.println("Enter the Cost of the ticket");
-                        float newCostOfTicket = scanner.nextFloat();
+                        double newCostOfTicket = scanner.nextDouble();
                         busList.add(new BusInfo(newBusNumber, newBusCapacity, newBusFacility, newCostOfTicket));
                         //Displaying the list of buses after adding
                         System.out.println("The updated bus list is given below:");
@@ -97,7 +97,7 @@ public class BusTicketingSystem {
                             busList.get(BusToBeUpdated).setBusFacility(updatedBusFacility);
                         } else if (OptionToBeUpdated == 4) {
                             System.out.println("Enter the new Cost that has to be updated: ");
-                            float updatedBusTicketCost = scanner.nextFloat();
+                            double updatedBusTicketCost = scanner.nextDouble();
                             busList.get(BusToBeUpdated).setCostOfTicket(updatedBusTicketCost);
                         } else {
                             System.out.println("Getting out from admin panel");

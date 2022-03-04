@@ -2,7 +2,7 @@ class BusInfo {
     private int BusNumber;
     private int BusCapacity;
     private String BusFacility;
-    private float CostOfTicket;
+    private double CostOfTicket;
 
     // GettersSetters for private attributes
     public int getBusNumber() {
@@ -29,16 +29,16 @@ class BusInfo {
         BusFacility = busFacility;
     }
 
-    public float getCostOfTicket() {
+    public double getCostOfTicket() {
         return CostOfTicket;
     }
 
-    public void setCostOfTicket(float costOfTicket) {
+    public void setCostOfTicket(double costOfTicket) {
         CostOfTicket = costOfTicket;
     }
 
     // Constructor to create new Bus
-    BusInfo(int busNumber, int busCapacity, String busFacility, float costOfTicket) {
+    BusInfo(int busNumber, int busCapacity, String busFacility, double costOfTicket) {
         BusNumber = busNumber;
         BusCapacity = busCapacity;
         BusFacility = busFacility;
