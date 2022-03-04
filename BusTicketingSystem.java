@@ -17,27 +17,29 @@ public class BusTicketingSystem {
         for (BusInfo b : busList) {
             b.DisplayBusInfo();
         }
-        // Loop for Booking
+        // Loop for the Application
         while (SelectedOption == 1 || SelectedOption == 2) {
             //Main Booking
             System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
-                // System.out.println("Initiated Booking...");
                 PassengerInfo ticketForPassenger = new PassengerInfo();
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("The Ticket Reserved Sucessfully...!");
                     //Displaying the cost of ticket after tax calculation 
-                    double Price = ticketForPassenger.getCostOfTicket(passengerList, busList);
-                    System.out.println("The Cost of the Ticket after including GST is:" + Price);
-
+                    double TicketAmount = ticketForPassenger.getCostOfTicket(passengerList, busList);
+                    double TaxAmount = ticketForPassenger.getTaxOfTicket(passengerList, busList);
+                    double TotalAmount = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
+                    System.out.println("Ticket Cost: " + TicketAmount);
+                    System.out.println("Tax amount: " + TaxAmount);
+                    System.out.println("Total Cost: " + TotalAmount);
+                    // Payment Panel to be build
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
-
+            // Admin Portal
             } else if (SelectedOption == 2) {
-                //Admin Portal
                 int AdminKey = 123;
                 System.out.println("Entering into Admin Login...");
                 System.out.println("Enter the pin to proceed: ");

@@ -61,7 +61,7 @@ class PassengerInfo {
         System.out.println("Enter the phone number");
         PassengerPhoneNumber = scanner.next();
     }
-
+    //Ticket Availability Checker
     public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         // Fetching the BusCapacity from the BusNumber entered by the user
         int BusCapacity = 0;
@@ -84,13 +84,38 @@ class PassengerInfo {
             return false;
         }
     }
-    //Cost of the Ticket including Taxes
+    //Displaying the Bill amounts
+    // Displaying the ticket amount
     public double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        double TicketPrice = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                TicketPrice = bus.getCostOfTicket();
+            }
+        }
+        return TicketPrice;
+    }
+    //Displaying the Tax amount
+    public double getTaxOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        double TicketPrice = 0;
+        double TaxPrice = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                TicketPrice = bus.getCostOfTicket();
+                // Calculationg GST of 5%
+                TaxPrice = TicketPrice * 0.05;
+            }
+        }
+        return TaxPrice;
+    }
+    //Displaying the total amount
+    public double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         double TicketPriceWithTax = 0;
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
+                //Calculationg GST of 5% 
                 TicketPriceWithTax = TicketPrice + (TicketPrice * 0.05);
             }
         }
