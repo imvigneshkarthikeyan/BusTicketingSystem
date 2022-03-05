@@ -25,6 +25,7 @@ class PassengerInfo {
         this.PassengerPhoneNumber = PassengerPhoneNumber;
     }
 
+
     public int getBusNumber() {
         return BusNumber;
     }
@@ -61,6 +62,7 @@ class PassengerInfo {
         System.out.println("Enter the phone number");
         PassengerPhoneNumber = scanner.next();
     }
+
     //Ticket Availability Checker
     public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         // Fetching the BusCapacity from the BusNumber entered by the user
@@ -84,8 +86,27 @@ class PassengerInfo {
             return false;
         }
     }
-    //Displaying the Bill amounts
-    // Displaying the ticket amount
+    //For Displaying in the ticket section
+    public String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        String FromCity = "";
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                FromCity = bus.getFromCity();
+            }
+        }
+        return FromCity;
+    }
+    
+    public String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        String ToCity = "";
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                ToCity = bus.getToCity();
+            }
+        }
+        return ToCity;
+    }
+    //Displaying the ticket amount
     public double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         for (BusInfo bus : busList) {
@@ -102,7 +123,7 @@ class PassengerInfo {
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
-                // Calculationg GST of 5%
+                // Calculating GST of 5%
                 TaxPrice = TicketPrice * 0.05;
             }
         }
@@ -115,7 +136,7 @@ class PassengerInfo {
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
-                //Calculationg GST of 5% 
+                //Calculating Total cost including GST. 
                 TicketPriceWithTax = TicketPrice + (TicketPrice * 0.05);
             }
         }
