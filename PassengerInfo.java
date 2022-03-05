@@ -6,6 +6,7 @@ class PassengerInfo {
     private String PassengerPhoneNumber;
     private int BusNumber;
     private Date DateOfJourney;
+    private int TotalNumberOfSeats;
 
     // GettersSetters for private attributes
     public String getPassengerName() {
@@ -42,6 +43,14 @@ class PassengerInfo {
         this.DateOfJourney = DateOfJourney;
     }
 
+    public int getTotalNumberOfSeats() {
+        return TotalNumberOfSeats;
+    }
+
+    public void setTotalNumberOfSeats(int TotalNumberOfSeats) {
+        this.TotalNumberOfSeats = TotalNumberOfSeats;
+    }
+
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
@@ -61,6 +70,8 @@ class PassengerInfo {
         PassengerName = scanner.next();
         System.out.println("Enter the phone number");
         PassengerPhoneNumber = scanner.next();
+        System.out.println("Enter total no:of seats needed");
+        TotalNumberOfSeats = scanner.nextInt();
     }
 
     //Ticket Availability Checker
@@ -142,5 +153,17 @@ class PassengerInfo {
         }
         return TicketPriceWithTax;
     }
-    
+    // getTotalCost
+    public double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        double TicketPrice = 0;
+        double TicketPriceWithTax = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                TicketPrice = bus.getCostOfTicket();
+                // Calculating Total cost including GST.
+                TicketPriceWithTax = TotalNumberOfSeats*TicketPrice + (TicketPrice * 0.05);
+            }
+        }
+        return TicketPriceWithTax;
+    }
 }

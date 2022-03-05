@@ -5,9 +5,8 @@ public class BusTicketingSystem {
         // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
-        ArrayList<BusInfo> filteredList = new ArrayList<>();
         //Adding new buses into ArrayList
-        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 2, "AC", 750));
+        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 4, "AC", 750));
         busList.add(new BusInfo(1012, "Thanjavur", "Chennai", 32, "Sleeper", 600));
         busList.add(new BusInfo(1053, "Chennai", "Trichy", 20, "Semi-Sleeper", 400));
         busList.add(new BusInfo(1055, "Trichy", "Chennai", 20, "Normal", 250));
@@ -48,14 +47,17 @@ public class BusTicketingSystem {
                     // Displaying the cost of ticket after tax calculation
                     System.out.println("-----------------------------------------------------------------------------------------------------------------");
                     System.out.println("Bill amount for the ticket is displayed below: ");
+                    int TotalNumberOfSeats = ticketForPassenger.getTotalNumberOfSeats();
+                    System.out.println("Total No:of Seats: " + TotalNumberOfSeats);
                     double TicketAmount = ticketForPassenger.getCostOfTicket(passengerList, busList);
                     double TaxAmount = ticketForPassenger.getTaxOfTicket(passengerList, busList);
-                    double TotalAmount = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
+                    double TotalAmountPerTicket = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
+                    double TotalAmount = ticketForPassenger.getTotalCost(passengerList, busList);
                     System.out.println("Ticket Cost: " + TicketAmount);
                     System.out.println("Tax amount: " + TaxAmount);
+                    System.out.println("The Total Cost per Ticket: " + TotalAmountPerTicket);
                     System.out.println("The Total Cost: " + TotalAmount);
                     System.out.println("=================================================================================================================");
-                    // Payment Panel to be build
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
