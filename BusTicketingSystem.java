@@ -36,6 +36,8 @@ public class BusTicketingSystem {
                     System.out.println("Reservation Status: Success!");
                     String PassengerName = ticketForPassenger.getPassengerName();
                     System.out.println("Passenger Name: " + PassengerName);
+                    String PassengerIdNumber = ticketForPassenger.getPassengerIdNumber();
+                    System.out.println("Aadhar Number: " + PassengerIdNumber);
                     Date DateOfJourney = ticketForPassenger.getDateOfJourney();
                     System.out.println("Date Of Journey: " + DateOfJourney);
                     int BusNumber = ticketForPassenger.getBusNumber();

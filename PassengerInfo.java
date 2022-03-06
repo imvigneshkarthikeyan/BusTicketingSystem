@@ -6,6 +6,7 @@ class PassengerInfo {
     private String PassengerPhoneNumber;
     private int BusNumber;
     private Date DateOfJourney;
+    private String PassengerIdNumber;
     private int TotalNumberOfSeats;
 
     // GettersSetters for private attributes
@@ -43,6 +44,14 @@ class PassengerInfo {
         this.DateOfJourney = DateOfJourney;
     }
 
+    public String getPassengerIdNumber() {
+        return PassengerIdNumber;
+    }
+
+    public void setPassengerIdNumber(String PassengerIdNumber) {
+        this.PassengerIdNumber = PassengerIdNumber;
+    }
+
     public int getTotalNumberOfSeats() {
         return TotalNumberOfSeats;
     }
@@ -70,6 +79,8 @@ class PassengerInfo {
         PassengerName = scanner.next();
         System.out.println("Enter the phone number");
         PassengerPhoneNumber = scanner.next();
+        System.out.println("Enter the Aadhar / PAN Number");
+        PassengerIdNumber = scanner.next();
         System.out.println("Enter total no:of seats needed");
         TotalNumberOfSeats = scanner.nextInt();
     }
