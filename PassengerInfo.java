@@ -87,7 +87,7 @@ class PassengerInfo {
         int ReservedTickets = 0;
         for (PassengerInfo p : passengerList) {
             if (p.BusNumber == BusNumber && p.DateOfJourney.equals(DateOfJourney)) {
-                ReservedTickets = ReservedTickets + 1;
+                ReservedTickets = ReservedTickets + p.TotalNumberOfSeats;
             }
         }
         // Checking the capacity and returning accordingly
