@@ -1,3 +1,5 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class BusTicketingSystem {
@@ -39,7 +41,9 @@ public class BusTicketingSystem {
                     String PassengerIdNumber = ticketForPassenger.getPassengerIdNumber();
                     System.out.println("Aadhar Number: " + PassengerIdNumber);
                     Date DateOfJourney = ticketForPassenger.getDateOfJourney();
-                    System.out.println("Date Of Journey: " + DateOfJourney);
+                    DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String FormattedDate = dateFormatter.format(DateOfJourney);
+                    System.out.println("Date Of Journey: " + FormattedDate);
                     int BusNumber = ticketForPassenger.getBusNumber();
                     System.out.println("Bus Number: " + BusNumber);
                     String FromCity = ticketForPassenger.getFromCity(passengerList, busList);
