@@ -9,8 +9,8 @@ class PassengerInfo {
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
 
-    private static double TaxPercentage;
-
+    //Using TaxPercentage as Static
+    protected static double TaxPercentage;
     static {
         TaxPercentage = 5/100;
     }
