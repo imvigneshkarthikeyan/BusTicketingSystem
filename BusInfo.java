@@ -1,10 +1,19 @@
-class BusInfo {
+interface Showable{
+    void DisplayBusInfo();
+}
+
+class BusInfo implements Showable{
     private int BusNumber;
     private String FromCity;
     private String ToCity;
     private int BusCapacity;
     private String BusFacility;
     private double CostOfTicket;
+    
+    // Display Method
+    public void DisplayBusInfo() {
+        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Seat Availability:" + BusCapacity + " | Facility:" + BusFacility + " | Ticket Cost:" + CostOfTicket);
+    }
 
     // GettersSetters for private attributes
     public int getBusNumber() {
@@ -65,9 +74,4 @@ class BusInfo {
         CostOfTicket = costOfTicket;
     }
 
-    // Display Method
-    public void DisplayBusInfo() {
-        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Seat Availability:" + BusCapacity + " | Facility:"
-                + BusFacility + " | Ticket Cost:" + CostOfTicket);
-    }
 }

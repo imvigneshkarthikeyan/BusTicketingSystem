@@ -9,6 +9,12 @@ class PassengerInfo {
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
 
+    private static double TaxPercentage;
+
+    static {
+        TaxPercentage = 5/100;
+    }
+
     // GettersSetters for private attributes
     public String getPassengerName() {
         return PassengerName;
@@ -26,7 +32,6 @@ class PassengerInfo {
     public void setPassengerPhoneNumber(String PassengerPhoneNumber) {
         this.PassengerPhoneNumber = PassengerPhoneNumber;
     }
-
 
     public int getBusNumber() {
         return BusNumber;
@@ -63,7 +68,7 @@ class PassengerInfo {
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the bus number");
+        System.out.println("Enter the Bus Number");
         BusNumber = scanner.nextInt();
         System.out.println("Enter the date of journey in DD-MM-YYYY");
         String DateInput = scanner.next();
@@ -101,6 +106,7 @@ class PassengerInfo {
                 ReservedTickets = ReservedTickets + p.TotalNumberOfSeats;
             }
         }
+
         // Checking the capacity and returning accordingly
         if (ReservedTickets+TotalNumberOfSeats <= BusCapacity) {
             return true;
@@ -108,6 +114,7 @@ class PassengerInfo {
             return false;
         }
     }
+
     //For Displaying in the ticket section
     public String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         String FromCity = "";
@@ -159,7 +166,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
                 //Calculating Total cost including GST. 
-                TicketPriceWithTax = TicketPrice + (TicketPrice * 0.05);
+                TicketPriceWithTax = TicketPrice + (TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;
@@ -172,7 +179,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                TicketPriceWithTax = TotalNumberOfSeats*TicketPrice + (TicketPrice * 0.05);
+                TicketPriceWithTax = TotalNumberOfSeats*TicketPrice + (TotalNumberOfSeats * TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;

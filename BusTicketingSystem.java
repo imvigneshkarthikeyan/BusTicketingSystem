@@ -1,13 +1,12 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
-public class BusTicketingSystem {
+public class BusTicketingSystem{
     public static void main(String [] args) {
         // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
-        //Adding new buses into ArrayList
+        //Adding the default buses into ArrayList
         busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 4, "AC", 750));
         busList.add(new BusInfo(1012, "Thanjavur", "Chennai", 32, "Sleeper", 600));
         busList.add(new BusInfo(1053, "Chennai", "Trichy", 20, "Semi-Sleeper", 400));
@@ -99,8 +98,7 @@ public class BusTicketingSystem {
                         String newBusFacility = scanner.next();
                         System.out.println("Enter the Cost of the ticket");
                         double newCostOfTicket = scanner.nextDouble();
-                        busList.add(new BusInfo(newBusNumber, 
-                                newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
+                        busList.add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
                         //Displaying the list of buses after adding
                         System.out.println("-----------------------------------------------------------------------------------------------------------------");
                         System.out.println("The updated bus list is given below:");
