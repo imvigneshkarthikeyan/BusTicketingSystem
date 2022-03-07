@@ -102,7 +102,7 @@ class PassengerInfo {
             }
         }
         // Checking the capacity and returning accordingly
-        if (ReservedTickets < BusCapacity && TotalNumberOfSeats <= BusCapacity && ReservedTickets+TotalNumberOfSeats <= BusCapacity) {
+        if (ReservedTickets+TotalNumberOfSeats <= BusCapacity) {
             return true;
         } else {
             return false;
