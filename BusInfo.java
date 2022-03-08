@@ -2,7 +2,7 @@ interface Showable{
     void DisplayBusInfo();
 }
 
-class BusInfo extends PassengerInfo implements Showable{
+class BusInfo implements Showable{
     private int BusNumber;
     private String FromCity;
     private String ToCity;
@@ -63,12 +63,7 @@ class BusInfo extends PassengerInfo implements Showable{
     public void setCostOfTicket(double costOfTicket) {
         CostOfTicket = costOfTicket;
     }
-
-    public static double getTaxPercentage() {
-        return TaxPercentage;
-    }
     
-
     // Constructor to create new Bus
     BusInfo(int busNumber, String fromCity, String toCity, int busCapacity, String busFacility, double costOfTicket) {
         BusNumber = busNumber;

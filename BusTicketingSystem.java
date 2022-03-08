@@ -1,7 +1,7 @@
 import java.text.*;
 import java.util.*;
 
-public class BusTicketingSystem{
+public class BusTicketingSystem {
     public static void main(String [] args) {
         // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
@@ -55,10 +55,12 @@ public class BusTicketingSystem{
                     int TotalNumberOfSeats = ticketForPassenger.getTotalNumberOfSeats();
                     System.out.println("Total No:of Seats: " + TotalNumberOfSeats);
                     double TicketAmount = ticketForPassenger.getCostOfTicket(passengerList, busList);
+                    double TaxPercentage = PassengerInfo.TaxPercentage*100;
                     double TaxAmount = ticketForPassenger.getTaxOfTicket(passengerList, busList);
                     double TotalAmountPerTicket = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
                     double TotalAmount = ticketForPassenger.getTotalCost(passengerList, busList);
                     System.out.println("Ticket Cost: " + TicketAmount);
+                    System.out.println("Tax Percentage: " + TaxPercentage + "%");
                     System.out.println("Tax amount: " + TaxAmount);
                     System.out.println("The Total Cost per Ticket: " + TotalAmountPerTicket);
                     System.out.println("The Total Cost: " + TotalAmount);

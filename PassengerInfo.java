@@ -8,11 +8,10 @@ class PassengerInfo {
     private Date DateOfJourney;
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
-
     //Using TaxPercentage as Static
     protected static double TaxPercentage;
     static {
-        TaxPercentage = 5/100;
+        TaxPercentage = 0.05;
     }
 
     // GettersSetters for private attributes
