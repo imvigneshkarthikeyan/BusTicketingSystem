@@ -3,13 +3,19 @@ import java.util.*;
 
 class AdminInfo {
     private int AdminKey = 123;
-
-    protected int getAdminKey() {
+    public int getAdminKey() {
         return AdminKey;
+    }
+    public String getHintForAdminKey() {
+        String HintForAdminKey = "3 Numbers";
+        return HintForAdminKey;
     }
 }
 
 public class BusTicketingSystem extends AdminInfo {
+    public String ForgetAdminKey() {
+        return super.getHintForAdminKey();
+    }
     public static void main(String [] args) {
         // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
@@ -26,7 +32,6 @@ public class BusTicketingSystem extends AdminInfo {
         Scanner scanner = new Scanner(System.in);
         System.out.println("======================================== Welcome to Bus Ticketing System ========================================");
         System.out.println("======================================== Total Buses are displayed below ========================================");
-
         // ForEach loop to fetch the elements from array list
         for (BusInfo b : busList) {
             b.DisplayBusInfo();
@@ -35,7 +40,7 @@ public class BusTicketingSystem extends AdminInfo {
         while (SelectedOption == 1 || SelectedOption == 2) {
             //Main Booking
             System.out.println("=================================================================================================================");
-            System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
+            System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
                 PassengerInfo ticketForPassenger = new PassengerInfo();
@@ -194,7 +199,12 @@ public class BusTicketingSystem extends AdminInfo {
                         System.out.println("Logging out from admin portal...!");
                     }
                 } else {
-                    System.out.println("The key is incorrect, Retry!");
+                    System.out.println("The key is incorrect. Forgot Pin? Click 1");
+                    int ForgotPinOption = scanner.nextInt();
+                    if (ForgotPinOption == 1) {
+                        BusTicketingSystem b = new BusTicketingSystem();
+                        System.out.println("The Hint for PIN is:\n" + b.ForgetAdminKey());
+                    }
                 }
             } else {
                 System.out.println("Quiting the application");
