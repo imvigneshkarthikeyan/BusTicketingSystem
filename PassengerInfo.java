@@ -8,7 +8,7 @@ class PassengerInfo {
     private Date DateOfJourney;
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
-    //Using TaxPercentage as Static
+    //Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;
     static {
         TaxPercentage = 0.05;
@@ -90,7 +90,8 @@ class PassengerInfo {
     }
 
     //Ticket Availability Checker
-    public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    //Declaring it as Final as it should not be overrided
+    final public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         // Fetching the BusCapacity from the BusNumber entered by the user
         int BusCapacity = 0;
         for (BusInfo bus : busList) {

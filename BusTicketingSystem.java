@@ -2,12 +2,13 @@ import java.text.*;
 import java.util.*;
 
 class AdminInfo {
-    private int AdminKey = 123;
+    //Declaring it as final, as it should not be modified
+    private final int AdminKey = 123;
     public int getAdminKey() {
         return AdminKey;
     }
     public String getHintForAdminKey() {
-        String HintForAdminKey = "3 Numbers";
+        String HintForAdminKey = "Its a 3 digit pin.";
         return HintForAdminKey;
     }
 }
@@ -98,7 +99,7 @@ public class BusTicketingSystem extends AdminInfo {
                     }
                     //Operations which can be performed by the admin
                     System.out.println("-----------------------------------------------------------------------------------------------------------------");
-                    System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \nEnter any other number to logout");
+                    System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display the list of Buses\nEnter any other number to logout");
                     int OperationOption = scanner.nextInt();
                     //Adding new Bus
                     if (OperationOption == 1) {
@@ -194,8 +195,13 @@ public class BusTicketingSystem extends AdminInfo {
                         System.out.println("The updated bus list after removal is:");
                         for (BusInfo b : busList) {
                             b.DisplayBusInfo();
-                        }
-                    } else {
+                        } 
+                    } else if (OperationOption == 4) {
+                    System.out.println("The following buses are available:");
+                    for (BusInfo b : busList) {
+                        b.DisplayBusInfo();
+                    }
+                 } else {
                         System.out.println("Logging out from admin portal...!");
                     }
                 } else {
