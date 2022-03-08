@@ -1,7 +1,15 @@
 import java.text.*;
 import java.util.*;
 
-public class BusTicketingSystem {
+class AdminInfo {
+    private int AdminKey = 123;
+
+    protected int getAdminKey() {
+        return AdminKey;
+    }
+}
+
+public class BusTicketingSystem extends AdminInfo {
     public static void main(String [] args) {
         // ArrayList for BusInfo 
         ArrayList<BusInfo> busList = new ArrayList<>();
@@ -59,18 +67,19 @@ public class BusTicketingSystem {
                     double TaxAmount = ticketForPassenger.getTaxOfTicket(passengerList, busList);
                     double TotalAmountPerTicket = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
                     double TotalAmount = ticketForPassenger.getTotalCost(passengerList, busList);
-                    System.out.println("Ticket Cost: " + TicketAmount);
+                    System.out.println("Ticket Cost: ₹" + TicketAmount);
                     System.out.println("Tax Percentage: " + TaxPercentage + "%");
-                    System.out.println("Tax amount: " + TaxAmount);
-                    System.out.println("The Total Cost per Ticket: " + TotalAmountPerTicket);
-                    System.out.println("The Total Cost: " + TotalAmount);
+                    System.out.println("Tax amount: ₹" + TaxAmount);
+                    System.out.println("The Total Cost per Ticket: ₹" + TotalAmountPerTicket);
+                    System.out.println("The Total Cost: ₹" + TotalAmount);
                     System.out.println("=================================================================================================================");
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
             // Admin Portal
             } else if (SelectedOption == 2) {
-                int AdminKey = 123;
+                AdminInfo adminKey = new AdminInfo();
+                int AdminKey = adminKey.getAdminKey();
                 System.out.println("Entering into Admin Login...");
                 System.out.println("Enter the pin to proceed: ");
                 int pinNumber = scanner.nextInt();
