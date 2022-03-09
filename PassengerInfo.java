@@ -100,7 +100,7 @@ class PassengerInfo implements Showable {
 
     //Ticket Availability Checker
     //Declaring it as Final as it should not be overrided
-    final public boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    final boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         // Fetching the BusCapacity from the BusNumber entered by the user
         int BusCapacity = 0;
         for (BusInfo bus : busList) {
