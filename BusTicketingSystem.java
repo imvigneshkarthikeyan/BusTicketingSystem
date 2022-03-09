@@ -1,10 +1,11 @@
 import java.text.*;
 import java.util.*;
+import java.io.*;
 
 class AdminInfo {
     //Declaring it as final, as it should not be modified
-    private final int AdminKey = 123;
-    public int getAdminKey() {
+    private final String AdminKey = "123";
+    public String getAdminKey() {
         return AdminKey;
     }
     public String getHintForAdminKey() {
@@ -85,11 +86,13 @@ public class BusTicketingSystem extends AdminInfo {
             // Admin Portal
             } else if (SelectedOption == 2) {
                 AdminInfo adminKey = new AdminInfo();
-                int AdminKey = adminKey.getAdminKey();
+                String AdminKey = adminKey.getAdminKey();
+                Console console = System.console();
                 System.out.println("Entering into Admin Login...");
-                System.out.println("Enter the pin to proceed: ");
-                int pinNumber = scanner.nextInt();
-                if (AdminKey == pinNumber) {
+                console.printf("Enter the pin to proceed: ");
+                char[] readPin = console.readPassword("Enter the pin to proceed: ");
+                String PinNum = new String(readPin);
+                if (AdminKey.equals(PinNum) == true) {
                     System.out.println("The key is correct...Redirecting to Admin portal");
                     //To display the list of Bus to the admin
                     System.out.println("-----------------------------------------------------------------------------------------------------------------");
