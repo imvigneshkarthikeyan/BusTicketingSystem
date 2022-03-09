@@ -23,6 +23,11 @@ class PassengerInfo implements Showable {
         TaxPercentage = 0.05;
     }
 
+    public String createID() {
+        final String TicketID = UUID.randomUUID().toString().replace("-", "");
+        return TicketID;
+    }
+
     // GettersSetters for private attributes
     public String getPassengerName() {
         return PassengerName;
