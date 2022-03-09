@@ -76,9 +76,9 @@ class PassengerInfo implements Showable {
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the Bus Number");
+        System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
-        System.out.println("Enter the date of journey in DD-MM-YYYY");
+        System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" + "\033[0;0m");
         String DateInput = scanner.next();
         // Converting the string to date
         SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -88,13 +88,13 @@ class PassengerInfo implements Showable {
             // Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("Enter the name of the Passenger");
+        System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
         PassengerName = scanner.next();
-        System.out.println("Enter the phone number");
+        System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
         PassengerPhoneNumber = scanner.next();
-        System.out.println("Enter the Aadhar / PAN Number");
+        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" + "\033[0;0m");
         PassengerIdNumber = scanner.next();
-        System.out.println("Enter total no:of seats needed");
+        System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
         TotalNumberOfSeats = scanner.nextInt();
     }
 

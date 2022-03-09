@@ -32,8 +32,10 @@ public class BusTicketingSystem extends AdminInfo {
         // Option given by User
         int SelectedOption = 1;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("======================================== Welcome to Bus Ticketing System ========================================");
-        System.out.println("======================================== Total Buses are displayed below ========================================");
+        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "======================================== Welcome to Bus Ticketing System ========================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "======================================== Total Buses are displayed below ========================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
         // ForEach loop to fetch the elements from array list
         for (BusInfo b : busList) {
             b.DisplayBusInfo();
@@ -41,14 +43,16 @@ public class BusTicketingSystem extends AdminInfo {
         // Loop for the Application
         while (SelectedOption == 1 || SelectedOption == 2) {
             //Main Booking
-            System.out.println("=================================================================================================================");
-            System.out.println("Enter option: \n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
+            System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+            System.out.println("\033[0;1m" + "Enter option:"+ "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
                 PassengerInfo ticketForPassenger = new PassengerInfo();
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
-                    System.out.println("=================================================================================================================");
+                    System.out.println("\033[0;1m" + "=================================================================================================================");
+                    System.out.println("================================================== TICKET =======================================================");
+                    System.out.println("================================================================================================================="+"\033[0;0m");
                     System.out.println("Reservation Status: Success!");
                     String PassengerName = ticketForPassenger.getPassengerName();
                     System.out.println("Passenger Name: " + PassengerName);
@@ -65,7 +69,7 @@ public class BusTicketingSystem extends AdminInfo {
                     String ToCity = ticketForPassenger.getToCity(passengerList, busList);
                     System.out.println("Destination: " + ToCity);
                     // Displaying the cost of ticket after tax calculation
-                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    System.out.println("\033[0;1m" + "--------------------------------------------------- BILL --------------------------------------------------------" + "\033[0;0m");
                     System.out.println("Bill amount for the ticket is displayed below: ");
                     int TotalNumberOfSeats = ticketForPassenger.getTotalNumberOfSeats();
                     System.out.println("Total No:of Seats: " + TotalNumberOfSeats);
@@ -79,7 +83,7 @@ public class BusTicketingSystem extends AdminInfo {
                     System.out.println("Tax amount: ₹" + TaxAmount);
                     System.out.println("The Total Cost per Ticket: ₹" + TotalAmountPerTicket);
                     System.out.println("The Total Cost: ₹" + TotalAmount);
-                    System.out.println("=================================================================================================================");
+                    System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
                 } else {
                     System.out.println("Ticket is not available for the date selected. Book in different Bus/Date");
                 }
@@ -89,7 +93,6 @@ public class BusTicketingSystem extends AdminInfo {
                 String AdminKey = adminKey.getAdminKey();
                 Console console = System.console();
                 System.out.println("Entering into Admin Login...");
-                console.printf("Enter the pin to proceed: ");
                 char[] readPin = console.readPassword("Enter the pin to proceed: ");
                 String PinNum = new String(readPin);
                 if (AdminKey.equals(PinNum) == true) {
