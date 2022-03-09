@@ -1,8 +1,4 @@
-interface Showable{
-    void DisplayBusInfo();
-}
-
-class BusInfo implements Showable{
+class BusInfo {
     private int BusNumber;
     private String FromCity;
     private String ToCity;

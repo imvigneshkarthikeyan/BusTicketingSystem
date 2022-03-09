@@ -1,7 +1,16 @@
 import java.util.*;
 import java.text.*;
 
-class PassengerInfo {
+interface Showable {
+    String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    double getTaxOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+}
+
+class PassengerInfo implements Showable {
     private String PassengerName;
     private String PassengerPhoneNumber;
     private int BusNumber;
