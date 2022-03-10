@@ -23,12 +23,24 @@ public class BusTicketingSystem extends AdminInfo {
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
         //Adding the default buses into ArrayList
-        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 4, "AC", 750));
-        busList.add(new BusInfo(1012, "Thanjavur", "Chennai", 32, "Sleeper", 600));
-        busList.add(new BusInfo(1053, "Chennai", "Trichy", 20, "Semi-Sleeper", 400));
-        busList.add(new BusInfo(1055, "Trichy", "Chennai", 20, "Normal", 250));
-        busList.add(new BusInfo(2122, "Trichy", "Thanjavur", 30, "Sleeper", 275));
-        busList.add(new BusInfo(2222, "Thanjavur", "Trichy", 22, "Normal", 150));
+        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
+        busList.add(new BusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
+        busList.add(new BusInfo(3313, "Chennai", "Thanjavur", 40, "Normal", 350));
+        busList.add(new BusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750));
+        busList.add(new BusInfo(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600));
+        busList.add(new BusInfo(3331, "Thanjavur", "Chennai", 40, "Normal", 350));
+        busList.add(new BusInfo(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400));
+        busList.add(new BusInfo(1053, "Chennai", "Trichy", 30, "Sleeper", 550));
+        busList.add(new BusInfo(1054, "Chennai", "Trichy", 20, "AC", 750));
+        busList.add(new BusInfo(1025, "Trichy", "Chennai", 40, "Semi-Sleeper", 400));
+        busList.add(new BusInfo(1035, "Trichy", "Chennai", 30, "Sleeper", 550));
+        busList.add(new BusInfo(1045, "Trichy", "Chennai", 20, "AC", 750));
+        busList.add(new BusInfo(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550));
+        busList.add(new BusInfo(2135, "Trichy", "Thanjavur", 20, "AC", 600));
+        busList.add(new BusInfo(2136, "Trichy", "Thanjavur", 40, "Normal", 350));
+        busList.add(new BusInfo(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550));
+        busList.add(new BusInfo(2153, "Thanjavur", "Trichy", 20, "AC", 600));
+        busList.add(new BusInfo(2163, "Thanjavur", "Trichy", 40, "Normal", 350));
         // Option given by User
         int SelectedOption = 1;
         Scanner scanner = new Scanner(System.in);
@@ -48,6 +60,9 @@ public class BusTicketingSystem extends AdminInfo {
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
                 PassengerInfo ticketForPassenger = new PassengerInfo();
+                ticketForPassenger.FilteredBusList(passengerList, busList);
+                ticketForPassenger.DisplayFilteredBusList(passengerList, busList);
+                ticketForPassenger.GetOtherPassengerInfo();
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("\033[0;1m" + "=================================================================================================================");

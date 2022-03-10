@@ -17,6 +17,8 @@ class PassengerInfo implements Showable {
     private Date DateOfJourney;
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
+    private String FromCity;
+    private String ToCity;
     private String TicketID;
     //Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;
@@ -74,17 +76,47 @@ class PassengerInfo implements Showable {
         this.TotalNumberOfSeats = TotalNumberOfSeats;
     }
 
+    public String getFromCity() {
+        return FromCity;
+    }
+
+    // Using this when the attributes are same
+    public void setFromCity(String FromCity) {
+        this.FromCity = FromCity;
+    }
+
+    public String ToFromCity() {
+        return ToCity;
+    }
+
+    // Using this when the attributes are same
+    public void setToCity(String ToCity) {
+        this.ToCity = ToCity;
+    }
+
     public String getTicketID() {
         TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return TicketID;
     }
     
+    // ArrayList for filteredbusList
+    public ArrayList<BusInfo> filteredBusList = new ArrayList<>();
+
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\033[0;1m" + "Enter the Boarding city" + "\033[0;0m");
+        FromCity = scanner.next();
+        System.out.println("\033[0;1m" + "Enter the Destination city" + "\033[0;0m");
+        ToCity = scanner.next();
+    }
+
+    public void GetOtherPassengerInfo() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
-        System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" +
+                "\033[0;0m");
         String DateInput = scanner.next();
         // Converting the string to date
         SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -94,14 +126,34 @@ class PassengerInfo implements Showable {
             // Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the name of the Passenger" +
+                "\033[0;0m");
         PassengerName = scanner.next();
         System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
         PassengerPhoneNumber = scanner.next();
-        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" +
+                "\033[0;0m");
         PassengerIdNumber = scanner.next();
-        System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter total no:of seats needed" +
+                "\033[0;0m");
         TotalNumberOfSeats = scanner.nextInt();
+    }
+
+    // Filtering
+    public void FilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        for (BusInfo bus : busList) {
+            if (bus.getFromCity().equals(FromCity) && bus.getToCity().equals(ToCity)) {
+                filteredBusList.add(bus);
+            }
+        }
+    }
+
+    public void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        for (BusInfo bus : filteredBusList) {
+            System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+            bus.DisplayBusInfo();
+        }
+        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
     }
 
     //Ticket Availability Checker
@@ -168,7 +220,7 @@ class PassengerInfo implements Showable {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating GST of 5%
-                TaxPrice = TicketPrice * 0.05;
+                TaxPrice = TicketPrice * TaxPercentage;
             }
         }
         return TaxPrice;
