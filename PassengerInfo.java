@@ -2,6 +2,9 @@ import java.util.*;
 import java.text.*;
 
 interface Showable {
+    void FilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
@@ -154,6 +157,13 @@ class PassengerInfo implements Showable {
             bus.DisplayBusInfo();
         }
         System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+    }
+
+    public boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        if (filteredBusList.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     //Ticket Availability Checker

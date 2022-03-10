@@ -23,7 +23,7 @@ public class BusTicketingSystem extends AdminInfo {
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
         //Adding the default buses into ArrayList
-        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
+busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
         busList.add(new BusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
         busList.add(new BusInfo(3313, "Chennai", "Thanjavur", 40, "Normal", 350));
         busList.add(new BusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750));
@@ -62,7 +62,12 @@ public class BusTicketingSystem extends AdminInfo {
                 PassengerInfo ticketForPassenger = new PassengerInfo();
                 ticketForPassenger.FilteredBusList(passengerList, busList);
                 ticketForPassenger.DisplayFilteredBusList(passengerList, busList);
+                if(ticketForPassenger.IsFilteredBusListEmpty(passengerList, busList)==true){
+                    System.out.println("Service is not available");
+                    break;
+                } else {
                 ticketForPassenger.GetOtherPassengerInfo();
+                }
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);
                     System.out.println("\033[0;1m" + "=================================================================================================================");
