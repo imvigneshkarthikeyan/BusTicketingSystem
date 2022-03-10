@@ -54,7 +54,7 @@ public class BusTicketingSystem extends AdminInfo {
                     System.out.println("================================================== TICKET =======================================================");
                     System.out.println("================================================================================================================="+"\033[0;0m");
                     System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
-                    String TicketID = ticketForPassenger.createID();
+                    String TicketID = ticketForPassenger.getTicketID();
                     System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
                     String PassengerName = ticketForPassenger.getPassengerName();
                     System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);

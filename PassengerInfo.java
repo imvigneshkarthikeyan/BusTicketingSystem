@@ -17,15 +17,11 @@ class PassengerInfo implements Showable {
     private Date DateOfJourney;
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
+    private String TicketID;
     //Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;
     static {
         TaxPercentage = 0.05;
-    }
-
-    public String createID() {
-        final String TicketID = UUID.randomUUID().toString().replace("-", "");
-        return TicketID;
     }
 
     // GettersSetters for private attributes
@@ -78,6 +74,11 @@ class PassengerInfo implements Showable {
         this.TotalNumberOfSeats = TotalNumberOfSeats;
     }
 
+    public String getTicketID() {
+        String TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+        return TicketID;
+    }
+    
     // Constructor
     PassengerInfo() {
         Scanner scanner = new Scanner(System.in);
