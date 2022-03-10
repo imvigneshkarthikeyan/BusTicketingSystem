@@ -14,7 +14,7 @@ class AdminInfo {
     }
 }
 
-public class BusTicketingSystem extends AdminInfo {
+public class Main extends AdminInfo {
     public String ForgetAdminKey() {
         return super.getHintForAdminKey();
     }
@@ -235,7 +235,7 @@ busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
                     System.out.println("The key is incorrect. Forgot Pin? Click 1");
                     int ForgotPinOption = scanner.nextInt();
                     if (ForgotPinOption == 1) {
-                        BusTicketingSystem b = new BusTicketingSystem();
+                        Main b = new Main();
                         System.out.println("The Hint for PIN is:\n" + b.ForgetAdminKey());
                     }
                 }
