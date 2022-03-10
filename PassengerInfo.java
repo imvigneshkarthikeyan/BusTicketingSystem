@@ -75,7 +75,7 @@ class PassengerInfo implements Showable {
     }
 
     public String getTicketID() {
-        String TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+        TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return TicketID;
     }
     
