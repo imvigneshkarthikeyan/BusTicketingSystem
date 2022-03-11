@@ -70,7 +70,7 @@ public class Main extends AdminInfo {
                     System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
                     System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
                     System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
-                    if (AvailableSeats > 0 && ticketForPassenger.IsAvailable(passengerList, busList)) {
+                    if (AvailableSeats > 0) {
                         ticketForPassenger.GetOtherPassengerInfo();
                         passengerList.add(ticketForPassenger);
                         System.out.println("\033[0;1m" + "=================================================================================================================");

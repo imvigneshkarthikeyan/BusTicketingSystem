@@ -84,7 +84,6 @@ class PassengerInfo implements Showable {
         return FromCity;
     }
 
-    // Using this when the attributes are same
     public void setFromCity(String FromCity) {
         this.FromCity = FromCity;
     }
@@ -93,7 +92,6 @@ class PassengerInfo implements Showable {
         return ToCity;
     }
 
-    // Using this when the attributes are same
     public void setToCity(String ToCity) {
         this.ToCity = ToCity;
     }
@@ -171,6 +169,7 @@ class PassengerInfo implements Showable {
         return false;
     }
 
+    //Availability Checker
     public int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         int AvailableSeats = 0;
         for (BusInfo bus : busList) {
@@ -184,32 +183,6 @@ class PassengerInfo implements Showable {
             }
         }
         return AvailableSeats;
-    }
-    
-    //Ticket Availability Checker
-    //Declaring it as Final as it should not be overrided
-    final boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        // Fetching the BusCapacity from the BusNumber entered by the user
-        int BusCapacity = 0;
-        for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == BusNumber) {
-                BusCapacity = bus.getBusCapacity();
-            }
-        }
-        // Using this as a counter
-        int ReservedTickets = 0;
-        for (PassengerInfo p : passengerList) {
-            if (p.BusNumber == BusNumber && p.DateOfJourney.equals(DateOfJourney)) {
-                ReservedTickets = ReservedTickets + p.TotalNumberOfSeats;
-            }
-        }
-
-        // Checking the capacity and returning accordingly
-        if (ReservedTickets+TotalNumberOfSeats <= BusCapacity) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     //For Displaying in the ticket section
