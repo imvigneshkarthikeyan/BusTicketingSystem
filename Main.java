@@ -23,7 +23,7 @@ public class Main extends AdminInfo {
         ArrayList<BusInfo> busList = new ArrayList<>();
         ArrayList<PassengerInfo> passengerList = new ArrayList<>();
         //Adding the default buses into ArrayList
-busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
+        busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
         busList.add(new BusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
         busList.add(new BusInfo(3313, "Chennai", "Thanjavur", 40, "Normal", 350));
         busList.add(new BusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750));
@@ -66,7 +66,19 @@ busList.add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
                     System.out.println("Service is not available");
                     break;
                 } else {
-                ticketForPassenger.GetOtherPassengerInfo();
+                    ticketForPassenger.GetDateOfJourneyFromUser();
+                    int AvailableSeats = ticketForPassenger.DisplayRemainingSeats(passengerList, busList);
+                    DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String FormattedDate = dateFormatter.format(ticketForPassenger.getDateOfJourney());
+                    System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+                    System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
+                    System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+                    if (AvailableSeats == 0) {
+                        System.out.println("The seats are not available, please try in other date or other Bus");
+                        break;
+                    } else {
+                    ticketForPassenger.GetOtherPassengerInfo();
+                    }
                 }
                 if (ticketForPassenger.IsAvailable(passengerList, busList)) {
                     passengerList.add(ticketForPassenger);

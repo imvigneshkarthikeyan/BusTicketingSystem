@@ -5,6 +5,7 @@ interface Showable {
     void FilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
@@ -114,7 +115,7 @@ class PassengerInfo implements Showable {
         ToCity = scanner.next();
     }
 
-    public void GetOtherPassengerInfo() {
+    public void GetDateOfJourneyFromUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
@@ -129,6 +130,10 @@ class PassengerInfo implements Showable {
             // Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void GetOtherPassengerInfo() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the name of the Passenger" +
                 "\033[0;0m");
         PassengerName = scanner.next();
@@ -166,6 +171,21 @@ class PassengerInfo implements Showable {
         return false;
     }
 
+    public int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        int AvailableSeats = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                AvailableSeats = bus.getBusCapacity();
+            }
+        }
+        for (PassengerInfo p : passengerList) {
+            if (p.BusNumber == BusNumber && p.DateOfJourney.equals(DateOfJourney)) {
+                AvailableSeats = AvailableSeats - p.TotalNumberOfSeats;
+            }
+        }
+        return AvailableSeats;
+    }
+    
     //Ticket Availability Checker
     //Declaring it as Final as it should not be overrided
     final boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
