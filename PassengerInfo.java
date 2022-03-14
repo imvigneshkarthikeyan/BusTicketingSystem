@@ -22,6 +22,7 @@ interface Showable {
 }
 
 class PassengerInfo implements Showable {
+    Scanner scanner = new Scanner(System.in);
     private String PassengerName;
     private String PassengerPhoneNumber;
     private int BusNumber;
@@ -113,7 +114,6 @@ class PassengerInfo implements Showable {
 
     // Constructor
     PassengerInfo() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the Boarding city" + "\033[0;0m");
         FromCity = scanner.next();
         System.out.println("\033[0;1m" + "Enter the Destination city" + "\033[0;0m");
@@ -121,7 +121,6 @@ class PassengerInfo implements Showable {
     }
 
     public void GetDateOfJourneyFromUser() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
         System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" + "\033[0;0m");
@@ -145,7 +144,6 @@ class PassengerInfo implements Showable {
     }
 
     public void GetOtherPassengerInfo() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
         PassengerName = scanner.next();
         System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
