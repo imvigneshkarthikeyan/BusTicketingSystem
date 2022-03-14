@@ -2,7 +2,7 @@ import java.util.*;
 import java.text.*;
 
 interface Showable {
-    void FilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+    void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
@@ -117,8 +117,7 @@ class PassengerInfo implements Showable {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
-        System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" +
-                "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" + "\033[0;0m");
         String DateInput = scanner.next();
         // Converting the string to date
         SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -132,21 +131,18 @@ class PassengerInfo implements Showable {
 
     public void GetOtherPassengerInfo() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\033[0;1m" + "Enter the name of the Passenger" +
-                "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
         PassengerName = scanner.next();
         System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
         PassengerPhoneNumber = scanner.next();
-        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" +
-                "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" + "\033[0;0m");
         PassengerIdNumber = scanner.next();
-        System.out.println("\033[0;1m" + "Enter total no:of seats needed" +
-                "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
         TotalNumberOfSeats = scanner.nextInt();
     }
 
     // Filtering
-    public void FilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
             if (bus.getFromCity().equals(FromCity) && bus.getToCity().equals(ToCity)) {
                 filteredBusList.add(bus);
@@ -183,6 +179,28 @@ class PassengerInfo implements Showable {
             }
         }
         return AvailableSeats;
+    }
+    boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        // Fetching the BusCapacity from the BusNumber entered by the user
+        int BusCapacity = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == BusNumber) {
+                BusCapacity = bus.getBusCapacity();
+            }
+        }
+        // Using this as a counter
+        int ReservedTickets = 0;
+        for (PassengerInfo p : passengerList) {
+            if (p.BusNumber == BusNumber && p.DateOfJourney.equals(DateOfJourney)) {
+                ReservedTickets = ReservedTickets + p.TotalNumberOfSeats;
+            }
+        }
+        // Checking the capacity and returning accordingly
+        if (ReservedTickets + TotalNumberOfSeats <= BusCapacity) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //For Displaying in the ticket section
