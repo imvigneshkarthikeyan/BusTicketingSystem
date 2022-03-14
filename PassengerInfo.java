@@ -1,5 +1,9 @@
 import java.util.*;
 import java.text.*;
+//For Date Validation
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 interface Showable {
     void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
@@ -129,6 +133,14 @@ class PassengerInfo implements Showable {
         }
     }
 
+    // Validation: Is entered date a future date
+    public boolean IsDateFuture(String Date, String DateFormat) {
+        LocalDate localDate = LocalDate.now(ZoneId.systemDefault());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DateFormat);
+        LocalDate inputDate = LocalDate.parse(Date, dtf);
+        return inputDate.isAfter(localDate);
+    }
+    
     public void GetOtherPassengerInfo() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
