@@ -2,18 +2,6 @@ import java.text.*;
 import java.util.*;
 import java.io.*;
 
-class AdminInfo {
-    // Declaring it as final, as it should not be modified
-    private final String AdminKey = "123";
-    public String getAdminKey() {
-        return AdminKey;
-    }
-    public String getHintForAdminKey() {
-        String HintForAdminKey = "Its a 3 digit pin.";
-        return HintForAdminKey;
-    }
-}
-
 public class Main extends AdminInfo {
     public String ForgetAdminKey() {
         return super.getHintForAdminKey();
@@ -72,9 +60,9 @@ public class Main extends AdminInfo {
                     String FormattedDate = dateFormatter.format(ticketForPassenger.getDateOfJourney());
                     boolean IsDateFuture = ticketForPassenger.IsDateFuture(FormattedDate, "dd/MM/yyyy");
                     if (IsDateFuture) {
-                        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+                        ticketForPassenger.DrawLine();
                         System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
-                        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+                        ticketForPassenger.DrawLine();
                         // Checking if seats are available
                         if (AvailableSeats > 0) {
                             System.out.println("Enter number 1: To continue booking in this bus. \nEnter any other number: To start a new booking. ");
@@ -86,42 +74,27 @@ public class Main extends AdminInfo {
                                 if (ticketForPassenger.IsAvailable(passengerList, busList) == true) {
                                     // Adding passenger to the reserved list
                                     passengerList.add(ticketForPassenger);
-                                    // Displaying the ticket details to user
-                                    System.out.println("\033[0;1m" + "=================================================================================================================");
-                                    System.out.println("================================================== TICKET =======================================================");
-                                    System.out.println("=================================================================================================================" + "\033[0;0m");
-                                    System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
+                                    // Mapping the ticket details
                                     String TicketID = ticketForPassenger.getTicketID();
-                                    System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
                                     String PassengerName = ticketForPassenger.getPassengerName();
-                                    System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
                                     String PassengerIdNumber = ticketForPassenger.getPassengerIdNumber();
-                                    System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
                                     Date DateOfJourney = ticketForPassenger.getDateOfJourney();
                                     dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                                     FormattedDate = dateFormatter.format(DateOfJourney);
-                                    System.out.println("\033[0;1m" + "Date Of Journey: " + "\033[0;0m" + FormattedDate);
                                     int BusNumber = ticketForPassenger.getBusNumber();
-                                    System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + BusNumber);
                                     String FromCity = ticketForPassenger.getFromCity(passengerList, busList);
-                                    System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
                                     String ToCity = ticketForPassenger.getToCity(passengerList, busList);
-                                    System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
-                                    // Displaying the cost of ticket after tax calculation
-                                    System.out.println("\033[0;1m" + "--------------------------------------------------- BILL --------------------------------------------------------" + "\033[0;0m");
+                                    // Displaying Ticket
+                                    ticketForPassenger.DisplayTicket(TicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
+                                    // Mapping the details for bill
                                     int TotalNumberOfSeats = ticketForPassenger.getTotalNumberOfSeats();
-                                    System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + TotalNumberOfSeats);
                                     double TicketAmount = ticketForPassenger.getCostOfTicket(passengerList, busList);
                                     double TaxPercentage = PassengerInfo.TaxPercentage * 100;
                                     double TaxAmount = ticketForPassenger.getTaxOfTicket(passengerList, busList);
                                     double TotalAmountPerTicket = ticketForPassenger.getTotalCostOfTicket(passengerList, busList);
                                     double TotalAmount = ticketForPassenger.getTotalCost(passengerList, busList);
-                                    System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + TicketAmount);
-                                    System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + TaxPercentage + "%");
-                                    System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + TaxAmount);
-                                    System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + TotalAmountPerTicket);
-                                    System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
-                                    System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+                                    // Displaying the cost of ticket after tax calculation
+                                    ticketForPassenger.DisplayBill(TotalNumberOfSeats, TicketAmount, TaxPercentage, TaxAmount, TotalAmountPerTicket, TotalAmount);
                                 } else { // else block for requesting more seats
                                     System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
                                 }

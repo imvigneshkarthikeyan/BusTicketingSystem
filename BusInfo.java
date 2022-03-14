@@ -1,3 +1,17 @@
+class AdminInfo {
+    // Declaring it as final, as it should not be modified
+    private final String AdminKey = "123";
+
+    public String getAdminKey() {
+        return AdminKey;
+    }
+
+    public String getHintForAdminKey() {
+        String HintForAdminKey = "Its a 3 digit pin.";
+        return HintForAdminKey;
+    }
+}
+
 class BusInfo {
     private int BusNumber;
     private String FromCity;
