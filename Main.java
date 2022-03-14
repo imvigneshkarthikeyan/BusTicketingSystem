@@ -48,13 +48,13 @@ public class Main extends AdminInfo {
             SelectedOption = scanner.nextInt();
             if (SelectedOption == 1) {
                 PassengerInfo ticketForPassenger = new PassengerInfo();
-                //Filtering Bus List based on From and To
+                // Filtering Bus List based on From and To
                 ticketForPassenger.FilterBusList(passengerList, busList);
                 ticketForPassenger.DisplayFilteredBusList(passengerList, busList);
-                //Checking if the filtered bus list is empty or not based upon from to request from user
+                // Checking if the filtered bus list is empty or not based upon from to request from user
                 if (ticketForPassenger.IsFilteredBusListEmpty(passengerList, busList) == false) {
                     ticketForPassenger.GetDateOfJourneyFromUser();
-                    //Displaying remaining seats for the date enetered by user
+                    // Displaying remaining seats for the date enetered by user
                     int AvailableSeats = ticketForPassenger.DisplayRemainingSeats(passengerList, busList);
                     DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                     String FormattedDate = dateFormatter.format(ticketForPassenger.getDateOfJourney());
@@ -110,45 +110,40 @@ public class Main extends AdminInfo {
                 } else { // else block if the user requested other areas than the service areas
                     System.out.println("Service is not available in those areas, try \nChennai \nThanjavur \nTrichy");
                 }
-            // Admin Portal
+                // Admin Portal
             } else if (SelectedOption == 2) {
-                AdminInfo adminKey = new AdminInfo();
-                String AdminKey = adminKey.getAdminKey();
-                //Using console to read admin pin as invisible
+                AdminInfo adminInfo = new AdminInfo();
+                String AdminKey = adminInfo.getAdminKey();
+                // Using console to read admin pin as invisible
                 Console console = System.console();
                 System.out.println("Entering into Admin Login...");
                 char[] readPin = console.readPassword("Enter the pin to proceed: ");
                 String PinNum = new String(readPin);
-                //Checking if the pin is correct
+                // Checking if the pin is correct
                 if (AdminKey.equals(PinNum) == true) {
                     System.out.println("The key is correct...Redirecting to Admin portal");
                     // To display the list of Bus to the admin
-                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    adminInfo.DrawLine();
                     System.out.println("The following buses are available:");
                     for (BusInfo b : busList) {
                         b.DisplayBusInfo();
                     }
                     // Operations which can be performed by the admin
-                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    adminInfo.DrawLine();
                     System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display the list of Buses\nEnter any other number to logout");
                     int OperationOption = scanner.nextInt();
                     // Adding new Bus
                     if (OperationOption == 1) {
-                        System.out.println("Enter the Bus Number");
-                        int newBusNumber = scanner.nextInt();
-                        System.out.println("Enter the Travel Origin");
-                        String newFromCity = scanner.next();
-                        System.out.println("Enter the Destination");
-                        String newToCity = scanner.next();
-                        System.out.println("Enter the capacity of the bus");
-                        int newBusCapacity = scanner.nextInt();
-                        System.out.println("Enter the Bus Facility");
-                        String newBusFacility = scanner.next();
-                        System.out.println("Enter the Cost of the ticket");
-                        double newCostOfTicket = scanner.nextDouble();
+                        adminInfo.AddNewBus();
+                        int newBusNumber = adminInfo.getBusNumber();
+                        String newFromCity = adminInfo.getFromCity();
+                        String newToCity = adminInfo.getToCity();
+                        int newBusCapacity = adminInfo.getBusCapacity();
+                        String newBusFacility = adminInfo.getBusFacility();
+                        double newCostOfTicket = adminInfo.getCostOfTicket();
                         busList.add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
                         // Displaying the list of buses after adding
-                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        adminInfo.DrawLine();
                         System.out.println("The updated bus list is given below:");
                         for (BusInfo b : busList) {
                             b.DisplayBusInfo();
@@ -156,49 +151,50 @@ public class Main extends AdminInfo {
                     } else if (OperationOption == 2) {
                         System.out.println("Editing the Bus...");
                         // Displaying the BusInfo along with index as unique number
-                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        adminInfo.DrawLine();
                         int index = 0;
                         for (BusInfo b : busList) {
                             System.out.print("Index Number: " + index++ + "| ");
                             b.DisplayBusInfo();
                         }
+                        adminInfo.DrawLine();
                         // Getting the index number that has to be updated from user
                         System.out.println("Enter the Index number of the bus to be updated: ");
                         int BusToBeUpdated = scanner.nextInt();
                         // Asking for the field that has to be updated
-                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        adminInfo.DrawLine();
                         System.out.println("Select the option of the field which has to be updated: ");
                         System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \nEnter any other number to quit");
                         int OptionToBeUpdated = scanner.nextInt();
                         switch (OptionToBeUpdated) {
                             case 1:
-                                System.out.println("Enter the new Bus Number that has to be updated: ");
-                                int updatedBusNumber = scanner.nextInt();
+                                adminInfo.EditBusNumber();
+                                int updatedBusNumber = adminInfo.getBusNumber();
                                 busList.get(BusToBeUpdated).setBusNumber(updatedBusNumber);
                                 break;
                             case 2:
-                                System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                                String updatedFromCity = scanner.next();
+                                adminInfo.EditFromCity();
+                                String updatedFromCity = adminInfo.getFromCity();
                                 busList.get(BusToBeUpdated).setFromCity(updatedFromCity);
                                 break;
                             case 3:
-                                System.out.println("Enter the new Bus Destination that has to be updated: ");
-                                String updatedToCity = scanner.next();
+                                adminInfo.EditToCity();
+                                String updatedToCity = adminInfo.getToCity();
                                 busList.get(BusToBeUpdated).setToCity(updatedToCity);
                                 break;
                             case 4:
-                                System.out.println("Enter the new Capacity that has to be updated: ");
-                                int updatedBusCapacity = scanner.nextInt();
+                                adminInfo.EditBusCapacity();
+                                int updatedBusCapacity = adminInfo.getBusCapacity();
                                 busList.get(BusToBeUpdated).setBusCapacity(updatedBusCapacity);
                                 break;
                             case 5:
-                                System.out.println("Enter the new Facility that has to be updated: ");
-                                String updatedBusFacility = scanner.next();
+                                adminInfo.EditBusFacility();
+                                String updatedBusFacility = adminInfo.getBusFacility();
                                 busList.get(BusToBeUpdated).setBusFacility(updatedBusFacility);
                                 break;
                             case 6:
-                                System.out.println("Enter the new Cost that has to be updated: ");
-                                double updatedBusTicketCost = scanner.nextDouble();
+                                adminInfo.EditBusTicketCost();
+                                double updatedBusTicketCost = adminInfo.getCostOfTicket();
                                 busList.get(BusToBeUpdated).setCostOfTicket(updatedBusTicketCost);
                                 break;
                             default:
@@ -217,12 +213,12 @@ public class Main extends AdminInfo {
                             System.out.print("Index Number: " + index++ + "| ");
                             b.DisplayBusInfo();
                         }
-                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        adminInfo.DrawLine();
                         System.out.println("Enter the index number of the Bus that has to be removed.");
                         int BusToBeRemoved = scanner.nextInt();
                         busList.remove(BusToBeRemoved);
                         // Displaying the BusList after removing
-                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        adminInfo.DrawLine();
                         System.out.println("The updated bus list after removal is:");
                         for (BusInfo b : busList) {
                             b.DisplayBusInfo();
