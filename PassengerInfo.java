@@ -171,7 +171,7 @@ class PassengerInfo implements Showable {
     // Filtering
     public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
-            if (bus.getFromCity().equals(FromCity) && bus.getToCity().equals(ToCity)) {
+            if (bus.getFromCity().equalsIgnoreCase(FromCity) && bus.getToCity().equalsIgnoreCase(ToCity)) {
                 filteredBusList.add(bus);
             }
         }
