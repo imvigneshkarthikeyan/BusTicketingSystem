@@ -32,7 +32,7 @@ public class Main {
                         ticketForPassenger.DrawLine();
                         // Checking if seats are available
                         if (AvailableSeats > 0) {
-                            System.out.println("Enter number 1: To continue booking in this bus. \nEnter any other number: To start a new booking. ");
+                            System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" +  "To continue booking in this bus" + "\033[0;1m" + "\nEnter any other number:"  + "\033[0;0m" + "To start a new booking.");
                             int ContinueBooking = scanner.nextInt();
                             if (ContinueBooking == 1) {
                                 ticketForPassenger.GetOtherPassengerInfo();

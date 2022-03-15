@@ -163,8 +163,19 @@ class PassengerInfo extends AdminInfo implements Showable {
         PassengerName = scanner.next();
         System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
         PassengerPhoneNumber = scanner.next();
+        // Phone Number Validation
+        while (PassengerPhoneNumber.length() != 10) {
+            System.out.println("Please enter a valid 10 digit phone number \n Eg: 9876543210");
+            PassengerPhoneNumber = scanner.next();
+        }
         System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" + "\033[0;0m");
         PassengerIdNumber = scanner.next();
+        // ID Number Validation
+        while (PassengerIdNumber.length() != 12) {
+            System.out.println(
+                    "Enter a Valid 12 Digit Aadhar Number without spaces \nEg: 814273020135");
+            PassengerIdNumber = scanner.next();
+        }
         System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
         TotalNumberOfSeats = scanner.nextInt();
     }
