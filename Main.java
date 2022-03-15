@@ -75,7 +75,8 @@ public class Main extends AdminInfo {
                                     // Adding passenger to the reserved list
                                     passengerList.add(ticketForPassenger);
                                     // Mapping the ticket details
-                                    String TicketID = ticketForPassenger.getTicketID();
+                                    String GeneratedTicketID = ticketForPassenger.generateTicketID();
+                                    ticketForPassenger.setTicketID(GeneratedTicketID);
                                     String PassengerName = ticketForPassenger.getPassengerName();
                                     String PassengerIdNumber = ticketForPassenger.getPassengerIdNumber();
                                     Date DateOfJourney = ticketForPassenger.getDateOfJourney();
@@ -85,7 +86,7 @@ public class Main extends AdminInfo {
                                     String FromCity = ticketForPassenger.getFromCity(passengerList, busList);
                                     String ToCity = ticketForPassenger.getToCity(passengerList, busList);
                                     // Displaying Ticket
-                                    ticketForPassenger.DisplayTicket(TicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
+                                    ticketForPassenger.DisplayTicket(GeneratedTicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
                                     // Mapping the details for bill
                                     int TotalNumberOfSeats = ticketForPassenger.getTotalNumberOfSeats();
                                     double TicketAmount = ticketForPassenger.getCostOfTicket(passengerList, busList);
@@ -130,7 +131,7 @@ public class Main extends AdminInfo {
                     }
                     // Operations which can be performed by the admin
                     adminInfo.DrawLine();
-                    System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display the list of Buses\nEnter any other number to logout");
+                    System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses\nEnter any other number to logout");
                     int OperationOption = scanner.nextInt();
                     // Adding new Bus
                     if (OperationOption == 1) {
@@ -224,11 +225,16 @@ public class Main extends AdminInfo {
                             b.DisplayBusInfo();
                         }
                     } else if (OperationOption == 4) {
+                        System.out.println("\033[0;1m" + "================================================= BOOKINGS ======================================================" + "\033[0;0m");
+                        for (PassengerInfo p : passengerList) {
+                            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(), p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(), p.getTotalCost(passengerList, busList));
+                        }
+                    } else if (OperationOption == 5) {
                         System.out.println("The following buses are available:");
                         for (BusInfo b : busList) {
                             b.DisplayBusInfo();
                         }
-                    } else { // if OperationOption is other than 1,2,3,4
+                    } else { // if OperationOption is other than 1,2,3,4,5
                         System.out.println("Logging out from admin portal...!");
                     }
                 } else { // else block for wrong pin

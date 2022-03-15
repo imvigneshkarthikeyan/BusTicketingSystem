@@ -72,6 +72,12 @@ class PassengerInfo implements Showable {
         this.DateOfJourney = DateOfJourney;
     }
 
+    public String getFormattedDateOfJourney() {
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String FormattedDate = dateFormatter.format(getDateOfJourney());
+        return FormattedDate;
+    }
+
     public String getPassengerIdNumber() {
         return PassengerIdNumber;
     }
@@ -96,7 +102,7 @@ class PassengerInfo implements Showable {
         this.FromCity = FromCity;
     }
 
-    public String ToFromCity() {
+    public String getToCity() {
         return ToCity;
     }
 
@@ -105,6 +111,14 @@ class PassengerInfo implements Showable {
     }
 
     public String getTicketID() {
+        return TicketID;
+    }
+
+    public void setTicketID(String TicketID) {
+        this.TicketID = TicketID;
+    }
+
+    public String generateTicketID() {
         TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return TicketID;
     }
@@ -304,6 +318,21 @@ class PassengerInfo implements Showable {
         System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + BusNumber);
         System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
         System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
+    }
+
+    // Display Bookings for Admin
+    public void DisplayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber,
+        String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
+        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
+        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
+        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
+        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + BusNumber);
+        System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + FormattedDate);
+        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + TotalNumberOfSeats);
+        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
+        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
+        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
+        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
     }
 
     // Display Bill
