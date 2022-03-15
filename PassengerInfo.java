@@ -168,7 +168,7 @@ class PassengerInfo extends AdminInfo implements Showable {
             System.out.println("Please enter a valid 10 digit phone number \n Eg: 9876543210");
             PassengerPhoneNumber = scanner.next();
         }
-        System.out.println("\033[0;1m" + "Enter the Aadhar / PAN Number" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Enter the Aadhar Number" + "\033[0;0m");
         PassengerIdNumber = scanner.next();
         // ID Number Validation
         while (PassengerIdNumber.length() != 12) {
