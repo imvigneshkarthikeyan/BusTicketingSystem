@@ -59,7 +59,7 @@ class BusInfo {
     public void setCostOfTicket(double costOfTicket) {
         CostOfTicket = costOfTicket;
     }
-    
+
     // Constructor to create new Bus
     BusInfo(int busNumber, String fromCity, String toCity, int busCapacity, String busFacility, double costOfTicket) {
         BusNumber = busNumber;
@@ -69,5 +69,4 @@ class BusInfo {
         BusFacility = busFacility;
         CostOfTicket = costOfTicket;
     }
-
 }

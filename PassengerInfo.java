@@ -17,11 +17,13 @@ interface Showable {
     double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     void DrawLine();
+    void MapTicketDetails();
+    void MapBillDetails();
     void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity);
     void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount);
 }
 
-class PassengerInfo implements Showable {
+class PassengerInfo extends AdminInfo implements Showable {
     Scanner scanner = new Scanner(System.in);
     private String PassengerName;
     private String PassengerPhoneNumber;
@@ -32,7 +34,7 @@ class PassengerInfo implements Showable {
     private String FromCity;
     private String ToCity;
     private String TicketID;
-    //Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
+    // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;
     static {
         TaxPercentage = 0.05;
@@ -122,7 +124,6 @@ class PassengerInfo implements Showable {
         TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return TicketID;
     }
-    
     // ArrayList for filteredbusList
     public ArrayList<BusInfo> filteredBusList = new ArrayList<>();
 
@@ -192,7 +193,7 @@ class PassengerInfo implements Showable {
         return false;
     }
 
-    //Availability Checker
+    // Availability Checker
     public int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         int AvailableSeats = 0;
         for (BusInfo bus : busList) {
@@ -230,7 +231,7 @@ class PassengerInfo implements Showable {
         }
     }
 
-    //For Displaying in the ticket section
+    // For Displaying in the ticket section
     public String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         String FromCity = "";
         for (BusInfo bus : busList) {
@@ -240,7 +241,7 @@ class PassengerInfo implements Showable {
         }
         return FromCity;
     }
-    
+
     public String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         String ToCity = "";
         for (BusInfo bus : busList) {
@@ -250,7 +251,8 @@ class PassengerInfo implements Showable {
         }
         return ToCity;
     }
-    //Displaying the ticket amount
+
+    // Displaying the ticket amount
     public double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         for (BusInfo bus : busList) {
@@ -260,7 +262,8 @@ class PassengerInfo implements Showable {
         }
         return TicketPrice;
     }
-    //Displaying the Tax amount
+
+    // Displaying the Tax amount
     public double getTaxOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         double TaxPrice = 0;
@@ -273,19 +276,21 @@ class PassengerInfo implements Showable {
         }
         return TaxPrice;
     }
-    //Displaying the total amount
+
+    // Displaying the total amount
     public double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         double TicketPriceWithTax = 0;
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
-                //Calculating Total cost including GST. 
+                // Calculating Total cost including GST.
                 TicketPriceWithTax = TicketPrice + (TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;
     }
+
     // getTotalCost
     public double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
@@ -294,10 +299,38 @@ class PassengerInfo implements Showable {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                TicketPriceWithTax = TotalNumberOfSeats*TicketPrice + (TotalNumberOfSeats * TicketPrice * TaxPercentage);
+                TicketPriceWithTax = TotalNumberOfSeats * TicketPrice + (TotalNumberOfSeats * TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;
+    }
+
+    // Map Ticket Bookings
+    public void MapTicketDetails() {
+        String GeneratedTicketID = generateTicketID();
+        setTicketID(GeneratedTicketID);
+        String PassengerName = getPassengerName();
+        String PassengerIdNumber = getPassengerIdNumber();
+        Date DateOfJourney = getDateOfJourney();
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String FormattedDate = dateFormatter.format(DateOfJourney);
+        int BusNumber = getBusNumber();
+        String FromCity = getFromCity(super.getPassengerList(), super.getBusList());
+        String ToCity = getToCity(super.getPassengerList(), super.getBusList());
+        // Displaying Ticket
+        DisplayTicket(GeneratedTicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
+    }
+
+    // Map Bill Details
+    public void MapBillDetails() {
+        int TotalNumberOfSeats = getTotalNumberOfSeats();
+        double TicketAmount = getCostOfTicket(super.getPassengerList(), super.getBusList());
+        double TaxPercentage = PassengerInfo.TaxPercentage * 100;
+        double TaxAmount = getTaxOfTicket(super.getPassengerList(), super.getBusList());
+        double TotalAmountPerTicket = getTotalCostOfTicket(super.getPassengerList(), super.getBusList());
+        double TotalAmount = getTotalCost(super.getPassengerList(), super.getBusList());
+        // Displaying the cost of ticket after tax calculation
+        DisplayBill(TotalNumberOfSeats, TicketAmount, TaxPercentage, TaxAmount, TotalAmountPerTicket, TotalAmount);
     }
 
     // Draw Line
@@ -321,8 +354,7 @@ class PassengerInfo implements Showable {
     }
 
     // Display Bookings for Admin
-    public void DisplayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber,
-        String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
+    public void DisplayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber, String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
         System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
