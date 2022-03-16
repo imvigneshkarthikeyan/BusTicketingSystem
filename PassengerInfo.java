@@ -143,9 +143,12 @@ class PassengerInfo extends AdminInfo implements Showable {
         ToCity = scanner.next();
     }
 
-    public void GetDateOfJourneyFromUser() {
+    public void GetBusNumberFromUser() {
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
         BusNumber = scanner.nextInt();
+    }
+
+    public void GetDateOfJourneyFromUser() {
         System.out.println("\033[0;1m" + "Enter the date of journey in DD-MM-YYYY" + "\033[0;0m");
         String DateInput = scanner.next();
         // Converting the string to date
@@ -184,6 +187,9 @@ class PassengerInfo extends AdminInfo implements Showable {
                     "Enter a Valid 12 Digit Aadhar Number without spaces \nEg: 814273020135");
             PassengerIdNumber = scanner.next();
         }
+    }
+
+    public void GetSeatsRequired() {
         System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
         TotalNumberOfSeats = scanner.nextInt();
     }

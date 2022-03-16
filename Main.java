@@ -21,40 +21,43 @@ public class Main {
                 ticketForPassenger.DisplayFilteredBusList(adminInfo.getPassengerList(), adminInfo.getBusList());
                 // Checking if the filtered bus list is empty or not based upon from to request from user
                 if (ticketForPassenger.IsFilteredBusListEmpty(adminInfo.getPassengerList(), adminInfo.getBusList()) == false) {
+                    ticketForPassenger.GetBusNumberFromUser();
                     ticketForPassenger.GetDateOfJourneyFromUser();
                     // Displaying remaining seats for the date enetered by user
                     int AvailableSeats = ticketForPassenger.DisplayRemainingSeats(adminInfo.getPassengerList(), adminInfo.getBusList());
                     String FormattedDate = ticketForPassenger.getFormattedDateOfJourney();
                     boolean IsDateFuture = ticketForPassenger.IsDateFuture(FormattedDate, "dd/MM/yyyy");
-                    if (IsDateFuture) {
-                        ticketForPassenger.DrawLine();
-                        System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
-                        ticketForPassenger.DrawLine();
-                        // Checking if seats are available
-                        if (AvailableSeats > 0) {
-                            System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" +  "To continue booking in this bus" + "\033[0;1m" + "\nEnter any other number:"  + "\033[0;0m" + "To start a new booking.");
-                            int ContinueBooking = scanner.nextInt();
-                            if (ContinueBooking == 1) {
-                                ticketForPassenger.GetOtherPassengerInfo();
-                                // Checking whether the user requesting seats less than or equal to the available number of seats
-                                if (ticketForPassenger.IsAvailable(adminInfo.getPassengerList(), adminInfo.getBusList()) == true) {
-                                    // Adding passenger to the reserved list
-                                    adminInfo.getPassengerList().add(ticketForPassenger);
-                                    // Mapping the ticket details
-                                    ticketForPassenger.MapAndDisplayTicketDetails();
-                                    // Mapping the details for bill
-                                    ticketForPassenger.MapAndDisplayBillDetails();
-                                } else { // else block for requesting more seats
-                                    System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
-                                }
-                            } else { // else block for start a new booking if the available seats is not enough
-                                System.out.println("Redirecting...");
-                            }
-                        } else { // else block if seats are not available
-                            System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
-                        }
-                    } else {
+                    while (IsDateFuture == false) {
                         System.out.println("The booking is over for the specified date, enter a future date.");
+                        ticketForPassenger.GetDateOfJourneyFromUser();
+                        FormattedDate = ticketForPassenger.getFormattedDateOfJourney();
+                        IsDateFuture = ticketForPassenger.IsDateFuture(FormattedDate, "dd/MM/yyyy");
+                    }
+                    ticketForPassenger.DrawLine();
+                    System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
+                    ticketForPassenger.DrawLine();
+                    // Checking if seats are available
+                    if (AvailableSeats > 0) {
+                        System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter any other number:" + "\033[0;0m" + "To start a new booking.");
+                        int ContinueBooking = scanner.nextInt();
+                        if (ContinueBooking == 1) {
+                            ticketForPassenger.GetOtherPassengerInfo();
+                            ticketForPassenger.GetSeatsRequired();
+                            // Checking whether the user requesting seats less than or equal to the available number of seats
+                            while (ticketForPassenger.IsAvailable(adminInfo.getPassengerList(), adminInfo.getBusList()) == false) {
+                                System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
+                                ticketForPassenger.GetSeatsRequired();
+                            } // Adding passenger to the reserved list
+                            adminInfo.getPassengerList().add(ticketForPassenger);
+                            // Mapping the ticket details
+                            ticketForPassenger.MapAndDisplayTicketDetails();
+                            // Mapping the details for bill
+                            ticketForPassenger.MapAndDisplayBillDetails();
+                        } else { // else block for start a new booking if the available seats is not enough
+                            System.out.println("Redirecting...");
+                        }
+                    } else { // else block if seats are not available
+                        System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
                     }
                 } else { // else block if the user requested other areas than the service areas
                     System.out.println("Service is not available in those areas, try \nChennai \nThanjavur \nTrichy");
