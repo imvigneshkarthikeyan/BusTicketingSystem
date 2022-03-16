@@ -2,14 +2,25 @@ import java.util.*;
 import java.io.*;
 
 class AdminInfo {
-    private int BusNumber;
-    private int BusCapacity;
-    private String FromCity;
-    private String ToCity;
-    private String BusFacility;
-    private double CostOfTicket;
+    Scanner scanner = new Scanner(System.in);
 
-    // ArrayList for BusInfo
+    // Declaring it as final, as it should not be modified
+    private final String AdminKey = "123";
+
+    public String getAdminKey() {
+        return AdminKey;
+    }
+
+    public String getHintForAdminKey() {
+        String HintForAdminKey = "Its a 3 digit pin.";
+        return HintForAdminKey;
+    }
+
+    public String ForgetAdminKey() {
+        return getHintForAdminKey();
+    }
+
+    // ArrayList for Buses
     private ArrayList<BusInfo> busList = new ArrayList<BusInfo>() {
         // Adding the default buses into ArrayList
         {
@@ -33,7 +44,6 @@ class AdminInfo {
             add(new BusInfo(2163, "Thanjavur", "Trichy", 40, "Normal", 350));
         }
     };
-    private ArrayList<PassengerInfo> passengerList = new ArrayList<>();
 
     // GettersSetters for ArrayList
     public ArrayList<BusInfo> getBusList() {
@@ -44,6 +54,19 @@ class AdminInfo {
         this.busList = busList;
     }
 
+    // ArrayList for filteredbusList
+    private ArrayList<BusInfo> filteredBusList = new ArrayList<>();
+
+    public ArrayList<BusInfo> getFilteredBusList() {
+        return filteredBusList;
+    }
+
+    public void setFilteredBusList(ArrayList<BusInfo> filteredBusList) {
+        this.filteredBusList = filteredBusList;
+    }
+
+    private ArrayList<PassengerInfo> passengerList = new ArrayList<>();
+
     public ArrayList<PassengerInfo> getPassengerList() {
         return passengerList;
     }
@@ -52,84 +75,28 @@ class AdminInfo {
         this.passengerList = passengerList;
     }
 
-    public int getBusNumber() {
-        return BusNumber;
-    }
-
-    public void setBusNumber(int BusNumber) {
-        BusNumber = this.BusNumber;
-    }
-
-    public int getBusCapacity() {
-        return BusCapacity;
-    }
-
-    public void setBusCapacity(int BusCapacity) {
-        BusCapacity = this.BusCapacity;
-    }
-
-    public String getFromCity() {
-        return FromCity;
-    }
-
-    public void setFromCity(String FromCity) {
-        FromCity = this.FromCity;
-    }
-
-    public String getToCity() {
-        return ToCity;
-    }
-
-    public void setNewToCity(String ToCity) {
-        ToCity = this.ToCity;
-    }
-
-    public String getBusFacility() {
-        return BusFacility;
-    }
-
-    public void setBusFacility(String BusFacility) {
-        BusFacility = this.BusFacility;
-    }
-
-    public double getCostOfTicket() {
-        return CostOfTicket;
-    }
-
-    public void setCostOfTicket(double CostOfTicket) {
-        CostOfTicket = this.CostOfTicket;
-    }
-
-    Scanner scanner = new Scanner(System.in);
-
-    // Declaring it as final, as it should not be modified
-    private final String AdminKey = "123";
-
-    public String getAdminKey() {
-        return AdminKey;
-    }
-
-    public String getHintForAdminKey() {
-        String HintForAdminKey = "Its a 3 digit pin.";
-        return HintForAdminKey;
-    }
-
-    public String ForgetAdminKey() {
-        return getHintForAdminKey();
-    }
-
     // Welcome message
     public void DisplayWelcomeMessage() {
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "======================================== Welcome to Bus Ticketing System ========================================" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "======================================== Total Buses are displayed below ========================================" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "======================================== Welcome to Bus Ticketing System ========================================"
+                + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "======================================== Total Buses are displayed below ========================================"
+                + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
     }
 
     public void DisplayOptionsMessage() {
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
         System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m"
-                + "\n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
+                + "\n1: Start a new Booking \n2: Login as Admin \n3: Display List of Buses \nAny other number: Quit\n");
     }
 
     // Displaying BusList in a for each loop
@@ -140,26 +107,29 @@ class AdminInfo {
         }
     }
 
+    BusInfo busInfo = new BusInfo();
+
     // Add NewBus for admin panel
     public void AddNewBus() {
         System.out.println("Enter the Bus Number");
-        BusNumber = scanner.nextInt();
+        int BusNumberToBeUpdated = scanner.nextInt();
+        busInfo.setBusNumber(BusNumberToBeUpdated);
         System.out.println("Enter the Travel Origin");
-        FromCity = scanner.next();
+        busInfo.setFromCity(scanner.next());
         System.out.println("Enter the Destination");
-        ToCity = scanner.next();
+        busInfo.setToCity(scanner.next());
         System.out.println("Enter the capacity of the bus");
-        BusCapacity = scanner.nextInt();
+        busInfo.setBusCapacity(scanner.nextInt());
         System.out.println("Enter the Bus Facility");
-        BusFacility = scanner.next();
+        busInfo.setBusFacility(scanner.next());
         System.out.println("Enter the Cost of the ticket");
-        CostOfTicket = scanner.nextDouble();
-        int newBusNumber = getBusNumber();
-        String newFromCity = getFromCity();
-        String newToCity = getToCity();
-        int newBusCapacity = getBusCapacity();
-        String newBusFacility = getBusFacility();
-        double newCostOfTicket = getCostOfTicket();
+        busInfo.setCostOfTicket(scanner.nextDouble());
+        int newBusNumber = busInfo.getBusNumber();
+        String newFromCity = busInfo.getFromCity();
+        String newToCity = busInfo.getToCity();
+        int newBusCapacity = busInfo.getBusCapacity();
+        String newBusFacility = busInfo.getBusFacility();
+        double newCostOfTicket = busInfo.getCostOfTicket();
         getBusList().add(
                 new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
         // Displaying the list of buses after adding
@@ -184,43 +154,44 @@ class AdminInfo {
         // Asking for the field that has to be updated
         DrawLine();
         System.out.println("Select the option of the field which has to be updated: ");
-        System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \nEnter any other number to quit");
+        System.out.println(
+                "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \nEnter any other number to quit");
         int OptionToBeUpdated = scanner.nextInt();
         switch (OptionToBeUpdated) {
             case 1:
                 System.out.println("Enter the new Bus Number that has to be updated: ");
-                BusNumber = scanner.nextInt();
-                int updatedBusNumber = getBusNumber();
+                busInfo.setBusNumber(scanner.nextInt());
+                int updatedBusNumber = busInfo.getBusNumber();
                 getBusList().get(BusToBeUpdated).setBusNumber(updatedBusNumber);
                 break;
             case 2:
                 System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                FromCity = scanner.next();
-                String updatedFromCity = getFromCity();
+                busInfo.setFromCity(scanner.next());
+                String updatedFromCity = busInfo.getFromCity();
                 getBusList().get(BusToBeUpdated).setFromCity(updatedFromCity);
                 break;
             case 3:
                 System.out.println("Enter the new Bus Destination that has to be updated: ");
-                ToCity = scanner.next();
-                String updatedToCity = getToCity();
+                busInfo.setToCity(scanner.next());
+                String updatedToCity = busInfo.getToCity();
                 getBusList().get(BusToBeUpdated).setToCity(updatedToCity);
                 break;
             case 4:
                 System.out.println("Enter the new Capacity that has to be updated: ");
-                BusCapacity = scanner.nextInt();
-                int updatedBusCapacity = getBusCapacity();
+                busInfo.setBusCapacity(scanner.nextInt());
+                int updatedBusCapacity = busInfo.getBusCapacity();
                 getBusList().get(BusToBeUpdated).setBusCapacity(updatedBusCapacity);
                 break;
             case 5:
                 System.out.println("Enter the new Bus Facility that has to be updated: ");
-                BusFacility = scanner.next();
-                String updatedBusFacility = getBusFacility();
+                busInfo.setBusFacility(scanner.next());
+                String updatedBusFacility = busInfo.getBusFacility();
                 getBusList().get(BusToBeUpdated).setBusFacility(updatedBusFacility);
                 break;
             case 6:
                 System.out.println("Enter the new Cost that has to be updated: ");
-                CostOfTicket = scanner.nextInt();
-                double updatedBusTicketCost = getCostOfTicket();
+                busInfo.setCostOfTicket(scanner.nextInt());
+                double updatedBusTicketCost = busInfo.getCostOfTicket();
                 getBusList().get(BusToBeUpdated).setCostOfTicket(updatedBusTicketCost);
                 break;
             default:
@@ -250,9 +221,13 @@ class AdminInfo {
 
     // Show Bookings
     public void ShowBookingList() {
-        System.out.println("\033[0;1m" + "================================================= BOOKINGS ======================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================= BOOKINGS ======================================================"
+                + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
-            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(), p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(),
+                    p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(),
+                    p.getTotalCost(getPassengerList(), getBusList()));
         }
     }
 
@@ -276,6 +251,7 @@ class AdminInfo {
     }
 
     public void DrawLine() {
-        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------------------------");
     }
 }

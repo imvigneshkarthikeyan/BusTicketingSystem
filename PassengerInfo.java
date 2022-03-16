@@ -7,20 +7,36 @@ import java.time.format.DateTimeFormatter;
 
 interface Showable {
     void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     double getTaxOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
+
     void DrawLine();
+
     void MapAndDisplayTicketDetails();
+
     void MapAndDisplayBillDetails();
-    void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity);
-    void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount);
+
+    void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate,
+            int BusNumber, String FromCity, String ToCity);
+
+    void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount,
+            double TotalAmountPerTicket, double TotalAmount);
 }
 
 class PassengerInfo extends AdminInfo implements Showable {
@@ -34,7 +50,8 @@ class PassengerInfo extends AdminInfo implements Showable {
     private String FromCity;
     private String ToCity;
     private String TicketID;
-    // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
+    // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in
+    // all the objects.
     protected static double TaxPercentage;
     static {
         TaxPercentage = 0.05;
@@ -124,16 +141,6 @@ class PassengerInfo extends AdminInfo implements Showable {
         TicketID = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return TicketID;
     }
-    // ArrayList for filteredbusList
-    private ArrayList<BusInfo> filteredBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getFilteredBusList() {
-        return filteredBusList;
-    }
-
-    public void setFilteredBusList(ArrayList<BusInfo> filteredBusList) {
-        this.filteredBusList = filteredBusList;
-    }
 
     // Constructor
     PassengerInfo() {
@@ -205,10 +212,14 @@ class PassengerInfo extends AdminInfo implements Showable {
 
     public void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : getFilteredBusList()) {
-            System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+            System.out.println("\033[0;1m"
+                    + "================================================================================================================="
+                    + "\033[0;0m");
             bus.DisplayBusInfo();
         }
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
     }
 
     public boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
@@ -233,6 +244,7 @@ class PassengerInfo extends AdminInfo implements Showable {
         }
         return AvailableSeats;
     }
+
     boolean IsAvailable(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         // Fetching the BusCapacity from the BusNumber entered by the user
         int BusCapacity = 0;
@@ -324,7 +336,8 @@ class PassengerInfo extends AdminInfo implements Showable {
             if (bus.getBusNumber() == BusNumber) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                TicketPriceWithTax = TotalNumberOfSeats * TicketPrice + (TotalNumberOfSeats * TicketPrice * TaxPercentage);
+                TicketPriceWithTax = TotalNumberOfSeats * TicketPrice
+                        + (TotalNumberOfSeats * TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;
@@ -340,8 +353,8 @@ class PassengerInfo extends AdminInfo implements Showable {
         DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String FormattedDate = dateFormatter.format(DateOfJourney);
         int BusNumber = getBusNumber();
-        String FromCity = getFromCity(super.getPassengerList(), super.getBusList());
-        String ToCity = getToCity(super.getPassengerList(), super.getBusList());
+        String FromCity = getFromCity(getPassengerList(), getBusList());
+        String ToCity = getToCity(getPassengerList(), getBusList());
         // Displaying Ticket
         DisplayTicket(GeneratedTicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
     }
@@ -349,25 +362,32 @@ class PassengerInfo extends AdminInfo implements Showable {
     // Map Bill Details
     public void MapAndDisplayBillDetails() {
         int TotalNumberOfSeats = getTotalNumberOfSeats();
-        double TicketAmount = getCostOfTicket(super.getPassengerList(), super.getBusList());
+        double TicketAmount = getCostOfTicket(getPassengerList(), getBusList());
         double TaxPercentage = PassengerInfo.TaxPercentage * 100;
-        double TaxAmount = getTaxOfTicket(super.getPassengerList(), super.getBusList());
-        double TotalAmountPerTicket = getTotalCostOfTicket(super.getPassengerList(), super.getBusList());
-        double TotalAmount = getTotalCost(super.getPassengerList(), super.getBusList());
+        double TaxAmount = getTaxOfTicket(getPassengerList(), getBusList());
+        double TotalAmountPerTicket = getTotalCostOfTicket(getPassengerList(), getBusList());
+        double TotalAmount = getTotalCost(getPassengerList(), getBusList());
         // Displaying the cost of ticket after tax calculation
         DisplayBill(TotalNumberOfSeats, TicketAmount, TaxPercentage, TaxAmount, TotalAmountPerTicket, TotalAmount);
     }
 
     // Draw Line
     public void DrawLine() {
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
     }
 
     // Display Ticket
-    public void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity) {
-        System.out.println("\033[0;1m" + "=================================================================================================================");
-        System.out.println("================================================== TICKET =======================================================");
-        System.out.println("=================================================================================================================" + "\033[0;0m");
+    public void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate,
+            int BusNumber, String FromCity, String ToCity) {
+        System.out.println("\033[0;1m"
+                + "=================================================================================================================");
+        System.out.println(
+                "================================================== TICKET =======================================================");
+        System.out.println(
+                "================================================================================================================="
+                        + "\033[0;0m");
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
@@ -379,7 +399,8 @@ class PassengerInfo extends AdminInfo implements Showable {
     }
 
     // Display Bookings for Admin
-    public void DisplayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber, String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
+    public void DisplayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber,
+            String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
         System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
@@ -389,18 +410,25 @@ class PassengerInfo extends AdminInfo implements Showable {
         System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
         System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
     }
 
     // Display Bill
-    public void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount) {
-        System.out.println("\033[0;1m" + "--------------------------------------------------- BILL --------------------------------------------------------" + "\033[0;0m");
+    public void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount,
+            double TotalAmountPerTicket, double TotalAmount) {
+        System.out.println("\033[0;1m"
+                + "--------------------------------------------------- BILL --------------------------------------------------------"
+                + "\033[0;0m");
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + TotalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + TicketAmount);
         System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + TaxPercentage + "%");
         System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + TaxAmount);
         System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + TotalAmountPerTicket);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m"
+                + "================================================================================================================="
+                + "\033[0;0m");
     }
 }
