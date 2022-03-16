@@ -41,9 +41,9 @@ public class Main {
                                     // Adding passenger to the reserved list
                                     adminInfo.getPassengerList().add(ticketForPassenger);
                                     // Mapping the ticket details
-                                    ticketForPassenger.MapTicketDetails();
+                                    ticketForPassenger.MapAndDisplayTicketDetails();
                                     // Mapping the details for bill
-                                    ticketForPassenger.MapBillDetails();
+                                    ticketForPassenger.MapAndDisplayBillDetails();
                                 } else { // else block for requesting more seats
                                     System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
                                 }

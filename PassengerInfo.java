@@ -17,8 +17,8 @@ interface Showable {
     double getTotalCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     double getTotalCost(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     void DrawLine();
-    void MapTicketDetails();
-    void MapBillDetails();
+    void MapAndDisplayTicketDetails();
+    void MapAndDisplayBillDetails();
     void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity);
     void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount);
 }
@@ -125,7 +125,15 @@ class PassengerInfo extends AdminInfo implements Showable {
         return TicketID;
     }
     // ArrayList for filteredbusList
-    public ArrayList<BusInfo> filteredBusList = new ArrayList<>();
+    private ArrayList<BusInfo> filteredBusList = new ArrayList<>();
+
+    public ArrayList<BusInfo> getFilteredBusList() {
+        return filteredBusList;
+    }
+
+    public void setFilteredBusList(ArrayList<BusInfo> filteredBusList) {
+        this.filteredBusList = filteredBusList;
+    }
 
     // Constructor
     PassengerInfo() {
@@ -184,13 +192,13 @@ class PassengerInfo extends AdminInfo implements Showable {
     public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
             if (bus.getFromCity().equalsIgnoreCase(FromCity) && bus.getToCity().equalsIgnoreCase(ToCity)) {
-                filteredBusList.add(bus);
+                getFilteredBusList().add(bus);
             }
         }
     }
 
     public void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : filteredBusList) {
+        for (BusInfo bus : getFilteredBusList()) {
             System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
             bus.DisplayBusInfo();
         }
@@ -198,7 +206,7 @@ class PassengerInfo extends AdminInfo implements Showable {
     }
 
     public boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (filteredBusList.isEmpty()) {
+        if (getFilteredBusList().isEmpty()) {
             return true;
         }
         return false;
@@ -317,7 +325,7 @@ class PassengerInfo extends AdminInfo implements Showable {
     }
 
     // Map Ticket Bookings
-    public void MapTicketDetails() {
+    public void MapAndDisplayTicketDetails() {
         String GeneratedTicketID = generateTicketID();
         setTicketID(GeneratedTicketID);
         String PassengerName = getPassengerName();
@@ -333,7 +341,7 @@ class PassengerInfo extends AdminInfo implements Showable {
     }
 
     // Map Bill Details
-    public void MapBillDetails() {
+    public void MapAndDisplayBillDetails() {
         int TotalNumberOfSeats = getTotalNumberOfSeats();
         double TicketAmount = getCostOfTicket(super.getPassengerList(), super.getBusList());
         double TaxPercentage = PassengerInfo.TaxPercentage * 100;
