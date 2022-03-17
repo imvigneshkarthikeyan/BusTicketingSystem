@@ -8,8 +8,7 @@ class BusInfo {
 
     // Display Method
     public void DisplayBusInfo() {
-        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Total Seats:"
-                + BusCapacity + " | Facility:" + BusFacility + " | Ticket Cost:" + CostOfTicket);
+        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Total Seats:" + BusCapacity + " | Facility:" + BusFacility + " | Ticket Cost:" + CostOfTicket);
     }
 
     // GettersSetters for private attributes

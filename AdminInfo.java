@@ -11,13 +11,9 @@ class AdminInfo {
         return AdminKey;
     }
 
-    public String getHintForAdminKey() {
+    public String ForgetAdminKey() {
         String HintForAdminKey = "Its a 3 digit pin.";
         return HintForAdminKey;
-    }
-
-    public String ForgetAdminKey() {
-        return getHintForAdminKey();
     }
 
     // ArrayList for Buses
@@ -45,7 +41,6 @@ class AdminInfo {
         }
     };
 
-    // GettersSetters for ArrayList
     public ArrayList<BusInfo> getBusList() {
         return busList;
     }
@@ -65,6 +60,7 @@ class AdminInfo {
         this.filteredBusList = filteredBusList;
     }
 
+    // ArrayList for Passenger List
     private ArrayList<PassengerInfo> passengerList = new ArrayList<>();
 
     public ArrayList<PassengerInfo> getPassengerList() {
@@ -77,31 +73,21 @@ class AdminInfo {
 
     // Welcome message
     public void DisplayWelcomeMessage() {
-        System.out.println("\033[0;1m"
-                + "================================================================================================================="
-                + "\033[0;0m");
-        System.out.println("\033[0;1m"
-                + "======================================== Welcome to Bus Ticketing System ========================================"
-                + "\033[0;0m");
-        System.out.println("\033[0;1m"
-                + "======================================== Total Buses are displayed below ========================================"
-                + "\033[0;0m");
-        System.out.println("\033[0;1m"
-                + "================================================================================================================="
-                + "\033[0;0m");
+        DrawDoubleLine();
+        System.out.println("\033[0;1m" + "======================================== Welcome to Bus Ticketing System ========================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "======================================== Total Buses are displayed below ========================================" + "\033[0;0m");
+        DrawDoubleLine();
     }
 
     public void DisplayOptionsMessage() {
-        System.out.println("\033[0;1m"
-                + "================================================================================================================="
-                + "\033[0;0m");
-        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m"
-                + "\n1: Start a new Booking \n2: Login as Admin \n3: Display List of Buses \nAny other number: Quit\n");
+        DrawDoubleLine();
+        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Display List of Buses \nAny other number: Quit\n");
     }
 
     // Displaying BusList in a for each loop
     public void ForEachDisplayBusList() {
-        System.out.println("The following buses are available:");
+        DrawDoubleLine();
+        System.out.println("\033[0;1m" + "The following buses are available:" + "\033[0;0m");
         for (BusInfo b : getBusList()) {
             b.DisplayBusInfo();
         }
@@ -130,17 +116,14 @@ class AdminInfo {
         int newBusCapacity = busInfo.getBusCapacity();
         String newBusFacility = busInfo.getBusFacility();
         double newCostOfTicket = busInfo.getCostOfTicket();
-        getBusList().add(
-                new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
+        getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
         // Displaying the list of buses after adding
         DrawLine();
         ForEachDisplayBusList();
     }
 
-    // EditBus for admin panel
-    public void EditBus() {
-        System.out.println("Editing the Bus...");
-        // Displaying the BusInfo along with index as unique number
+    // Displaying the BusInfo along with index number
+    public void DisplayBusWithIndex() {
         DrawLine();
         int index = 0;
         for (BusInfo b : getBusList()) {
@@ -148,14 +131,19 @@ class AdminInfo {
             b.DisplayBusInfo();
         }
         DrawLine();
+    }
+
+    // EditBus for admin panel
+    public void EditBus() {
+        System.out.println("Editing the Bus...");
+        DisplayBusWithIndex();
         // Getting the index number that has to be updated from user
         System.out.println("Enter the Index number of the bus to be updated: ");
         int BusToBeUpdated = scanner.nextInt();
         // Asking for the field that has to be updated
         DrawLine();
         System.out.println("Select the option of the field which has to be updated: ");
-        System.out.println(
-                "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \nEnter any other number to quit");
+        System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \nEnter any other number to quit");
         int OptionToBeUpdated = scanner.nextInt();
         switch (OptionToBeUpdated) {
             case 1:
@@ -204,13 +192,7 @@ class AdminInfo {
     // Delete bus for admin panel
     public void DeleteBus() {
         System.out.println("Deleting the Bus...");
-        // Displaying the BusInfo along with index as unique number
-        int index = 0;
-        for (BusInfo b : getBusList()) {
-            System.out.print("Index Number: " + index++ + "| ");
-            b.DisplayBusInfo();
-        }
-        DrawLine();
+        DisplayBusWithIndex();
         System.out.println("Enter the index number of the Bus that has to be removed.");
         int BusToBeRemoved = scanner.nextInt();
         getBusList().remove(BusToBeRemoved);
@@ -221,13 +203,9 @@ class AdminInfo {
 
     // Show Bookings
     public void ShowBookingList() {
-        System.out.println("\033[0;1m"
-                + "================================================= BOOKINGS ======================================================"
-                + "\033[0;0m");
+        System.out.println("\033[0;1m" + "================================================= BOOKINGS ======================================================" + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
-            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(),
-                    p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(),
-                    p.getTotalCost(getPassengerList(), getBusList()));
+            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(), p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
         }
     }
 
@@ -250,8 +228,11 @@ class AdminInfo {
         }
     }
 
+    public void DrawDoubleLine() {
+        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+
+    }
     public void DrawLine() {
-        System.out.println(
-                "-----------------------------------------------------------------------------------------------------------------");
+        System.out.println("\033[0;1m" + "-----------------------------------------------------------------------------------------------------------------"  + "\033[0;0m");
     }
 }
