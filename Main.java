@@ -18,7 +18,7 @@ public class Main {
                     PassengerInfo ticketForPassenger = new PassengerInfo();
                     // Filtering Bus List based on From and To
                     ticketForPassenger.FilterBusList(adminInfo.getPassengerList(), adminInfo.getBusList());
-                    ticketForPassenger.DisplayFilteredBusList(adminInfo.getPassengerList(), adminInfo.getBusList());
+                    ticketForPassenger.DisplayFilteredBusList(adminInfo.getPassengerList(), adminInfo.getBusList());                    
                     // Checking if the filtered bus list is empty or not based upon from to request from user
                     if (ticketForPassenger.IsFilteredBusListEmpty(adminInfo.getPassengerList(), adminInfo.getBusList()) == false) {
                         ticketForPassenger.GetBusNumberFromUser();
@@ -101,7 +101,7 @@ public class Main {
                     adminInfo.ForEachDisplayBusList();
                     break;
                 default: //To quit i.e SelectedOption any other number
-                    System.out.println("Quiting the application...!");
+                    System.out.println("Quitting the application...!");
                     break;
             }
         }

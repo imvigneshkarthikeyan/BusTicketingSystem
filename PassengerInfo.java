@@ -20,12 +20,12 @@ class PassengerInfo extends AdminInfo implements Showable {
     Scanner scanner = new Scanner(System.in);
     private String PassengerName;
     private String PassengerPhoneNumber;
-    private int BusNumber;
     private Date DateOfJourney;
     private String PassengerIdNumber;
     private int TotalNumberOfSeats;
     private String FromCity;
     private String ToCity;
+    private int BusNumber;
     private String TicketID;
     // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;

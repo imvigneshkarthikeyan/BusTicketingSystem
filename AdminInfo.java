@@ -20,24 +20,24 @@ class AdminInfo {
     private ArrayList<BusInfo> busList = new ArrayList<BusInfo>() {
         // Adding the default buses into ArrayList
         {
-            add(new BusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
-            add(new BusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
-            add(new BusInfo(3313, "Chennai", "Thanjavur", 40, "Normal", 350));
-            add(new BusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750));
-            add(new BusInfo(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600));
-            add(new BusInfo(3331, "Thanjavur", "Chennai", 40, "Normal", 350));
-            add(new BusInfo(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400));
-            add(new BusInfo(1053, "Chennai", "Trichy", 30, "Sleeper", 550));
-            add(new BusInfo(1054, "Chennai", "Trichy", 20, "AC", 750));
-            add(new BusInfo(1025, "Trichy", "Chennai", 40, "Semi-Sleeper", 400));
-            add(new BusInfo(1035, "Trichy", "Chennai", 30, "Sleeper", 550));
-            add(new BusInfo(1045, "Trichy", "Chennai", 20, "AC", 750));
-            add(new BusInfo(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550));
-            add(new BusInfo(2135, "Trichy", "Thanjavur", 20, "AC", 600));
-            add(new BusInfo(2136, "Trichy", "Thanjavur", 40, "Normal", 350));
-            add(new BusInfo(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550));
-            add(new BusInfo(2153, "Thanjavur", "Trichy", 20, "AC", 600));
-            add(new BusInfo(2163, "Thanjavur", "Trichy", 40, "Normal", 350));
+            add(new SpecialBus(1001, "Chennai", "Thanjavur", 20, "AC", 750));
+            add(new BusInfo(3313, "Chennai", "Thanjavur", 40, 350));
+            add(new SpecialBus(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
+            add(new SpecialBus(1010, "Thanjavur", "Chennai", 20, "AC", 750));
+            add(new SpecialBus(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600));
+            add(new BusInfo(3331, "Thanjavur", "Chennai", 40, 350));
+            add(new SpecialBus(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400));
+            add(new SpecialBus(1053, "Chennai", "Trichy", 30, "Sleeper", 550));
+            add(new BusInfo(1054, "Chennai", "Trichy", 20, 750));
+            add(new BusInfo(1025, "Trichy", "Chennai", 40, 400));
+            add(new SpecialBus(1035, "Trichy", "Chennai", 30, "Sleeper", 550));
+            add(new SpecialBus(1045, "Trichy", "Chennai", 20, "AC", 750));
+            add(new SpecialBus(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550));
+            add(new SpecialBus(2135, "Trichy", "Thanjavur", 20, "AC", 600));
+            add(new BusInfo(2136, "Trichy", "Thanjavur", 40, 350));
+            add(new SpecialBus(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550));
+            add(new SpecialBus(2153, "Thanjavur", "Trichy", 20, "AC", 600));
+            add(new BusInfo(2163, "Thanjavur", "Trichy", 40, 350));
         }
     };
 
@@ -94,32 +94,58 @@ class AdminInfo {
     }
 
     BusInfo busInfo = new BusInfo();
+    SpecialBus specialBus = new SpecialBus();
 
     // Add NewBus for admin panel
     public void AddNewBus() {
-        System.out.println("Enter the Bus Number");
-        int BusNumberToBeUpdated = scanner.nextInt();
-        busInfo.setBusNumber(BusNumberToBeUpdated);
-        System.out.println("Enter the Travel Origin");
-        busInfo.setFromCity(scanner.next());
-        System.out.println("Enter the Destination");
-        busInfo.setToCity(scanner.next());
-        System.out.println("Enter the capacity of the bus");
-        busInfo.setBusCapacity(scanner.nextInt());
-        System.out.println("Enter the Bus Facility");
-        busInfo.setBusFacility(scanner.next());
-        System.out.println("Enter the Cost of the ticket");
-        busInfo.setCostOfTicket(scanner.nextDouble());
-        int newBusNumber = busInfo.getBusNumber();
-        String newFromCity = busInfo.getFromCity();
-        String newToCity = busInfo.getToCity();
-        int newBusCapacity = busInfo.getBusCapacity();
-        String newBusFacility = busInfo.getBusFacility();
-        double newCostOfTicket = busInfo.getCostOfTicket();
-        getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket));
-        // Displaying the list of buses after adding
-        DrawLine();
-        ForEachDisplayBusList();
+        System.out.println("Enter 1 to create a normal bus, enter any other number to create Luxury Bus");
+        int busType = scanner.nextInt();
+        if (busType == 1) { //To Add normal Bus
+            System.out.println("Enter the Bus Number");
+            int BusNumberToBeUpdated = scanner.nextInt();
+            busInfo.setBusNumber(BusNumberToBeUpdated);
+            System.out.println("Enter the Travel Origin");
+            busInfo.setFromCity(scanner.next());
+            System.out.println("Enter the Destination");
+            busInfo.setToCity(scanner.next());
+            System.out.println("Enter the capacity of the bus");
+            busInfo.setBusCapacity(scanner.nextInt());
+            System.out.println("Enter the Cost of the ticket");
+            busInfo.setCostOfTicket(scanner.nextDouble());
+            int newBusNumber = busInfo.getBusNumber();
+            String newFromCity = busInfo.getFromCity();
+            String newToCity = busInfo.getToCity();
+            int newBusCapacity = busInfo.getBusCapacity();
+            double newCostOfTicket = busInfo.getCostOfTicket();
+            getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket));
+            // Displaying the list of buses after adding
+            DrawLine();
+            ForEachDisplayBusList();
+        } else{ // To add Special bus
+            System.out.println("Enter the Bus Number");
+            int BusNumberToBeUpdated = scanner.nextInt();
+            busInfo.setBusNumber(BusNumberToBeUpdated);
+            System.out.println("Enter the Travel Origin");
+            busInfo.setFromCity(scanner.next());
+            System.out.println("Enter the Destination");
+            busInfo.setToCity(scanner.next());
+            System.out.println("Enter the capacity of the bus");
+            busInfo.setBusCapacity(scanner.nextInt());
+            System.out.println("Enter the Bus Facility");
+            specialBus.setBusFacility(scanner.next());
+            System.out.println("Enter the Cost of the ticket");
+            busInfo.setCostOfTicket(scanner.nextDouble());
+            int newBusNumber = busInfo.getBusNumber();
+            String newFromCity = busInfo.getFromCity();
+            String newToCity = busInfo.getToCity();
+            int newBusCapacity = busInfo.getBusCapacity();
+            String newBusFacility = specialBus.getBusFacility();
+            double newCostOfTicket = busInfo.getCostOfTicket();
+            getBusList().add(new SpecialBus(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility,newCostOfTicket));
+            // Displaying the list of buses after adding
+            DrawLine();
+            ForEachDisplayBusList();
+        }        
     }
 
     // Displaying the BusInfo along with index number
@@ -172,9 +198,9 @@ class AdminInfo {
                 break;
             case 5:
                 System.out.println("Enter the new Bus Facility that has to be updated: ");
-                busInfo.setBusFacility(scanner.next());
-                String updatedBusFacility = busInfo.getBusFacility();
-                getBusList().get(BusToBeUpdated).setBusFacility(updatedBusFacility);
+                specialBus.setBusFacility(scanner.next());
+                String updatedBusFacility = specialBus.getBusFacility();
+                ((SpecialBus) getBusList().get(BusToBeUpdated)).setBusFacility(updatedBusFacility);
                 break;
             case 6:
                 System.out.println("Enter the new Cost that has to be updated: ");
