@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 interface Showable {
     void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
     int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList);
-    void DrawLine();
     void MapAndDisplayTicketDetails();
     void MapAndDisplayBillDetails();
     void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity);
@@ -16,7 +15,7 @@ interface Showable {
     void DisplayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount);
 }
 
-class PassengerInfo extends AdminInfo implements Showable {
+class PassengerInfo implements Showable {
     Scanner scanner = new Scanner(System.in);
     private String PassengerName;
     private String PassengerPhoneNumber;
@@ -176,25 +175,26 @@ class PassengerInfo extends AdminInfo implements Showable {
         TotalNumberOfSeats = scanner.nextInt();
     }
 
+    AdminInfo a = new AdminInfo();
     // Filtering
     public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
             if (bus.getFromCity().equalsIgnoreCase(FromCity) && bus.getToCity().equalsIgnoreCase(ToCity)) {
-                getFilteredBusList().add(bus);
+                a.getFilteredBusList().add(bus);
             }
         }
     }
 
     public void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : getFilteredBusList()) {
-            super.DrawDoubleLine();
+        for (BusInfo bus : a.getFilteredBusList()) {
+            a.DrawDoubleLine();
             bus.DisplayBusInfo();
         }
-        super.DrawLine();
+        a.DrawLine();
     }
 
     public boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (getFilteredBusList().isEmpty()) {
+        if (a.getFilteredBusList().isEmpty()) {
             return true;
         }
         return false;
@@ -323,8 +323,8 @@ class PassengerInfo extends AdminInfo implements Showable {
         DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String FormattedDate = dateFormatter.format(DateOfJourney);
         int BusNumber = getBusNumber();
-        String FromCity = getFromCity(getPassengerList(), getBusList());
-        String ToCity = getToCity(getPassengerList(), getBusList());
+        String FromCity = getFromCity(a.getPassengerList(), a.getBusList());
+        String ToCity = getToCity(a.getPassengerList(), a.getBusList());
         // Displaying Ticket
         DisplayTicket(GeneratedTicketID, PassengerName, PassengerIdNumber, FormattedDate, BusNumber, FromCity, ToCity);
     }
@@ -332,20 +332,20 @@ class PassengerInfo extends AdminInfo implements Showable {
     // Map Bill Details
     public void MapAndDisplayBillDetails() {
         int TotalNumberOfSeats = getTotalNumberOfSeats();
-        double TicketAmount = getCostOfTicket(getPassengerList(), getBusList());
+        double TicketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
         double TaxPercentage = PassengerInfo.TaxPercentage * 100;
-        double TaxAmount = getTaxOfTicket(getPassengerList(), getBusList());
-        double TotalAmountPerTicket = getTotalCostOfTicket(getPassengerList(), getBusList());
-        double TotalAmount = getTotalCost(getPassengerList(), getBusList());
+        double TaxAmount = getTaxOfTicket(a.getPassengerList(), a.getBusList());
+        double TotalAmountPerTicket = getTotalCostOfTicket(a.getPassengerList(), a.getBusList());
+        double TotalAmount = getTotalCost(a.getPassengerList(), a.getBusList());
         // Displaying the cost of ticket after tax calculation
         DisplayBill(TotalNumberOfSeats, TicketAmount, TaxPercentage, TaxAmount, TotalAmountPerTicket, TotalAmount);
     }
 
     // Display Ticket
     public void DisplayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity) {
-        super.DrawDoubleLine();
+        a.DrawDoubleLine();
         System.out.println( "================================================== TICKET =======================================================");
-        super.DrawDoubleLine();
+        a.DrawDoubleLine();
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
@@ -367,7 +367,7 @@ class PassengerInfo extends AdminInfo implements Showable {
         System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
         System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
-        super.DrawDoubleLine();
+        a.DrawDoubleLine();
     }
 
     // Display Bill
@@ -379,6 +379,6 @@ class PassengerInfo extends AdminInfo implements Showable {
         System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + TaxAmount);
         System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + TotalAmountPerTicket);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
-        super.DrawDoubleLine();
+        a.DrawDoubleLine();
     }
 }

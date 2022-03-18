@@ -33,9 +33,9 @@ public class Main {
                             FormattedDate = ticketForPassenger.getFormattedDateOfJourney();
                             IsDateFuture = ticketForPassenger.IsDateFuture(FormattedDate, "dd/MM/yyyy");
                         }
-                        ticketForPassenger.DrawLine();
+                        adminInfo.DrawLine();
                         System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + FormattedDate + " is: " + "\033[0;0m" + AvailableSeats);
-                        ticketForPassenger.DrawLine();
+                        adminInfo.DrawLine();
                         // Checking if seats are available
                         if (AvailableSeats > 0) {
                             System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter any other number:" + "\033[0;0m" + "To start a new booking.");
