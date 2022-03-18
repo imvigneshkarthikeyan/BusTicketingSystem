@@ -342,7 +342,7 @@ class AdminInfo {
     public void ShowBookingList() {
         System.out.println("\033[0;1m" + "================================================= BOOKINGS ======================================================" + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
-            p.DisplayBookings(p.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.getBusNumber(), p.getFormattedDateOfJourney(), p.getTotalNumberOfSeats(), p.getFromCity(), p.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+            p.DisplayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
         }
     }
 

@@ -63,12 +63,14 @@ class TicketInfo {
 
 }
 
-class PassengerInfo extends TicketInfo {
+class PassengerInfo {
     Scanner scanner = new Scanner(System.in);
     private String PassengerName;
     private String PassengerPhoneNumber;
     private String PassengerIdNumber;
-    
+
+    TicketInfo ticketInfo = new TicketInfo();
+
     // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
     protected static double TaxPercentage;
     static {
@@ -95,7 +97,7 @@ class PassengerInfo extends TicketInfo {
 
     public String getFormattedDateOfJourney() {
         DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        String FormattedDate = dateFormatter.format(getDateOfJourney());
+        String FormattedDate = dateFormatter.format(ticketInfo.getDateOfJourney());
         return FormattedDate;
     }
 
@@ -108,21 +110,21 @@ class PassengerInfo extends TicketInfo {
     }
 
     public String generateTicketID() {
-        setTicketID(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
-        return getTicketID();
+        ticketInfo.setTicketID(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
+        return ticketInfo.getTicketID();
     }
 
     // Constructor
     PassengerInfo() {
         System.out.println("\033[0;1m" + "Enter the Boarding city" + "\033[0;0m");
-        setFromCity(scanner.next());
+        ticketInfo.setFromCity(scanner.next());
         System.out.println("\033[0;1m" + "Enter the Destination city" + "\033[0;0m");
-        setToCity(scanner.next());
+        ticketInfo.setToCity(scanner.next());
     }
 
     public void GetBusNumberFromUser() {
         System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
-        setBusNumber(scanner.nextInt());
+        ticketInfo.setBusNumber(scanner.nextInt());
     }
 
     public void GetDateOfJourneyFromUser() {
@@ -131,7 +133,7 @@ class PassengerInfo extends TicketInfo {
         // Converting the string to date
         SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            setDateOfJourney(DateFormat.parse(DateInput));
+            ticketInfo.setDateOfJourney(DateFormat.parse(DateInput));
         } catch (ParseException e) {
             // Auto-generated catch block
             e.printStackTrace();
@@ -167,14 +169,15 @@ class PassengerInfo extends TicketInfo {
 
     public void GetSeatsRequired() {
         System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
-        setTotalNumberOfSeats(scanner.nextInt());
+        ticketInfo.setTotalNumberOfSeats(scanner.nextInt());
     }
 
     AdminInfo a = new AdminInfo();
     // Filtering
     public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
-            if (bus.getFromCity().equalsIgnoreCase(getFromCity()) && bus.getToCity().equalsIgnoreCase(getToCity())) {
+            if (bus.getFromCity().equalsIgnoreCase(
+                    ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
                 a.getFilteredBusList().add(bus);
             }
         }
@@ -199,13 +202,13 @@ class PassengerInfo extends TicketInfo {
     public int DisplayRemainingSeats(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         int AvailableSeats = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 AvailableSeats = bus.getBusCapacity();
             }
         }
         for (PassengerInfo p : passengerList) {
-            if (p.getBusNumber() == getBusNumber() && p.getDateOfJourney().equals(getDateOfJourney())) {
-                AvailableSeats = AvailableSeats - p.getTotalNumberOfSeats();
+            if (p.ticketInfo.getBusNumber() == ticketInfo.getBusNumber() && p.ticketInfo.getDateOfJourney().equals(ticketInfo.getDateOfJourney())) {
+                AvailableSeats = AvailableSeats - p.ticketInfo.getTotalNumberOfSeats();
             }
         }
         return AvailableSeats;
@@ -215,19 +218,20 @@ class PassengerInfo extends TicketInfo {
         // Fetching the BusCapacity from the BusNumber entered by the user
         int BusCapacity = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 BusCapacity = bus.getBusCapacity();
             }
         }
         // Using this as a counter
         int ReservedTickets = 0;
         for (PassengerInfo p : passengerList) {
-            if (p.getBusNumber() == getBusNumber() && p.getDateOfJourney().equals(getDateOfJourney())) {
-                ReservedTickets = ReservedTickets + p.getTotalNumberOfSeats();
+            if (p.ticketInfo.getBusNumber() == ticketInfo
+                    .getBusNumber() && p.ticketInfo.getDateOfJourney().equals(ticketInfo.getDateOfJourney())) {
+                ReservedTickets = ReservedTickets + p.ticketInfo.getTotalNumberOfSeats();
             }
         }
         // Checking the capacity and returning accordingly
-        if (ReservedTickets + getTotalNumberOfSeats() <= BusCapacity) {
+        if (ReservedTickets + ticketInfo.getTotalNumberOfSeats() <= BusCapacity) {
             return true;
         } else {
             return false;
@@ -238,7 +242,7 @@ class PassengerInfo extends TicketInfo {
     public String getFromCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         String FromCity = "";
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 FromCity = bus.getFromCity();
             }
         }
@@ -248,7 +252,7 @@ class PassengerInfo extends TicketInfo {
     public String getToCity(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         String ToCity = "";
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 ToCity = bus.getToCity();
             }
         }
@@ -259,7 +263,7 @@ class PassengerInfo extends TicketInfo {
     public double getCostOfTicket(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         double TicketPrice = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 TicketPrice = bus.getCostOfTicket();
             }
         }
@@ -271,7 +275,7 @@ class PassengerInfo extends TicketInfo {
         double TicketPrice = 0;
         double TaxPrice = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating GST of 5%
                 TaxPrice = TicketPrice * TaxPercentage;
@@ -285,7 +289,7 @@ class PassengerInfo extends TicketInfo {
         double TicketPrice = 0;
         double TicketPriceWithTax = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
                 TicketPriceWithTax = TicketPrice + (TicketPrice * TaxPercentage);
@@ -299,10 +303,12 @@ class PassengerInfo extends TicketInfo {
         double TicketPrice = 0;
         double TicketPriceWithTax = 0;
         for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
+            if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                TicketPriceWithTax = getTotalNumberOfSeats() * TicketPrice + (getTotalNumberOfSeats() * TicketPrice * TaxPercentage);
+                TicketPriceWithTax = ticketInfo
+                        .getTotalNumberOfSeats() * TicketPrice + (ticketInfo
+                                .getTotalNumberOfSeats() * TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;
@@ -311,13 +317,13 @@ class PassengerInfo extends TicketInfo {
     // Map Ticket Bookings
     public void MapAndDisplayTicketDetails() {
         String GeneratedTicketID = generateTicketID();
-        setTicketID(GeneratedTicketID);
+        ticketInfo.setTicketID(GeneratedTicketID);
         String PassengerName = getPassengerName();
         String PassengerIdNumber = getPassengerIdNumber();
-        Date DateOfJourney = getDateOfJourney();
+        Date DateOfJourney = ticketInfo.getDateOfJourney();
         DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String FormattedDate = dateFormatter.format(DateOfJourney);
-        int BusNumber = getBusNumber();
+        int BusNumber = ticketInfo.getBusNumber();
         String FromCity = getFromCity(a.getPassengerList(), a.getBusList());
         String ToCity = getToCity(a.getPassengerList(), a.getBusList());
         // Displaying Ticket
@@ -326,7 +332,7 @@ class PassengerInfo extends TicketInfo {
 
     // Map Bill Details
     public void MapAndDisplayBillDetails() {
-        int TotalNumberOfSeats = getTotalNumberOfSeats();
+        int TotalNumberOfSeats = ticketInfo.getTotalNumberOfSeats();
         double TicketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
         double TaxPercentage = PassengerInfo.TaxPercentage * 100;
         double TaxAmount = getTaxOfTicket(a.getPassengerList(), a.getBusList());
