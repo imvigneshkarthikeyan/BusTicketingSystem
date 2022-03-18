@@ -121,7 +121,7 @@ class AdminInfo {
 
     public void DisplayOptionsMessage() {
         DrawDoubleLine();
-        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Display List of Buses \nAny other number: Quit\n");
+        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
     }
 
     // Displaying BusList in a for each loop
@@ -221,7 +221,7 @@ class AdminInfo {
     // EditBus for admin panel
     public void EditBus() {
         System.out.println("Editing the Bus...");
-        System.out.println("Enter 1: To edit Special Bus \n Enter any other number: To edit Normal Bus");
+        System.out.println("Enter 1: To edit Luxury Bus \nEnter any other number: To edit Normal Bus");
         int editBusOption = scanner.nextInt();
         if (editBusOption == 1) {
             FilterSpecialBusList(getPassengerList(), getBusList());
