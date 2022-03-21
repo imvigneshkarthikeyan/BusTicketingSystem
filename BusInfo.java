@@ -1,14 +1,13 @@
-class BusInfo {
+interface DisplayInformation {
+    void DisplayInfo();
+}
+
+class BusInfo implements DisplayInformation {
     private int BusNumber;
     private String FromCity;
     private String ToCity;
     private int BusCapacity;
     private double CostOfTicket;
-
-    // Display Method
-    public void DisplayBusInfo() {
-        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Total Seats:" + BusCapacity + " | Ticket Cost:" + CostOfTicket);
-    }
 
     // GettersSetters for private attributes
     public int getBusNumber() {
@@ -51,6 +50,11 @@ class BusInfo {
         CostOfTicket = costOfTicket;
     }
 
+    @Override // Display Method
+    public void DisplayInfo() {
+        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Total Seats:" + BusCapacity + " | Ticket Cost:" + CostOfTicket);
+    }
+
     // Constructor to create new Bus
     BusInfo(int busNumber, String fromCity, String toCity, int busCapacity, double costOfTicket) {
         BusNumber = busNumber;
@@ -69,10 +73,10 @@ class BusInfo {
     }
 }
 
-class SpecialBus extends BusInfo {
+class SpecialBusInfo extends BusInfo {
     private String BusFacility;
 
-    SpecialBus(int busNumber, String fromCity, String toCity, int busCapacity,String busFacilty, double costOfTicket) {
+    SpecialBusInfo(int busNumber, String fromCity, String toCity, int busCapacity,String busFacilty, double costOfTicket) {
         super(busNumber, fromCity, toCity, busCapacity, costOfTicket);
         BusFacility = busFacilty;
     }
@@ -86,12 +90,11 @@ class SpecialBus extends BusInfo {
     }
 
     @Override // Display Method
-    public void DisplayBusInfo() {
-        System.out.println("Bus Number:" + super.getBusNumber() + " | From: " + super.getFromCity()+ " | To: " + super.getToCity() + " | Total Seats:"
-                + super.getBusCapacity() + " | Facility:" + BusFacility + " | Ticket Cost:" + super.getCostOfTicket());
+    public void DisplayInfo() {
+        System.out.println("Bus Number:" + super.getBusNumber() + " | From: " + super.getFromCity()+ " | To: " + super.getToCity() + " | Total Seats:" + super.getBusCapacity() + " | Facility:" + BusFacility + " | Ticket Cost:" + super.getCostOfTicket());
     }
 
-    SpecialBus(){
+    SpecialBusInfo(){
         BusFacility = getBusFacility();
     }
 }

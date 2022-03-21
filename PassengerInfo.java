@@ -72,7 +72,7 @@ class PassengerInfo {
     TicketInfo ticketInfo = new TicketInfo();
 
     // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
-    protected static double TaxPercentage;
+    private static double TaxPercentage;
     static {
         TaxPercentage = 0.05;
     }
@@ -186,7 +186,7 @@ class PassengerInfo {
     public void DisplayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : a.getFilteredBusList()) {
             a.DrawDoubleLine();
-            bus.DisplayBusInfo();
+            bus.DisplayInfo();
         }
         a.DrawLine();
     }
