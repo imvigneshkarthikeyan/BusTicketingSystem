@@ -1,114 +1,114 @@
 import java.util.*;
 
 interface DisplayInformation {
-    void DisplayInfo();
+    void displayInfo();
 }
 
 class BusInfo implements DisplayInformation {
-    private int BusNumber;
-    private String FromCity;
-    private String ToCity;
-    private int BusCapacity;
-    private double CostOfTicket;
-    private int ApproxJourneyHrs;
+    private int busNumber;
+    private String fromCity;
+    private String toCity;
+    private int busCapacity;
+    private double costOfTicket;
+    private int approxJourneyHrs;
 
     // GettersSetters for private attributes
     public int getBusNumber() {
-        return BusNumber;
+        return busNumber;
     }
 
     public void setBusNumber(int busNumber) {
-        BusNumber = busNumber;
+        this.busNumber = busNumber;
     }
 
     public String getFromCity() {
-        return FromCity;
+        return fromCity;
     }
 
     public void setFromCity(String fromCity) {
-        FromCity = fromCity;
+        this.fromCity = fromCity;
     }
 
     public String getToCity() {
-        return ToCity;
+        return toCity;
     }
 
     public void setToCity(String toCity) {
-        ToCity = toCity;
+        this.toCity = toCity;
     }
 
     public int getBusCapacity() {
-        return BusCapacity;
+        return busCapacity;
     }
 
     public void setBusCapacity(int busCapacity) {
-        BusCapacity = busCapacity;
+        this.busCapacity = busCapacity;
     }
 
     public double getCostOfTicket() {
-        return CostOfTicket;
+        return costOfTicket;
     }
 
     public void setCostOfTicket(double costOfTicket) {
-        CostOfTicket = costOfTicket;
+        this.costOfTicket = costOfTicket;
     }
 
     public int getApproxJourneyHrs() {
-        return ApproxJourneyHrs;
+        return approxJourneyHrs;
     }
 
     public void setApproxJourneyHrs(int approxJourneyHrs) {
-        ApproxJourneyHrs = approxJourneyHrs;
+        this.approxJourneyHrs = approxJourneyHrs;
     }
 
     @Override // Display Method
-    public void DisplayInfo() {
-        System.out.println("Bus Number:" + BusNumber + " | From: " + FromCity + " | To: " + ToCity + " | Total Seats:" + BusCapacity + " | Ticket Cost:" + CostOfTicket + " | Approx Journey Time:" + ApproxJourneyHrs + "hrs");
+    public void displayInfo() {
+        System.out.println("Bus Number:" + busNumber + " | From: " + fromCity + " | To: " + toCity + " | Total Seats:" + busCapacity + " | Ticket Cost:" + costOfTicket + " | Approx Journey Time:" + approxJourneyHrs + "hrs");
     }
 
     // Constructor to create new Bus
     BusInfo(int busNumber, String fromCity, String toCity, int busCapacity, double costOfTicket, int approxJourneyHrs) {
-        BusNumber = busNumber;
-        FromCity = fromCity;
-        ToCity = toCity;
-        BusCapacity = busCapacity;
-        CostOfTicket = costOfTicket;
-        ApproxJourneyHrs = approxJourneyHrs;
+        this.busNumber = busNumber;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.busCapacity = busCapacity;
+        this.costOfTicket = costOfTicket;
+        this.approxJourneyHrs = approxJourneyHrs;
     }
 
     BusInfo() {
-        BusNumber = getBusNumber();
-        FromCity = getFromCity();
-        ToCity = getToCity();
-        BusCapacity = getBusCapacity();
-        CostOfTicket = getCostOfTicket();
-        ApproxJourneyHrs = getApproxJourneyHrs();
+        this.busNumber = getBusNumber();
+        this.fromCity = getFromCity();
+        this.toCity = getToCity();
+        this.busCapacity = getBusCapacity();
+        this.costOfTicket = getCostOfTicket();
+        this.approxJourneyHrs = getApproxJourneyHrs();
     }
 }
 
 class SpecialBusInfo extends BusInfo {
-    private String BusFacility;
+    private String busFacility;
 
     SpecialBusInfo(int busNumber, String fromCity, String toCity, int busCapacity,String busFacilty, double costOfTicket, int approxJourneyHrs) {
         super(busNumber, fromCity, toCity, busCapacity, costOfTicket, approxJourneyHrs);
-        BusFacility = busFacilty;
+        this.busFacility = busFacilty;
     }
 
     public String getBusFacility() {
-        return BusFacility;
+        return busFacility;
     }
 
     public void setBusFacility(String busFacility) {
-        BusFacility = busFacility;
+        this.busFacility = busFacility;
     }
 
     @Override // Display Method
-    public void DisplayInfo() {
-        System.out.println("Bus Number:" + super.getBusNumber() + " | From: " + super.getFromCity()+ " | To: " + super.getToCity() + " | Total Seats:" + super.getBusCapacity() + " | Facility:" + BusFacility + " | Ticket Cost:" + super.getCostOfTicket() + " | Approx Journey Time:" + super.getApproxJourneyHrs() + "hrs");
+    public void displayInfo() {
+        System.out.println("Bus Number:" + super.getBusNumber() + " | From: " + super.getFromCity()+ " | To: " + super.getToCity() + " | Total Seats:" + super.getBusCapacity() + " | Facility:" + busFacility + " | Ticket Cost:" + super.getCostOfTicket() + " | Approx Journey Time:" + super.getApproxJourneyHrs() + "hrs");
     }
 
     SpecialBusInfo(){
-        BusFacility = getBusFacility();
+        busFacility = getBusFacility();
     }
 }
 

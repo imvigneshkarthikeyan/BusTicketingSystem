@@ -4,20 +4,20 @@ public class Main {
     public static void main(String[] args) {
         AdminInfo adminInfo = new AdminInfo();
         // Option given by User
-        int SelectedOption = 1;
+        int selectedOption = 1;
         Scanner scanner = new Scanner(System.in);
-        adminInfo.DisplayWelcomeMessage();
+        adminInfo.displayWelcomeMessage();
         // Fetching the elements from array list
-        adminInfo.DisplayBusList();
+        adminInfo.displayBusList();
         // Loop for the Application
-        while (SelectedOption == 1 || SelectedOption == 2) {
+        while (selectedOption == 1 || selectedOption == 2) {
             // Main Booking
-            adminInfo.DisplayOptionsMessage();
-            SelectedOption = scanner.nextInt();
-            if (SelectedOption == 1) {
-                adminInfo.StartNewBooking();
-            } else if (SelectedOption == 2) {
-                adminInfo.AdminOperations();
+            adminInfo.displayOptionsMessage();
+            selectedOption = scanner.nextInt();
+            if (selectedOption == 1) {
+                adminInfo.startNewBooking();
+            } else if (selectedOption == 2) {
+                adminInfo.adminOperations();
             } else { // else block for quit i.e SelectedOption any other number
                 System.out.println("Quiting the application");
             }
