@@ -1,14 +1,14 @@
 import java.util.*;
 import java.io.*;
 
-interface Admin {
+interface BusOperations {
     void AddNewBus();
     void EditBus();
     void DeleteBus();
     void DisplayBusList();
 }
 
-class AdminInfo implements DisplayInformation, Admin {
+class AdminInfo implements DisplayInformation, BusOperations {
     Scanner scanner = new Scanner(System.in);
 
     // Declaring it as final, as it should not be modified
@@ -27,24 +27,24 @@ class AdminInfo implements DisplayInformation, Admin {
     private ArrayList<BusInfo> busList = new ArrayList<BusInfo>() {
         // Adding the default buses into ArrayList
         {
-            add(new SpecialBusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750));
-            add(new BusInfo(3313, "Chennai", "Thanjavur", 40, 350));
-            add(new SpecialBusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600));
-            add(new SpecialBusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750));
-            add(new SpecialBusInfo(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600));
-            add(new BusInfo(3331, "Thanjavur", "Chennai", 40, 350));
-            add(new SpecialBusInfo(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400));
-            add(new SpecialBusInfo(1053, "Chennai", "Trichy", 30, "Sleeper", 550));
-            add(new BusInfo(1054, "Chennai", "Trichy", 20, 750));
-            add(new BusInfo(1025, "Trichy", "Chennai", 40, 400));
-            add(new SpecialBusInfo(1035, "Trichy", "Chennai", 30, "Sleeper", 550));
-            add(new SpecialBusInfo(1045, "Trichy", "Chennai", 20, "AC", 750));
-            add(new SpecialBusInfo(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550));
-            add(new SpecialBusInfo(2135, "Trichy", "Thanjavur", 20, "AC", 600));
-            add(new BusInfo(2136, "Trichy", "Thanjavur", 40, 350));
-            add(new SpecialBusInfo(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550));
-            add(new SpecialBusInfo(2153, "Thanjavur", "Trichy", 20, "AC", 600));
-            add(new BusInfo(2163, "Thanjavur", "Trichy", 40, 350));
+            add(new SpecialBusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750, 2));
+            add(new BusInfo(3313, "Chennai", "Thanjavur", 40, 350, 3));
+            add(new SpecialBusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600, 4));
+            add(new SpecialBusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750, 4));
+            add(new SpecialBusInfo(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600, 3));
+            add(new BusInfo(3331, "Thanjavur", "Chennai", 40, 350, 6));
+            add(new SpecialBusInfo(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400, 4));
+            add(new SpecialBusInfo(1053, "Chennai", "Trichy", 30, "Sleeper", 550, 3));
+            add(new BusInfo(1054, "Chennai", "Trichy", 20, 750, 5));
+            add(new BusInfo(1025, "Trichy", "Chennai", 40, 400, 5));
+            add(new SpecialBusInfo(1035, "Trichy", "Chennai", 30, "Sleeper", 550, 5));
+            add(new SpecialBusInfo(1045, "Trichy", "Chennai", 20, "AC", 750, 3));
+            add(new SpecialBusInfo(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550, 1));
+            add(new SpecialBusInfo(2135, "Trichy", "Thanjavur", 20, "AC", 600, 2));
+            add(new BusInfo(2136, "Trichy", "Thanjavur", 40, 350, 2));
+            add(new SpecialBusInfo(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550, 3));
+            add(new SpecialBusInfo(2153, "Thanjavur", "Trichy", 20, "AC", 600, 4));
+            add(new BusInfo(2163, "Thanjavur", "Trichy", 40, 350, 1));
         }
     };
 
@@ -147,12 +147,15 @@ class AdminInfo implements DisplayInformation, Admin {
             busInfo.setBusCapacity(scanner.nextInt());
             System.out.println("Enter the Cost of the ticket");
             busInfo.setCostOfTicket(scanner.nextDouble());
+            System.out.println("Enter the Approximate Time for Journey");
+            busInfo.setApproxJourneyHrs(scanner.nextInt());
             int newBusNumber = busInfo.getBusNumber();
             String newFromCity = busInfo.getFromCity();
             String newToCity = busInfo.getToCity();
             int newBusCapacity = busInfo.getBusCapacity();
             double newCostOfTicket = busInfo.getCostOfTicket();
-            getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket));
+            int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+            getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket, newApproxJourneyHrs));
             // Displaying the list of buses after adding
             DrawLine();
             DisplayBusList();
@@ -170,13 +173,16 @@ class AdminInfo implements DisplayInformation, Admin {
             specialBus.setBusFacility(scanner.next());
             System.out.println("Enter the Cost of the ticket");
             busInfo.setCostOfTicket(scanner.nextDouble());
+            System.out.println("Enter the Approximate Time for Journey");
+            busInfo.setApproxJourneyHrs(scanner.nextInt());
             int newBusNumber = busInfo.getBusNumber();
             String newFromCity = busInfo.getFromCity();
             String newToCity = busInfo.getToCity();
             int newBusCapacity = busInfo.getBusCapacity();
             String newBusFacility = specialBus.getBusFacility();
             double newCostOfTicket = busInfo.getCostOfTicket();
-            getBusList().add(new SpecialBusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility,newCostOfTicket));
+            int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+            getBusList().add(new SpecialBusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket, newApproxJourneyHrs));
             // Displaying the list of buses after adding
             DrawLine();
             DisplayBusList();
@@ -356,8 +362,7 @@ class AdminInfo implements DisplayInformation, Admin {
         DisplayBusList();
         DrawLine();
         // Operations which can be performed by the admin
-        System.out.println(
-                "Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses\nEnter any other number to logout");
+        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses\nEnter any other number to logout");
         int OperationOption = scanner.nextInt();
         // Adding new Bus
         switch (OperationOption) {
@@ -402,9 +407,9 @@ class AdminInfo implements DisplayInformation, Admin {
         // Filtering Bus List based on From and To
         ticketForPassenger.FilterBusList(getPassengerList(), getBusList());
         ticketForPassenger.DisplayFilteredBusList(getPassengerList(), getBusList());
-        // Checking if the filtered bus list is empty or not based upon from to request
-        // from user
+        // Checking if the filtered bus list is empty or not based upon from to request from user
         if (ticketForPassenger.IsFilteredBusListEmpty(getPassengerList(), getBusList()) == false) {
+            ticketForPassenger.ShowSortingFunctions();
             ticketForPassenger.GetBusNumberFromUser();
             ticketForPassenger.GetDateOfJourneyFromUser();
             // Displaying remaining seats for the date enetered by user

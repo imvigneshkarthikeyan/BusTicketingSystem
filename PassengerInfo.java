@@ -176,8 +176,7 @@ class PassengerInfo {
     // Filtering
     public void FilterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
-            if (bus.getFromCity().equalsIgnoreCase(
-                    ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
+            if (bus.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
                 a.getFilteredBusList().add(bus);
             }
         }
@@ -189,6 +188,54 @@ class PassengerInfo {
             bus.DisplayInfo();
         }
         a.DrawLine();
+    }
+
+    public void DisplayJourneyHrsSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Collections.sort(a.getFilteredBusList(), new JourneyComparator());
+        for (BusInfo bus : a.getFilteredBusList()) {
+            a.DrawDoubleLine();
+            bus.DisplayInfo();
+        }
+        a.DrawLine();
+    }
+
+    public void DisplayTicketCostSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Collections.sort(a.getFilteredBusList(), new CostComparator());
+        for (BusInfo bus : a.getFilteredBusList()) {
+            a.DrawDoubleLine();
+            bus.DisplayInfo();
+        }
+        a.DrawLine();
+    }
+
+    public void DisplayBusNumberSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Collections.sort(a.getFilteredBusList(), new BusNumberComparator());
+        for (BusInfo bus : a.getFilteredBusList()) {
+            a.DrawDoubleLine();
+            bus.DisplayInfo();
+        }
+        a.DrawLine();
+    }
+
+    public void ShowSortingFunctions() {
+        int SortOption = 1;
+        while (SortOption == 1 || SortOption == 2 || SortOption == 3) {
+            System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \nAny other number: To continue booking");
+            SortOption = scanner.nextInt();
+            switch (SortOption) {
+                case 1:
+                    DisplayJourneyHrsSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                    break;
+                case 2:
+                    DisplayTicketCostSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                    break;
+                case 3:
+                    DisplayBusNumberSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                default:
+                    System.out.println("Redirecting...");
+                    break;
+            }
+        }
     }
 
     public boolean IsFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
@@ -306,9 +353,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 TicketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                TicketPriceWithTax = ticketInfo
-                        .getTotalNumberOfSeats() * TicketPrice + (ticketInfo
-                                .getTotalNumberOfSeats() * TicketPrice * TaxPercentage);
+                TicketPriceWithTax = ticketInfo.getTotalNumberOfSeats() * TicketPrice + (ticketInfo.getTotalNumberOfSeats() * TicketPrice * TaxPercentage);
             }
         }
         return TicketPriceWithTax;

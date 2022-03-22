@@ -9,7 +9,7 @@ public class Main {
         adminInfo.DisplayWelcomeMessage();
         // Fetching the elements from array list
         adminInfo.DisplayBusList();
-        // Loop for the Applicationn
+        // Loop for the Application
         while (SelectedOption == 1 || SelectedOption == 2) {
             // Main Booking
             adminInfo.DisplayOptionsMessage();
