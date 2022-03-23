@@ -23,6 +23,16 @@ class AdminInfo implements DisplayInformation, BusOperations {
         return hintForAdminKey;
     }
 
+    private String busOperatingCities = "Chennai, Trichy, Thanjavur";
+
+    public void setOperatingCities(String busOperatingCities) {
+        this.busOperatingCities = busOperatingCities;
+    }
+
+    public String getOperatingCities() {
+        return busOperatingCities;
+    }
+
     // ArrayList for Buses
     private ArrayList<BusInfo> busList = new ArrayList<BusInfo>() {
         // Adding the default buses into ArrayList
@@ -347,6 +357,15 @@ class AdminInfo implements DisplayInformation, BusOperations {
         }
     }
 
+    // Update Operating Cities Message
+    public void setOperatingCities() throws IOException {
+        InputStreamReader r = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(r);
+        System.out.println("Enter the list of cities operating separated by comma: ");
+        String newMessage = br.readLine();
+        setOperatingCities(newMessage);
+    }
+
     // Authentication for Admin PIN
     public String ReadPINinConsole() {
         // Using console to read admin pin as invisible
@@ -372,7 +391,7 @@ class AdminInfo implements DisplayInformation, BusOperations {
         displayBusList();
         drawLine();
         // Operations which can be performed by the admin
-        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses\nEnter any other number to logout");
+        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses \n6.Update Operating Cities \nEnter any other number to logout");
         int operationOption = scanner.nextInt();
         // Adding new Bus
         switch (operationOption) {
@@ -391,6 +410,13 @@ class AdminInfo implements DisplayInformation, BusOperations {
             case 5:
                 displayBusList();
                 break;
+            case 6:
+                try {
+                    setOperatingCities();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             default:
                 System.out.println("Logging out from admin portal...!");
                 break;
@@ -459,7 +485,7 @@ class AdminInfo implements DisplayInformation, BusOperations {
                 System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
             }
         } else { // else block if the user requested other areas than the service areas
-            System.out.println("Service is not available in those areas, try \nChennai \nThanjavur \nTrichy");
+            System.out.println("Service is not available in those areas, try: " + getOperatingCities());
         }
     }
 }
