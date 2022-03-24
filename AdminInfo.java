@@ -119,7 +119,7 @@ class AdminInfo implements DisplayInformation {
 
     public void displayOptionsMessage() {
         drawDoubleLine();
-        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \nAny other number: Quit\n");
+        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
     }
 
     // Displaying BusList in a for each loop
@@ -384,36 +384,45 @@ class AdminInfo implements DisplayInformation {
         displayBusList();
         drawLine();
         // Operations which can be performed by the admin
-        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses \n6.Update Operating Cities \nEnter any other number to logout");
-        int operationOption = scanner.nextInt();
-        // Adding new Bus
-        switch (operationOption) {
-            case 1:
-                addNewBus();
-                break;
-            case 2:
-                editBus();
-                break;
-            case 3:
-                deleteBus();
-                break;
-            case 4:
-                displayInfo();
-                break;
-            case 5:
-                displayBusList();
-                break;
-            case 6:
-                try {
-                    setOperatingCities();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            default:
-                System.out.println("Logging out from admin portal...!");
-                break;
-        }
+        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses \n6.Update Operating Cities \n7.To logout");
+        try {
+            int operationOption = Integer.parseInt(scanner.nextLine());
+            if (operationOption < 1 || operationOption > 7) {
+                throw new IllegalArgumentException();
+            }
+            // Adding new Bus
+            switch (operationOption) {
+                case 1:
+                    addNewBus();
+                    break;
+                case 2:
+                    editBus();
+                    break;
+                case 3:
+                    deleteBus();
+                    break;
+                case 4:
+                    displayInfo();
+                    break;
+                case 5:
+                    displayBusList();
+                    break;
+                case 6:
+                    try {
+                        setOperatingCities();
+                    } catch (IOException e) {
+                        System.out.println("Invalid input");
+                    }
+                case 7:
+                    System.out.println("Logging out from admin portal...!");
+                    break;
+                default:
+                    System.out.println("Enter 1 to 7");
+                    break;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid input, try again");
+        }        
     }
 
     //Login as Admin & Admin Operation
@@ -456,24 +465,33 @@ class AdminInfo implements DisplayInformation {
             drawLine();
             // Checking if seats are available
             if (availableSeats > 0) {
-                System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter any other number:" + "\033[0;0m" + "To start a new booking.");
-                int continueBooking = scanner.nextInt();
-                if (continueBooking == 1) {
-                    ticketForPassenger.getOtherPassengerInfo();
-                    ticketForPassenger.getSeatsRequired();
-                    // Checking whether the user requesting seats less than or equal to the available number of seats
-                    while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
-                        System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
+                System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus"
+                        + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
+                try {
+                    int continueBooking = Integer.parseInt(scanner.nextLine());
+                    if (continueBooking < 1||continueBooking > 2){
+                        throw new IllegalArgumentException();
+                    }
+                    if (continueBooking == 1) {
+                        ticketForPassenger.getOtherPassengerInfo();
                         ticketForPassenger.getSeatsRequired();
-                    } // Adding passenger to the reserved list
-                    getPassengerList().add(ticketForPassenger);
-                    // Mapping the ticket details
-                    ticketForPassenger.MapAndDisplayTicketDetails();
-                    // // Mapping the details for bill
-                    ticketForPassenger.MapAndDisplayBillDetails();
-                } else { // else block for start a new booking if the available seats is not enough
-                    System.out.println("Redirecting...");
+                        // Checking whether the user requesting seats less than or equal to the available number of seats
+                        while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
+                            System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
+                            ticketForPassenger.getSeatsRequired();
+                        } // Adding passenger to the reserved list
+                        getPassengerList().add(ticketForPassenger);
+                        // Mapping the ticket details
+                        ticketForPassenger.MapAndDisplayTicketDetails();
+                        // Mapping the details for bill
+                        ticketForPassenger.MapAndDisplayBillDetails();
+                    } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
+                        System.out.println("Redirecting...");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input, please try again!");
                 }
+                
             } else { // else block if seats are not available
                 System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
             }

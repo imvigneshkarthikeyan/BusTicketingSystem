@@ -121,8 +121,14 @@ class PassengerInfo {
     }
 
     public void getBusNumberFromUser() {
-        System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
-        ticketInfo.setBusNumber(scanner.nextInt());
+        try {
+            System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
+            int newBusNumber = Integer.parseInt(scanner.next());
+            ticketInfo.setBusNumber(newBusNumber);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid, try again!");
+
+        }
     }
 
     public void getDateOfJourneyFromUser() {
@@ -134,7 +140,7 @@ class PassengerInfo {
             ticketInfo.setDateOfJourney(dateFormat.parse(dateInput));
         } catch (ParseException e) {
             // Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Invalid date, try again!");
         }
     }
 
@@ -218,21 +224,33 @@ class PassengerInfo {
     public void showSortingFunctions() {
         int sortOption = 1;
         while (sortOption == 1 || sortOption == 2 || sortOption == 3) {
-            System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \nAny other number: To continue booking");
-            sortOption = scanner.nextInt();
-            switch (sortOption) {
-                case 1:
-                    displayJourneyHrsSortedFilteredBusList(a.getPassengerList(), a.getBusList());
-                    break;
-                case 2:
-                    displayTicketCostSortedFilteredBusList(a.getPassengerList(), a.getBusList());
-                    break;
-                case 3:
-                    displayBusNumberSortedFilteredBusList(a.getPassengerList(), a.getBusList());
-                default:
-                    System.out.println("Redirecting...");
-                    break;
+            System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \n4: To continue booking");
+            try {
+                sortOption = Integer.parseInt(scanner.next());
+                if (sortOption < 1 || sortOption > 4) {
+                    throw new IllegalArgumentException();
+                }
+                switch (sortOption) {
+                    case 1:
+                        displayJourneyHrsSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
+                    case 2:
+                        displayTicketCostSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
+                    case 3:
+                        displayBusNumberSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                    case 4:
+                        System.out.println("Redirecting...");
+                        break;
+                    default:
+                        System.out.println("Enter 1 - 4");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input, please try again!");
+                sortOption = 1;
             }
+            
         }
     }
 

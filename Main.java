@@ -13,13 +13,23 @@ public class Main {
         while (selectedOption == 1 || selectedOption == 2) {
             // Main Booking
             adminInfo.displayOptionsMessage();
-            selectedOption = scanner.nextInt();
-            if (selectedOption == 1) {
-                adminInfo.startNewBooking();
-            } else if (selectedOption == 2) {
-                adminInfo.adminOperations();
-            } else { // else block for quit i.e SelectedOption any other number
-                System.out.println("Quiting the application");
+            try {
+                selectedOption = Integer.parseInt(scanner.nextLine());
+                if (selectedOption < 1 || selectedOption > 3) {
+                    throw new IllegalArgumentException();
+                }
+                if (selectedOption == 1) {
+                    adminInfo.startNewBooking();
+                } else if (selectedOption == 2) {
+                    adminInfo.adminOperations();
+                } else if (selectedOption == 3) {
+                    System.out.println("Quiting the application");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input, please try again!");
+                selectedOption = 1;
+            } catch (Exception e) {
+                System.out.println("Try again!");
             }
         }
         scanner.close();
