@@ -1,14 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-interface BusOperations {
-    void addNewBus();
-    void editBus();
-    void deleteBus();
-    void displayBusList();
-}
-
-class AdminInfo implements DisplayInformation, BusOperations {
+class AdminInfo implements DisplayInformation {
     Scanner scanner = new Scanner(System.in);
 
     // Declaring it as final, as it should not be modified
