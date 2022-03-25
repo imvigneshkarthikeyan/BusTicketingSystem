@@ -357,6 +357,7 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Enter the list of cities operating separated by comma: ");
         String newMessage = br.readLine();
         setOperatingCities(newMessage);
+        System.out.println("Updated Operating Cities are: " + newMessage);
     }
 
     // Authentication for Admin PIN
