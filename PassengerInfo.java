@@ -318,7 +318,7 @@ class PassengerInfo {
     }
 
     // Map Ticket Bookings
-    public void MapAndDisplayTicketDetails() {
+    public void mapAndDisplayTicketDetails() {
         String generatedTicketID = generateTicketID();
         ticketInfo.setTicketID(generatedTicketID);
         String passengerName = getPassengerName();
@@ -334,7 +334,7 @@ class PassengerInfo {
     }
 
     // Map Bill Details
-    public void MapAndDisplayBillDetails() {
+    public void mapAndDisplayBillDetails() {
         int totalNumberOfSeats = ticketInfo.getTotalNumberOfSeats();
         double ticketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
         double taxPercentage = PassengerInfo.taxPercentage * 100;
@@ -346,43 +346,43 @@ class PassengerInfo {
     }
 
     // Display Ticket
-    public void displayTicket(String TicketID, String PassengerName, String PassengerIdNumber, String FormattedDate, int BusNumber, String FromCity, String ToCity) {
+    public void displayTicket(String ticketID, String passengerName, String passengerIdNumber, String formattedDate, int busNumber, String fromCity, String toCity) {
         a.drawDoubleLine();
         System.out.println( "================================================== TICKET =======================================================");
         a.drawDoubleLine();
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
-        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
-        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
-        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
-        System.out.println("\033[0;1m" + "Date Of Journey: " + "\033[0;0m" + FormattedDate);
-        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + BusNumber);
-        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
-        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
+        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
+        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
+        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
+        System.out.println("\033[0;1m" + "Date Of Journey: " + "\033[0;0m" + formattedDate);
+        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
+        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
+        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
     }
 
     // Display Bookings for Admin
-    public void displayBookings(String TicketID, String PassengerName, String PassengerIdNumber, int BusNumber, String FormattedDate, int TotalNumberOfSeats, String FromCity, String ToCity, double TotalAmount) {
-        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + TicketID);
-        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + PassengerName);
-        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + PassengerIdNumber);
-        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + BusNumber);
-        System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + FormattedDate);
-        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + TotalNumberOfSeats);
-        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + FromCity);
-        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + ToCity);
-        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
+    public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
+        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
+        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
+        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
+        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
+        System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + formattedDate);
+        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
+        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
+        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
+        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
         a.drawDoubleLine();
     }
 
     // Display Bill
-    public void displayBill(int TotalNumberOfSeats, double TicketAmount, double TaxPercentage, double TaxAmount, double TotalAmountPerTicket, double TotalAmount) {
+    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double totalAmount) {
         System.out.println("\033[0;1m" + "--------------------------------------------------- BILL --------------------------------------------------------" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + TotalNumberOfSeats);
-        System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + TicketAmount);
-        System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + TaxPercentage + "%");
-        System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + TaxAmount);
-        System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + TotalAmountPerTicket);
-        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + TotalAmount);
+        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
+        System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
+        System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");
+        System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + taxAmount);
+        System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + totalAmountPerTicket);
+        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
         a.drawDoubleLine();
     }
 }

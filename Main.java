@@ -7,23 +7,27 @@ public class Main {
         int selectedOption = 1;
         Scanner scanner = new Scanner(System.in);
         adminInfo.displayWelcomeMessage();
-        // Fetching the elements from array list
         adminInfo.displayBusList();
         // Loop for the Application
         while (selectedOption == 1 || selectedOption == 2) {
-            // Main Booking
             adminInfo.displayOptionsMessage();
             try {
                 selectedOption = Integer.parseInt(scanner.nextLine());
                 if (selectedOption < 1 || selectedOption > 3) {
                     throw new IllegalArgumentException();
                 }
-                if (selectedOption == 1) {
-                    adminInfo.startNewBooking();
-                } else if (selectedOption == 2) {
-                    adminInfo.adminOperations();
-                } else if (selectedOption == 3) {
-                    System.out.println("Quiting the application");
+                switch (selectedOption) {
+                    case 1:
+                        adminInfo.startNewBooking();
+                        break;
+                    case 2:
+                        adminInfo.adminOperations();
+                        break;
+                    case 3:
+                        System.out.println("Quiting the application");
+                        break;
+                    default:
+                        break;
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input, please try again!");

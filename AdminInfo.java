@@ -136,58 +136,71 @@ class AdminInfo implements DisplayInformation {
 
     // Add NewBus for admin panel
     public void addNewBus() {
-        System.out.println("Enter 1 to create a normal bus, enter any other number to create Luxury Bus");
-        int busType = scanner.nextInt();
-        if (busType == 1) { //To Add normal Bus
-            System.out.println("Enter the Bus Number");
-            busInfo.setBusNumber(scanner.nextInt());
-            System.out.println("Enter the Travel Origin");
-            busInfo.setFromCity(scanner.next());
-            System.out.println("Enter the Destination");
-            busInfo.setToCity(scanner.next());
-            System.out.println("Enter the capacity of the bus");
-            busInfo.setBusCapacity(scanner.nextInt());
-            System.out.println("Enter the Cost of the ticket");
-            busInfo.setCostOfTicket(scanner.nextDouble());
-            System.out.println("Enter the Approximate Time for Journey");
-            busInfo.setApproxJourneyHrs(scanner.nextInt());
-            int newBusNumber = busInfo.getBusNumber();
-            String newFromCity = busInfo.getFromCity();
-            String newToCity = busInfo.getToCity();
-            int newBusCapacity = busInfo.getBusCapacity();
-            double newCostOfTicket = busInfo.getCostOfTicket();
-            int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-            getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket, newApproxJourneyHrs));
-            // Displaying the list of buses after adding
-            drawLine();
-            displayBusList();
-        } else{ // To add Special bus
-            System.out.println("Enter the Bus Number");
-            busInfo.setBusNumber(scanner.nextInt());
-            System.out.println("Enter the Travel Origin");
-            busInfo.setFromCity(scanner.next());
-            System.out.println("Enter the Destination");
-            busInfo.setToCity(scanner.next());
-            System.out.println("Enter the capacity of the bus");
-            busInfo.setBusCapacity(scanner.nextInt());
-            System.out.println("Enter the Bus Facility");
-            specialBus.setBusFacility(scanner.next());
-            System.out.println("Enter the Cost of the ticket");
-            busInfo.setCostOfTicket(scanner.nextDouble());
-            System.out.println("Enter the Approximate Time for Journey");
-            busInfo.setApproxJourneyHrs(scanner.nextInt());
-            int newBusNumber = busInfo.getBusNumber();
-            String newFromCity = busInfo.getFromCity();
-            String newToCity = busInfo.getToCity();
-            int newBusCapacity = busInfo.getBusCapacity();
-            String newBusFacility = specialBus.getBusFacility();
-            double newCostOfTicket = busInfo.getCostOfTicket();
-            int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-            getBusList().add(new SpecialBusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket, newApproxJourneyHrs));
-            // Displaying the list of buses after adding
-            drawLine();
-            displayBusList();
-        }        
+        boolean isSucessful = false;
+        while (!isSucessful) {
+            try {
+                System.out.println("Enter 1: To create a normal bus. \nEnter 2: To create Luxury Bus");
+                int busType = Integer.parseInt(scanner.nextLine());
+                if (busType < 1 || busType > 2) {
+                    throw new IllegalArgumentException();
+                }
+                if (busType == 1) { // To Add normal Bus
+                    System.out.println("Enter the Bus Number");
+                    busInfo.setBusNumber(scanner.nextInt());
+                    System.out.println("Enter the Travel Origin");
+                    busInfo.setFromCity(scanner.next());
+                    System.out.println("Enter the Destination");
+                    busInfo.setToCity(scanner.next());
+                    System.out.println("Enter the capacity of the bus");
+                    busInfo.setBusCapacity(scanner.nextInt());
+                    System.out.println("Enter the Cost of the ticket");
+                    busInfo.setCostOfTicket(scanner.nextDouble());
+                    System.out.println("Enter the Approximate Time for Journey");
+                    busInfo.setApproxJourneyHrs(scanner.nextInt());
+                    int newBusNumber = busInfo.getBusNumber();
+                    String newFromCity = busInfo.getFromCity();
+                    String newToCity = busInfo.getToCity();
+                    int newBusCapacity = busInfo.getBusCapacity();
+                    double newCostOfTicket = busInfo.getCostOfTicket();
+                    int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+                    getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket,
+                            newApproxJourneyHrs));
+                    // Displaying the list of buses after adding
+                    drawLine();
+                    displayBusList();
+                } else if (busType == 2) { // To add Special bus
+                    System.out.println("Enter the Bus Number");
+                    busInfo.setBusNumber(scanner.nextInt());
+                    System.out.println("Enter the Travel Origin");
+                    busInfo.setFromCity(scanner.next());
+                    System.out.println("Enter the Destination");
+                    busInfo.setToCity(scanner.next());
+                    System.out.println("Enter the capacity of the bus");
+                    busInfo.setBusCapacity(scanner.nextInt());
+                    System.out.println("Enter the Bus Facility");
+                    specialBus.setBusFacility(scanner.next());
+                    System.out.println("Enter the Cost of the ticket");
+                    busInfo.setCostOfTicket(scanner.nextDouble());
+                    System.out.println("Enter the Approximate Time for Journey");
+                    busInfo.setApproxJourneyHrs(scanner.nextInt());
+                    int newBusNumber = busInfo.getBusNumber();
+                    String newFromCity = busInfo.getFromCity();
+                    String newToCity = busInfo.getToCity();
+                    int newBusCapacity = busInfo.getBusCapacity();
+                    String newBusFacility = specialBus.getBusFacility();
+                    double newCostOfTicket = busInfo.getCostOfTicket();
+                    int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+                    getBusList().add(new SpecialBusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity,
+                            newBusFacility, newCostOfTicket, newApproxJourneyHrs));
+                    // Displaying the list of buses after adding
+                    drawLine();
+                    displayBusList();
+                }
+                isSucessful = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input, please try again!");
+            }
+        } 
     }
 
     // Displaying the BusInfo along with index number
@@ -361,7 +374,7 @@ class AdminInfo implements DisplayInformation {
     }
 
     // Authentication for Admin PIN
-    public String ReadPINinConsole() {
+    public String readPinInConsole() {
         // Using console to read admin pin as invisible
         Console console = System.console();
         System.out.println("Entering into Admin Login...");
@@ -430,7 +443,7 @@ class AdminInfo implements DisplayInformation {
     public void adminOperations() {
         String adminKey = getAdminKey();
         // Using console to read admin pin as invisible
-        String pinNum = ReadPINinConsole();
+        String pinNum = readPinInConsole();
         // Checking if the pin is correct
         if (adminKey.equals(pinNum) == true) {
             System.out.println("The key is correct...Redirecting to Admin portal");
@@ -483,9 +496,9 @@ class AdminInfo implements DisplayInformation {
                         } // Adding passenger to the reserved list
                         getPassengerList().add(ticketForPassenger);
                         // Mapping the ticket details
-                        ticketForPassenger.MapAndDisplayTicketDetails();
+                        ticketForPassenger.mapAndDisplayTicketDetails();
                         // Mapping the details for bill
-                        ticketForPassenger.MapAndDisplayBillDetails();
+                        ticketForPassenger.mapAndDisplayBillDetails();
                     } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
                         System.out.println("Redirecting...");
                     }
