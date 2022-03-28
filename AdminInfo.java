@@ -226,120 +226,133 @@ class AdminInfo implements DisplayInformation {
 
     // EditBus for admin panel
     public void editBus() {
-        System.out.println("Editing the Bus...");
-        System.out.println("Enter 1: To edit Luxury Bus \nEnter any other number: To edit Normal Bus");
-        int editBusOption = scanner.nextInt();
-        if (editBusOption == 1) {
-            filterSpecialBusList(getPassengerList(), getBusList());
-            displaySpecialBusWithIndex();
-            // Getting the index number that has to be updated from user
-            System.out.println("Enter the Index number of the bus to be updated: ");
-            int busToBeUpdated = scanner.nextInt();
-            // Asking for the field that has to be updated
-            drawLine();
-            System.out.println("Select the option of the field which has to be updated: ");
-            System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \n7.Approx Journey Hours \nEnter any other number to quit");
-            int optionToBeUpdated = scanner.nextInt();
-            switch (optionToBeUpdated) {
-                case 1:
-                    System.out.println("Enter the new Bus Number that has to be updated: ");
-                    busInfo.setBusNumber(scanner.nextInt());
-                    int updatedBusNumber = busInfo.getBusNumber();
-                    getBusList().get(busToBeUpdated).setBusNumber(updatedBusNumber);
-                    break;
-                case 2:
-                    System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                    busInfo.setFromCity(scanner.next());
-                    String updatedFromCity = busInfo.getFromCity();
-                    getBusList().get(busToBeUpdated).setFromCity(updatedFromCity);
-                    break;
-                case 3:
-                    System.out.println("Enter the new Bus Destination that has to be updated: ");
-                    busInfo.setToCity(scanner.next());
-                    String updatedToCity = busInfo.getToCity();
-                    getBusList().get(busToBeUpdated).setToCity(updatedToCity);
-                    break;
-                case 4:
-                    System.out.println("Enter the new Capacity that has to be updated: ");
-                    busInfo.setBusCapacity(scanner.nextInt());
-                    int updatedBusCapacity = busInfo.getBusCapacity();
-                    getBusList().get(busToBeUpdated).setBusCapacity(updatedBusCapacity);
-                    break;
-                case 5:
-                    System.out.println("Enter the new Bus Facility that has to be updated: ");
-                    specialBus.setBusFacility(scanner.next());
-                    String updatedBusFacility = specialBus.getBusFacility();
-                    ((SpecialBusInfo) getBusList().get(busToBeUpdated)).setBusFacility(updatedBusFacility);
-                    break;
-                case 6:
-                    System.out.println("Enter the new Cost that has to be updated: ");
-                    busInfo.setCostOfTicket(scanner.nextInt());
-                    double updatedBusTicketCost = busInfo.getCostOfTicket();
-                    getBusList().get(busToBeUpdated).setCostOfTicket(updatedBusTicketCost);
-                    break;
-                case 7:
-                    System.out.println("Enter the new approximate journey in hrs: ");
-                    busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    int updatedApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().get(busToBeUpdated).setApproxJourneyHrs(updatedApproxJourneyHrs);
-                    break;
-                default:
-                    System.out.println("Getting out from admin panel");
-                    break;
+        boolean isSucessful = false;
+        while (!isSucessful) {
+            try {
+                System.out.println("Editing the Bus...");
+                System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
+                int editBusOption = Integer.parseInt(scanner.nextLine());
+                if (editBusOption < 1 || editBusOption > 2) {
+                    throw new IllegalArgumentException();
+                }
+                if (editBusOption == 1) {
+                    filterSpecialBusList(getPassengerList(), getBusList());
+                    displaySpecialBusWithIndex();
+                    // Getting the index number that has to be updated from user
+                    System.out.println("Enter the Index number of the bus to be updated: ");
+                    int busToBeUpdated = scanner.nextInt();
+                    // Asking for the field that has to be updated
+                    drawLine();
+                    System.out.println("Select the option of the field which has to be updated: ");
+                    System.out.println(
+                            "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \n7.Approx Journey Hours \nEnter any other number to quit");
+                    int optionToBeUpdated = scanner.nextInt();
+                    switch (optionToBeUpdated) {
+                        case 1:
+                            System.out.println("Enter the new Bus Number that has to be updated: ");
+                            busInfo.setBusNumber(scanner.nextInt());
+                            int updatedBusNumber = busInfo.getBusNumber();
+                            getBusList().get(busToBeUpdated).setBusNumber(updatedBusNumber);
+                            break;
+                        case 2:
+                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
+                            busInfo.setFromCity(scanner.next());
+                            String updatedFromCity = busInfo.getFromCity();
+                            getBusList().get(busToBeUpdated).setFromCity(updatedFromCity);
+                            break;
+                        case 3:
+                            System.out.println("Enter the new Bus Destination that has to be updated: ");
+                            busInfo.setToCity(scanner.next());
+                            String updatedToCity = busInfo.getToCity();
+                            getBusList().get(busToBeUpdated).setToCity(updatedToCity);
+                            break;
+                        case 4:
+                            System.out.println("Enter the new Capacity that has to be updated: ");
+                            busInfo.setBusCapacity(scanner.nextInt());
+                            int updatedBusCapacity = busInfo.getBusCapacity();
+                            getBusList().get(busToBeUpdated).setBusCapacity(updatedBusCapacity);
+                            break;
+                        case 5:
+                            System.out.println("Enter the new Bus Facility that has to be updated: ");
+                            specialBus.setBusFacility(scanner.next());
+                            String updatedBusFacility = specialBus.getBusFacility();
+                            ((SpecialBusInfo) getBusList().get(busToBeUpdated)).setBusFacility(updatedBusFacility);
+                            break;
+                        case 6:
+                            System.out.println("Enter the new Cost that has to be updated: ");
+                            busInfo.setCostOfTicket(scanner.nextInt());
+                            double updatedBusTicketCost = busInfo.getCostOfTicket();
+                            getBusList().get(busToBeUpdated).setCostOfTicket(updatedBusTicketCost);
+                            break;
+                        case 7:
+                            System.out.println("Enter the new approximate journey in hrs: ");
+                            busInfo.setApproxJourneyHrs(scanner.nextInt());
+                            int updatedApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(updatedApproxJourneyHrs);
+                            break;
+                        default:
+                            System.out.println("Getting out from admin panel");
+                            break;
+                    }
+                    displayBusList();
+                } else if (editBusOption == 2) {
+                    displayBusWithIndex();
+                    // Getting the index number that has to be updated from user
+                    System.out.println("Enter the Index number of the bus to be updated: ");
+                    int busToBeUpdated = scanner.nextInt();
+                    // Asking for the field that has to be updated
+                    drawLine();
+                    System.out.println("Select the option of the field which has to be updated: ");
+                    System.out.println(
+                            "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
+                    int optionToBeUpdated = scanner.nextInt();
+                    switch (optionToBeUpdated) {
+                        case 1:
+                            System.out.println("Enter the new Bus Number that has to be updated: ");
+                            busInfo.setBusNumber(scanner.nextInt());
+                            int updatedBusNumber = busInfo.getBusNumber();
+                            getBusList().get(busToBeUpdated).setBusNumber(updatedBusNumber);
+                            break;
+                        case 2:
+                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
+                            busInfo.setFromCity(scanner.next());
+                            String updatedFromCity = busInfo.getFromCity();
+                            getBusList().get(busToBeUpdated).setFromCity(updatedFromCity);
+                            break;
+                        case 3:
+                            System.out.println("Enter the new Bus Destination that has to be updated: ");
+                            busInfo.setToCity(scanner.next());
+                            String updatedToCity = busInfo.getToCity();
+                            getBusList().get(busToBeUpdated).setToCity(updatedToCity);
+                            break;
+                        case 4:
+                            System.out.println("Enter the new Capacity that has to be updated: ");
+                            busInfo.setBusCapacity(scanner.nextInt());
+                            int updatedBusCapacity = busInfo.getBusCapacity();
+                            getBusList().get(busToBeUpdated).setBusCapacity(updatedBusCapacity);
+                            break;
+                        case 5:
+                            System.out.println("Enter the new Cost that has to be updated: ");
+                            busInfo.setCostOfTicket(scanner.nextInt());
+                            double updatedBusTicketCost = busInfo.getCostOfTicket();
+                            getBusList().get(busToBeUpdated).setCostOfTicket(updatedBusTicketCost);
+                            break;
+                        case 6:
+                            System.out.println("Enter the new approximate journey in hrs: ");
+                            busInfo.setApproxJourneyHrs(scanner.nextInt());
+                            int updatedApproxJourneyHrs = busInfo.getApproxJourneyHrs();
+                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(updatedApproxJourneyHrs);
+                            break;
+                        default:
+                            System.out.println("Getting out from admin panel");
+                            break;
+                    }
+                    displayBusList();
+                }
+                isSucessful = true;
+            } catch (Exception e) {
+                System.out.println("Invalid input, please try again!");
             }
-            displayBusList();
-        } else {
-            displayBusWithIndex();
-            // Getting the index number that has to be updated from user
-            System.out.println("Enter the Index number of the bus to be updated: ");
-            int busToBeUpdated = scanner.nextInt();
-            // Asking for the field that has to be updated
-            drawLine();
-            System.out.println("Select the option of the field which has to be updated: ");
-            System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
-            int optionToBeUpdated = scanner.nextInt();
-            switch (optionToBeUpdated) {
-                case 1:
-                    System.out.println("Enter the new Bus Number that has to be updated: ");
-                    busInfo.setBusNumber(scanner.nextInt());
-                    int updatedBusNumber = busInfo.getBusNumber();
-                    getBusList().get(busToBeUpdated).setBusNumber(updatedBusNumber);
-                    break;
-                case 2:
-                    System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                    busInfo.setFromCity(scanner.next());
-                    String updatedFromCity = busInfo.getFromCity();
-                    getBusList().get(busToBeUpdated).setFromCity(updatedFromCity);
-                    break;
-                case 3:
-                    System.out.println("Enter the new Bus Destination that has to be updated: ");
-                    busInfo.setToCity(scanner.next());
-                    String updatedToCity = busInfo.getToCity();
-                    getBusList().get(busToBeUpdated).setToCity(updatedToCity);
-                    break;
-                case 4:
-                    System.out.println("Enter the new Capacity that has to be updated: ");
-                    busInfo.setBusCapacity(scanner.nextInt());
-                    int updatedBusCapacity = busInfo.getBusCapacity();
-                    getBusList().get(busToBeUpdated).setBusCapacity(updatedBusCapacity);
-                    break;
-                case 5:
-                    System.out.println("Enter the new Cost that has to be updated: ");
-                    busInfo.setCostOfTicket(scanner.nextInt());
-                    double updatedBusTicketCost = busInfo.getCostOfTicket();
-                    getBusList().get(busToBeUpdated).setCostOfTicket(updatedBusTicketCost);
-                    break;
-                case 6:
-                    System.out.println("Enter the new approximate journey in hrs: ");
-                    busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    int updatedApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().get(busToBeUpdated).setApproxJourneyHrs(updatedApproxJourneyHrs);
-                    break;
-                default:
-                    System.out.println("Getting out from admin panel");
-                    break;
-            }
-            displayBusList();
         }
     }
 
