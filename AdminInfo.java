@@ -351,7 +351,8 @@ class AdminInfo implements DisplayInformation {
                     // Asking for the field that has to be updated
                     drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
+                    System.out.println(
+                            "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
                     int optionToBeUpdated = scanner.nextInt();
                     switch (optionToBeUpdated) {
                         case 1:
@@ -512,17 +513,19 @@ class AdminInfo implements DisplayInformation {
                     } catch (IOException e) {
                         System.out.println("Invalid input");
                     }
+                    break;
                 case 8:
                     try {
                         setAvailableAgencies();
                     } catch (IOException e) {
                         System.out.println("Invalid input");
                     }
+                    break;
                 case 9:
                     System.out.println("Logging out from admin portal...!");
                     break;
                 default:
-                    System.out.println("Enter 1 to 7");
+                    System.out.println("Enter 1 to 9");
                     break;
             }
         } catch (IllegalArgumentException e) {
@@ -589,10 +592,8 @@ class AdminInfo implements DisplayInformation {
                                 ticketForPassenger.getSeatsRequired();
                             } // Adding passenger to the reserved list
                             getPassengerList().add(ticketForPassenger);
-                            // Mapping the ticket details
-                            ticketForPassenger.mapAndDisplayTicketDetails();
-                            // Mapping the details for bill
-                            ticketForPassenger.mapAndDisplayBillDetails();
+                            // Coupon code and billing
+                            ticketForPassenger.checkForCouponCode();
                         } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
                             System.out.println("Redirecting...");
                         }

@@ -346,6 +346,33 @@ class PassengerInfo {
         return ticketPriceWithTax;
     }
 
+    // Get coupon code from user
+    public void checkForCouponCode() {
+        System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m"
+                + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
+        int selectedOption = scanner.nextInt();
+        if (selectedOption == 1) {
+            getCouponCodeFromUser();
+        } else {
+            System.out.println("Redirecting to the bill...");
+            mapAndDisplayTicketDetails();
+            mapAndDisplayBillDetails();
+        }
+    }
+
+    public void getCouponCodeFromUser() {
+        System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
+        String userCode = scanner.next();
+        if (ticketInfo.getCouponCode().equals(userCode)) {
+            System.out.println("The coupon code is valid, discount will be made on the total bill.");
+            mapAndDisplayTicketDetails();
+            mapAndDisplayBillDetails(ticketInfo.getDiscountPercentage());
+        } else {
+            System.out.println("The code is invalid so no discount will be made.");
+            mapAndDisplayTicketDetails();
+            mapAndDisplayBillDetails();
+        }
+    }
     // Map Ticket Bookings
     public void mapAndDisplayTicketDetails() {
         String generatedTicketID = generateTicketID();
@@ -373,6 +400,21 @@ class PassengerInfo {
         double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList());
         // Displaying the cost of ticket after tax calculation
         displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, totalAmount);
+    }
+
+    // Map Bill Details
+    public void mapAndDisplayBillDetails(double discoutPercentage) {
+        int totalNumberOfSeats = ticketInfo.getTotalNumberOfSeats();
+        double ticketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
+        double taxPercentage = PassengerInfo.taxPercentage * 100;
+        double taxAmount = getTaxOfTicket(a.getPassengerList(), a.getBusList());
+        double totalAmountPerTicket = getTotalCostOfTicket(a.getPassengerList(), a.getBusList());
+        double discountInPercent = discoutPercentage * 100;
+        double discountedAmount = getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage;
+        double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList()) - discountedAmount;
+        // Displaying the cost of ticket after tax calculation
+        displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, discountInPercent,
+                discountedAmount, totalAmount);
     }
 
     // Display Ticket
@@ -414,6 +456,22 @@ class PassengerInfo {
         System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");
         System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + taxAmount);
         System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + totalAmountPerTicket);
+        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
+        a.drawDoubleLine();
+    }
+
+    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount,
+            double totalAmountPerTicket, double discountInPercent, double discountedAmount, double totalAmount) {
+        System.out.println("\033[0;1m"
+                + "------------------------------------------------------------------------- BILL -------------------------------------------------------------------------"
+                + "\033[0;0m");
+        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
+        System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
+        System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");
+        System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + taxAmount);
+        System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + totalAmountPerTicket);
+        System.out.println("\033[0;1m" + "The Discount Percentage is: " + "\033[0;0m" + discountInPercent + "%");
+        System.out.println("\033[0;1m" + "The Discounted amount is: " + "\033[0;0m" + "₹" + discountedAmount);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
         a.drawDoubleLine();
     }
