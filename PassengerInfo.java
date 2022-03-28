@@ -47,7 +47,7 @@ class PassengerInfo {
     public void setPassengerIdNumber(String passengerIdNumber) {
         this.passengerIdNumber = passengerIdNumber;
     }
-    
+
     TicketInfo ticketInfo = new TicketInfo();
 
     public String generateTicketID() {
@@ -63,6 +63,11 @@ class PassengerInfo {
         ticketInfo.setToCity(scanner.next());
     }
 
+    public void getAgencyNameFromUser() {
+        System.out.println("\033[0;1m" + "Enter the travel agency name" + "\033[0;0m");
+        ticketInfo.setAgencyName(scanner.next());
+    }
+
     public void getBusNumberFromUser() {
         try {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
@@ -70,7 +75,6 @@ class PassengerInfo {
             ticketInfo.setBusNumber(newBusNumber);
         } catch (InputMismatchException e) {
             System.out.println("Invalid, try again!");
-
         }
     }
 
@@ -120,17 +124,34 @@ class PassengerInfo {
     }
 
     AdminInfo a = new AdminInfo();
+
     // Filtering
-    public void filterBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    public void filterFromToBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
             if (bus.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
-                a.getFilteredBusList().add(bus);
+                a.getFromToFilteredBusList().add(bus);
             }
         }
     }
 
-    public void displayFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : a.getFilteredBusList()) {
+    public void displayFromToFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        for (BusInfo bus : a.getFromToFilteredBusList()) {
+            a.drawDoubleLine();
+            bus.displayInfo();
+        }
+        a.drawLine();
+    }
+
+    public void filterAgencyBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        for (BusInfo bus : a.getFromToFilteredBusList()) {
+            if (bus.getAgencyName().equalsIgnoreCase(ticketInfo.getAgencyName())) {
+                a.getAgencyFilteredBusList().add(bus);
+            }
+        }
+    }
+
+    public void displayAgencyFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        for (BusInfo bus : a.getAgencyFilteredBusList()) {
             a.drawDoubleLine();
             bus.displayInfo();
         }
@@ -138,8 +159,8 @@ class PassengerInfo {
     }
 
     public void displayJourneyHrsSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getFilteredBusList(), new JourneyComparator());
-        for (BusInfo bus : a.getFilteredBusList()) {
+        Collections.sort(a.getAgencyFilteredBusList(), new JourneyComparator());
+        for (BusInfo bus : a.getAgencyFilteredBusList()) {
             a.drawDoubleLine();
             bus.displayInfo();
         }
@@ -147,8 +168,8 @@ class PassengerInfo {
     }
 
     public void displayTicketCostSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getFilteredBusList(), new CostComparator());
-        for (BusInfo bus : a.getFilteredBusList()) {
+        Collections.sort(a.getAgencyFilteredBusList(), new CostComparator());
+        for (BusInfo bus : a.getAgencyFilteredBusList()) {
             a.drawDoubleLine();
             bus.displayInfo();
         }
@@ -156,8 +177,8 @@ class PassengerInfo {
     }
 
     public void displayBusNumberSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getFilteredBusList(), new BusNumberComparator());
-        for (BusInfo bus : a.getFilteredBusList()) {
+        Collections.sort(a.getAgencyFilteredBusList(), new BusNumberComparator());
+        for (BusInfo bus : a.getAgencyFilteredBusList()) {
             a.drawDoubleLine();
             bus.displayInfo();
         }
@@ -193,12 +214,19 @@ class PassengerInfo {
                 System.out.println("Invalid input, please try again!");
                 sortOption = 1;
             }
-            
+
         }
     }
 
-    public boolean isFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (a.getFilteredBusList().isEmpty()) {
+    public boolean isFromToFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        if (a.getFromToFilteredBusList().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAgencyFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        if (a.getAgencyFilteredBusList().isEmpty()) {
             return true;
         }
         return false;
@@ -213,7 +241,8 @@ class PassengerInfo {
             }
         }
         for (PassengerInfo p : passengerList) {
-            if (p.ticketInfo.getBusNumber() == ticketInfo.getBusNumber() && p.ticketInfo.getDateOfJourney().equals(ticketInfo.getDateOfJourney())) {
+            if (p.ticketInfo.getBusNumber() == ticketInfo.getBusNumber()
+                    && p.ticketInfo.getDateOfJourney().equals(ticketInfo.getDateOfJourney())) {
                 availableSeats = availableSeats - p.ticketInfo.getTotalNumberOfSeats();
             }
         }
@@ -326,11 +355,12 @@ class PassengerInfo {
         Date dateOfJourney = ticketInfo.getDateOfJourney();
         DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = dateFormatter.format(dateOfJourney);
+        String agencyName = ticketInfo.getAgencyName();
         int busNumber = ticketInfo.getBusNumber();
         String fromCity = getFromCity(a.getPassengerList(), a.getBusList());
         String toCity = getToCity(a.getPassengerList(), a.getBusList());
         // Displaying Ticket
-        displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, busNumber, fromCity, toCity);
+        displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, agencyName, busNumber, fromCity, toCity);
     }
 
     // Map Bill Details
@@ -346,25 +376,27 @@ class PassengerInfo {
     }
 
     // Display Ticket
-    public void displayTicket(String ticketID, String passengerName, String passengerIdNumber, String formattedDate, int busNumber, String fromCity, String toCity) {
+    public void displayTicket(String ticketID, String passengerName, String passengerIdNumber, String formattedDate, String agencyName, int busNumber, String fromCity, String toCity) {
         a.drawDoubleLine();
-        System.out.println( "================================================== TICKET =======================================================");
+        System.out.println("======================================================================== TICKET ========================================================================");
         a.drawDoubleLine();
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
         System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
         System.out.println("\033[0;1m" + "Date Of Journey: " + "\033[0;0m" + formattedDate);
+        System.out.println("\033[0;1m" + "Agency Name: " + "\033[0;0m" + agencyName);
         System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
         System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
         System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
     }
 
     // Display Bookings for Admin
-    public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
+    public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, String agencyName, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
         System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
+        System.out.println("\033[0;1m" + "Agency Name: " + "\033[0;0m" + agencyName);
         System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
         System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + formattedDate);
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
@@ -376,7 +408,7 @@ class PassengerInfo {
 
     // Display Bill
     public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double totalAmount) {
-        System.out.println("\033[0;1m" + "--------------------------------------------------- BILL --------------------------------------------------------" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "------------------------------------------------------------------------- BILL -------------------------------------------------------------------------" + "\033[0;0m");
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
         System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");

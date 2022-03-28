@@ -6,6 +6,7 @@ interface DisplayInformation {
 
 class BusInfo implements DisplayInformation {
     private int busNumber;
+    private String agencyName;
     private String fromCity;
     private String toCity;
     private int busCapacity;
@@ -19,6 +20,14 @@ class BusInfo implements DisplayInformation {
 
     public void setBusNumber(int busNumber) {
         this.busNumber = busNumber;
+    }
+
+    public String getAgencyName() {
+        return agencyName;
+    }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
     }
 
     public String getFromCity() {
@@ -63,12 +72,13 @@ class BusInfo implements DisplayInformation {
 
     @Override // Display Method
     public void displayInfo() {
-        System.out.println("Bus Number:" + busNumber + " | From: " + fromCity + " | To: " + toCity + " | Total Seats:" + busCapacity + " | Ticket Cost:" + costOfTicket + " | Approx Journey Time:" + approxJourneyHrs + "hrs");
+        System.out.println("Bus Number:" + busNumber + " | Agency:" + agencyName + " | From: " + fromCity + " | To: " + toCity + " | Total Seats:" + busCapacity + " | Ticket Cost:" + costOfTicket + " | Approx Journey Time:" + approxJourneyHrs + "hrs");
     }
 
     // Constructor to create new Bus
-    BusInfo(int busNumber, String fromCity, String toCity, int busCapacity, double costOfTicket, int approxJourneyHrs) {
+    BusInfo(int busNumber, String agencyName, String fromCity, String toCity, int busCapacity, double costOfTicket, int approxJourneyHrs) {
         this.busNumber = busNumber;
+        this.agencyName = agencyName;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.busCapacity = busCapacity;
@@ -78,6 +88,7 @@ class BusInfo implements DisplayInformation {
 
     BusInfo() {
         this.busNumber = getBusNumber();
+        this.agencyName = getAgencyName();
         this.fromCity = getFromCity();
         this.toCity = getToCity();
         this.busCapacity = getBusCapacity();

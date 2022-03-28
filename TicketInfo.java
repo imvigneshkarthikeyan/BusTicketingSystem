@@ -3,6 +3,7 @@ import java.util.Date;
 class TicketInfo {
     private Date dateOfJourney;
     private int totalNumberOfSeats;
+    private String agencyName;
     private String fromCity;
     private String toCity;
     private int busNumber;
@@ -30,6 +31,14 @@ class TicketInfo {
 
     public void setTotalNumberOfSeats(int totalNumberOfSeats) {
         this.totalNumberOfSeats = totalNumberOfSeats;
+    }
+
+    public String getAgencyName() {
+        return agencyName;
+    }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
     }
 
     public String getFromCity() {

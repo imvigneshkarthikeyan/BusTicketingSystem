@@ -26,28 +26,62 @@ class AdminInfo implements DisplayInformation {
         return busOperatingCities;
     }
 
+    private String availableAgencies = "TravelSoon, ReachNow, ABCT";
+
+    public void setAvailableAgencies(String availableAgencies) {
+        this.availableAgencies = availableAgencies;
+    }
+
+    public String getAvailableAgencies() {
+        return availableAgencies;
+    }
+
     // ArrayList for Buses
     private ArrayList<BusInfo> busList = new ArrayList<BusInfo>() {
         // Adding the default buses into ArrayList
         {
-            add(new SpecialBusInfo(1001, "Chennai", "Thanjavur", 20, "AC", 750, 2));
-            add(new BusInfo(3313, "Chennai", "Thanjavur", 40, 350, 3));
-            add(new SpecialBusInfo(3132, "Chennai", "Thanjavur", 30, "Sleeper", 600, 4));
-            add(new SpecialBusInfo(1010, "Thanjavur", "Chennai", 20, "AC", 750, 4));
-            add(new SpecialBusInfo(3123, "Thanjavur", "Chennai", 30, "Sleeper", 600, 3));
-            add(new BusInfo(3331, "Thanjavur", "Chennai", 40, 350, 6));
-            add(new SpecialBusInfo(1052, "Chennai", "Trichy", 40, "Semi-Sleeper", 400, 4));
-            add(new SpecialBusInfo(1053, "Chennai", "Trichy", 30, "Sleeper", 550, 3));
-            add(new BusInfo(1054, "Chennai", "Trichy", 20, 750, 5));
-            add(new BusInfo(1025, "Trichy", "Chennai", 40, 400, 5));
-            add(new SpecialBusInfo(1035, "Trichy", "Chennai", 30, "Sleeper", 550, 5));
-            add(new SpecialBusInfo(1045, "Trichy", "Chennai", 20, "AC", 750, 3));
-            add(new SpecialBusInfo(2134, "Trichy", "Thanjavur", 30, "Sleeper", 550, 1));
-            add(new SpecialBusInfo(2135, "Trichy", "Thanjavur", 20, "AC", 600, 2));
-            add(new BusInfo(2136, "Trichy", "Thanjavur", 40, 350, 2));
-            add(new SpecialBusInfo(2143, "Thanjavur", "Trichy", 30, "Sleeper", 550, 3));
-            add(new SpecialBusInfo(2153, "Thanjavur", "Trichy", 20, "AC", 600, 4));
-            add(new BusInfo(2163, "Thanjavur", "Trichy", 40, 350, 1));
+            add(new SpecialBusInfo(1001, "TravelSoon", "Chennai", "Thanjavur", 20, "AC", 750, 2));
+            add(new SpecialBusInfo(1002, "TravelSoon", "Chennai", "Thanjavur", 30, "Sleeper", 600, 3));
+            add(new BusInfo(1003, "TravelSoon", "Chennai", "Thanjavur", 40, 400, 2));
+            add(new BusInfo(3313, "ReachNow", "Chennai", "Thanjavur", 30, 200, 4));
+            add(new BusInfo(3314, "ReachNow", "Chennai", "Thanjavur", 40, 350, 3));
+            add(new SpecialBusInfo(3315, "ReachNow", "Chennai", "Thanjavur", 50, "AC", 1750, 1));
+            add(new SpecialBusInfo(4132, "ABCT", "Chennai", "Thanjavur", 25, "AC", 700, 5));
+            add(new BusInfo(4314, "ABCT", "Chennai", "Thanjavur", 40, 350, 3));
+            add(new SpecialBusInfo(4133, "ABCT", "Chennai", "Thanjavur", 30, "Sleeper", 500, 4));
+            add(new SpecialBusInfo(1010, "ReachNow", "Thanjavur", "Chennai", 30, "AC", 750, 4));
+            add(new SpecialBusInfo(2010, "ReachNow", "Thanjavur", "Chennai", 10, "Sleeper", 500, 2));
+            add(new BusInfo(3010, "ReachNow", "Thanjavur", "Chennai", 20, 350, 3));
+            add(new SpecialBusInfo(3123, "TravelSoon", "Thanjavur", "Chennai", 30, "Sleeper", 600, 3));
+            add(new SpecialBusInfo(6123, "TravelSoon", "Thanjavur", "Chennai", 35, "AC", 700, 4));
+            add(new BusInfo(3712, "TravelSoon", "Thanjavur", "Chennai", 40, 300, 2));
+            add(new BusInfo(5630, "ABCT", "Thanjavur", "Chennai", 20, 150, 6));
+            add(new BusInfo(5612, "ABCT", "Thanjavur", "Chennai", 40, 350, 3));
+            add(new SpecialBusInfo(5553, "ABCT", "Thanjavur", "Chennai", 35, "AC", 700, 4));
+            add(new SpecialBusInfo(6312, "ReachNow", "Chennai", "Trichy", 40, "Semi-Sleeper", 400, 4));
+            add(new BusInfo(6054, "ReachNow", "Chennai", "Trichy", 20, 750, 3));
+            add(new SpecialBusInfo(6053, "TravelSoon", "Chennai", "Trichy", 30, "Sleeper", 550, 3));
+            add(new BusInfo(6063, "TravelSoon", "Chennai", "Trichy", 30, 450, 4));
+            add(new BusInfo(6073, "ABCT", "Chennai", "Trichy", 20, 750, 5));
+            add(new SpecialBusInfo(6083, "ABCT", "Chennai", "Trichy", 30, "Sleeper", 550, 3));
+            add(new BusInfo(1025, "ABCT", "Trichy", "Chennai", 40, 400, 5));
+            add(new SpecialBusInfo(6093, "ABCT", "Trichy", "Chennai", 30, "Sleeper", 550, 3));
+            add(new SpecialBusInfo(1035, "ReachNow", "Trichy", "Chennai", 30, "Sleeper", 550, 4));
+            add(new BusInfo(1075, "ReachNow", "Trichy", "Chennai", 40, 400, 5));
+            add(new SpecialBusInfo(1045, "TravelSoon", "Trichy", "Chennai", 20, "AC", 750, 5));
+            add(new BusInfo(1046, "TravelSoon", "Trichy", "Chennai", 40, 400, 3));
+            add(new SpecialBusInfo(2134, "ABCT", "Trichy", "Thanjavur", 30, "Sleeper", 550, 1));
+            add(new SpecialBusInfo(2234, "ABCT", "Trichy", "Thanjavur", 30, "AC", 450, 2));
+            add(new SpecialBusInfo(2135, "TravelSoon", "Trichy", "Thanjavur", 20, "AC", 600, 2));
+            add(new BusInfo(2136, "TravelSoon", "Trichy", "Thanjavur", 40, 350, 3));
+            add(new BusInfo(2236, "ReachNow", "Trichy", "Thanjavur", 40, 350, 2));
+            add(new SpecialBusInfo(2336, "ReachNow", "Trichy", "Thanjavur", 20, "AC", 600, 1));
+            add(new SpecialBusInfo(2143, "TravelSoon", "Thanjavur", "Trichy", 30, "Sleeper", 550, 3));
+            add(new SpecialBusInfo(3143, "TravelSoon", "Thanjavur", "Trichy", 50, "AC", 750, 1));
+            add(new SpecialBusInfo(2153, "ABCT", "Thanjavur", "Trichy", 20, "AC", 600, 4));
+            add(new SpecialBusInfo(3153, "ABCT", "Thanjavur", "Trichy", 30, "Semi-Sleeper", 550, 3));
+            add(new BusInfo(2163, "ReachNow", "Thanjavur", "Trichy", 40, 350, 1));
+            add(new SpecialBusInfo(5143, "ReachNow", "Thanjavur", "Trichy", 30, "Sleeper", 450, 2));
         }
     };
 
@@ -59,15 +93,26 @@ class AdminInfo implements DisplayInformation {
         this.busList = busList;
     }
 
-    // ArrayList for filteredbusList
-    private ArrayList<BusInfo> filteredBusList = new ArrayList<>();
+    // ArrayList for filteredbusList based on from & to from user
+    private ArrayList<BusInfo> fromToFilteredBusList = new ArrayList<>();
 
-    public ArrayList<BusInfo> getFilteredBusList() {
-        return filteredBusList;
+    public ArrayList<BusInfo> getFromToFilteredBusList() {
+        return fromToFilteredBusList;
     }
 
-    public void setFilteredBusList(ArrayList<BusInfo> filteredBusList) {
-        this.filteredBusList = filteredBusList;
+    public void setFromToFilteredBusList(ArrayList<BusInfo> fromToFilteredBusList) {
+        this.fromToFilteredBusList = fromToFilteredBusList;
+    }
+
+    // ArrayList for filteredBusList based on agency name
+    private ArrayList<BusInfo> agencyFilteredBusList = new ArrayList<>();
+
+    public ArrayList<BusInfo> getAgencyFilteredBusList() {
+        return agencyFilteredBusList;
+    }
+
+    public void setAgencyFilteredBusList(ArrayList<BusInfo> agencyFilteredBusList) {
+        this.agencyFilteredBusList = agencyFilteredBusList;
     }
 
     // ArrayList for Passenger List
@@ -81,7 +126,7 @@ class AdminInfo implements DisplayInformation {
         this.passengerList = passengerList;
     }
 
-    //FilterList For Special Bus
+    // FilterList For Special Bus
     private ArrayList<BusInfo> filteredSpecialBusList = new ArrayList<>();
 
     public ArrayList<BusInfo> getFilteredSpecialBusList() {
@@ -92,28 +137,28 @@ class AdminInfo implements DisplayInformation {
         this.filteredSpecialBusList = filteredSpecialBusList;
     }
 
-    //Filtering Special Bus
+    // Filtering Special Bus
     public void filterSpecialBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : getBusList()) {
-            if (bus instanceof SpecialBusInfo){
+            if (bus instanceof SpecialBusInfo) {
                 getFilteredSpecialBusList().add(bus);
             }
         }
     }
 
     public void drawDoubleLine() {
-        System.out.println("\033[0;1m" + "=================================================================================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "=========================================================================================================================================================" + "\033[0;0m");
     }
 
     public void drawLine() {
-        System.out.println("\033[0;1m" + "-----------------------------------------------------------------------------------------------------------------" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "---------------------------------------------------------------------------------------------------------------------------------------------------------" + "\033[0;0m");
     }
 
     // Welcome message
     public void displayWelcomeMessage() {
         drawDoubleLine();
-        System.out.println("\033[0;1m" + "======================================== Welcome to Bus Ticketing System ========================================" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "======================================== Total Buses are displayed below ========================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "============================================================ Welcome to Bus Ticketing System ============================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "============================================================ Total Buses are displayed below ============================================================" + "\033[0;0m");
         drawDoubleLine();
     }
 
@@ -147,6 +192,8 @@ class AdminInfo implements DisplayInformation {
                 if (busType == 1) { // To Add normal Bus
                     System.out.println("Enter the Bus Number");
                     busInfo.setBusNumber(scanner.nextInt());
+                    System.out.println("Enter the Agency Name");
+                    busInfo.setAgencyName(scanner.next());
                     System.out.println("Enter the Travel Origin");
                     busInfo.setFromCity(scanner.next());
                     System.out.println("Enter the Destination");
@@ -158,19 +205,21 @@ class AdminInfo implements DisplayInformation {
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
                     int newBusNumber = busInfo.getBusNumber();
+                    String newAgencyName = busInfo.getAgencyName();
                     String newFromCity = busInfo.getFromCity();
                     String newToCity = busInfo.getToCity();
                     int newBusCapacity = busInfo.getBusCapacity();
                     double newCostOfTicket = busInfo.getCostOfTicket();
                     int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().add(new BusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity, newCostOfTicket,
-                            newApproxJourneyHrs));
+                    getBusList().add(new BusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newCostOfTicket, newApproxJourneyHrs));
                     // Displaying the list of buses after adding
                     drawLine();
                     displayBusList();
                 } else if (busType == 2) { // To add Special bus
                     System.out.println("Enter the Bus Number");
                     busInfo.setBusNumber(scanner.nextInt());
+                    System.out.println("Enter the Agency Name");
+                    busInfo.setAgencyName(scanner.next());
                     System.out.println("Enter the Travel Origin");
                     busInfo.setFromCity(scanner.next());
                     System.out.println("Enter the Destination");
@@ -184,14 +233,14 @@ class AdminInfo implements DisplayInformation {
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
                     int newBusNumber = busInfo.getBusNumber();
+                    String newAgencyName = busInfo.getAgencyName();
                     String newFromCity = busInfo.getFromCity();
                     String newToCity = busInfo.getToCity();
                     int newBusCapacity = busInfo.getBusCapacity();
                     String newBusFacility = specialBus.getBusFacility();
                     double newCostOfTicket = busInfo.getCostOfTicket();
                     int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().add(new SpecialBusInfo(newBusNumber, newFromCity, newToCity, newBusCapacity,
-                            newBusFacility, newCostOfTicket, newApproxJourneyHrs));
+                    getBusList().add(new SpecialBusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket, newApproxJourneyHrs));
                     // Displaying the list of buses after adding
                     drawLine();
                     displayBusList();
@@ -200,7 +249,7 @@ class AdminInfo implements DisplayInformation {
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input, please try again!");
             }
-        } 
+        }
     }
 
     // Displaying the BusInfo along with index number
@@ -244,8 +293,7 @@ class AdminInfo implements DisplayInformation {
                     // Asking for the field that has to be updated
                     drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println(
-                            "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \n7.Approx Journey Hours \nEnter any other number to quit");
+                    System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \n7.Approx Journey Hours \nEnter any other number to quit");
                     int optionToBeUpdated = scanner.nextInt();
                     switch (optionToBeUpdated) {
                         case 1:
@@ -303,8 +351,7 @@ class AdminInfo implements DisplayInformation {
                     // Asking for the field that has to be updated
                     drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println(
-                            "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
+                    System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
                     int optionToBeUpdated = scanner.nextInt();
                     switch (optionToBeUpdated) {
                         case 1:
@@ -360,7 +407,7 @@ class AdminInfo implements DisplayInformation {
     public void deleteBus() {
         System.out.println("Deleting the Bus...");
         displayBusWithIndex();
-        System.out.println("Enter the index number of the Bus that has to be removed.");
+        System.out.println("Enter the index number of the Bus that has to be removed");
         int busToBeRemoved = scanner.nextInt();
         getBusList().remove(busToBeRemoved);
         // Displaying the BusList after removing
@@ -368,11 +415,23 @@ class AdminInfo implements DisplayInformation {
         displayBusList();
     }
 
-    @Override// Show Bookings
+    @Override // Show Bookings
     public void displayInfo() {
-        System.out.println("\033[0;1m" + "================================================= BOOKINGS ======================================================" + "\033[0;0m");
+        System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
-            p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+            p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+        }
+    }
+
+    public void displayAgencyBookings() {
+        System.out.println("Enter the agency name to fetch bookings: ");
+        String agencyNameToSearch = scanner.next();
+        System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
+        for (PassengerInfo p : getPassengerList()) {
+            if (p.ticketInfo.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
+                p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+                drawDoubleLine();
+            }
         }
     }
 
@@ -384,6 +443,16 @@ class AdminInfo implements DisplayInformation {
         String newMessage = br.readLine();
         setOperatingCities(newMessage);
         System.out.println("Updated Operating Cities are: " + newMessage);
+    }
+
+    // Update Available Agencies Message
+    public void setAvailableAgencies() throws IOException {
+        InputStreamReader r = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(r);
+        System.out.println("Enter the list of agencies separated by comma: ");
+        String newMessage = br.readLine();
+        setAvailableAgencies(newMessage);
+        System.out.println("Updated agencies are: " + newMessage);
     }
 
     // Authentication for Admin PIN
@@ -405,16 +474,16 @@ class AdminInfo implements DisplayInformation {
         }
     }
 
-    //Admin's Function
+    // Admin's Function
     public void adminFunction() {
         drawLine();
         displayBusList();
         drawLine();
         // Operations which can be performed by the admin
-        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display Bookings \n5.Display all the buses \n6.Update Operating Cities \n7.To logout");
+        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display All Bookings \n5.Filter Bookings based on Agency \n6.Display all the buses \n7.Update Operating Cities \n8.Update Available Agencies \n9.To logout");
         try {
             int operationOption = Integer.parseInt(scanner.nextLine());
-            if (operationOption < 1 || operationOption > 7) {
+            if (operationOption < 1 || operationOption > 9) {
                 throw new IllegalArgumentException();
             }
             // Adding new Bus
@@ -432,15 +501,24 @@ class AdminInfo implements DisplayInformation {
                     displayInfo();
                     break;
                 case 5:
-                    displayBusList();
+                    displayAgencyBookings();
                     break;
                 case 6:
+                    displayBusList();
+                    break;
+                case 7:
                     try {
                         setOperatingCities();
                     } catch (IOException e) {
                         System.out.println("Invalid input");
                     }
-                case 7:
+                case 8:
+                    try {
+                        setAvailableAgencies();
+                    } catch (IOException e) {
+                        System.out.println("Invalid input");
+                    }
+                case 9:
                     System.out.println("Logging out from admin portal...!");
                     break;
                 default:
@@ -449,10 +527,10 @@ class AdminInfo implements DisplayInformation {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid input, try again");
-        }        
+        }
     }
 
-    //Login as Admin & Admin Operation
+    // Login as Admin & Admin Operation
     public void adminOperations() {
         String adminKey = getAdminKey();
         // Using console to read admin pin as invisible
@@ -466,61 +544,66 @@ class AdminInfo implements DisplayInformation {
         }
     }
 
-    //Start a new booking
+    // Start a new booking
     public void startNewBooking() {
         PassengerInfo ticketForPassenger = new PassengerInfo();
         // Filtering Bus List based on From and To
-        ticketForPassenger.filterBusList(getPassengerList(), getBusList());
-        ticketForPassenger.displayFilteredBusList(getPassengerList(), getBusList());
+        ticketForPassenger.filterFromToBusList(getPassengerList(), getBusList());
+        ticketForPassenger.displayFromToFilteredBusList(getPassengerList(), getBusList());
         // Checking if the filtered bus list is empty or not based upon from to request from user
-        if (ticketForPassenger.isFilteredBusListEmpty(getPassengerList(), getBusList()) == false) {
-            ticketForPassenger.showSortingFunctions();
-            ticketForPassenger.getBusNumberFromUser();
-            ticketForPassenger.getDateOfJourneyFromUser();
-            // Displaying remaining seats for the date enetered by user
-            int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());
-            String formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-            boolean isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
-            while (isDateFuture == false) {
-                System.out.println("The booking is over for the specified date, enter a future date.");
+        if (ticketForPassenger.isFromToFilteredBusListEmpty(getPassengerList(), getBusList()) == false) {
+            ticketForPassenger.getAgencyNameFromUser();
+            ticketForPassenger.filterAgencyBusList(getPassengerList(), getFromToFilteredBusList());
+            ticketForPassenger.displayAgencyFilteredBusList(getPassengerList(), getFromToFilteredBusList());
+            if (ticketForPassenger.isAgencyFilteredBusListEmpty(getPassengerList(), getFromToFilteredBusList()) == false) {
+                ticketForPassenger.showSortingFunctions();
+                ticketForPassenger.getBusNumberFromUser();
                 ticketForPassenger.getDateOfJourneyFromUser();
-                formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-                isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
-            }
-            drawLine();
-            System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + formattedDate + " is: " + "\033[0;0m" + availableSeats);
-            drawLine();
-            // Checking if seats are available
-            if (availableSeats > 0) {
-                System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus"
-                        + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
-                try {
-                    int continueBooking = Integer.parseInt(scanner.nextLine());
-                    if (continueBooking < 1||continueBooking > 2){
-                        throw new IllegalArgumentException();
-                    }
-                    if (continueBooking == 1) {
-                        ticketForPassenger.getOtherPassengerInfo();
-                        ticketForPassenger.getSeatsRequired();
-                        // Checking whether the user requesting seats less than or equal to the available number of seats
-                        while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
-                            System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
-                            ticketForPassenger.getSeatsRequired();
-                        } // Adding passenger to the reserved list
-                        getPassengerList().add(ticketForPassenger);
-                        // Mapping the ticket details
-                        ticketForPassenger.mapAndDisplayTicketDetails();
-                        // Mapping the details for bill
-                        ticketForPassenger.mapAndDisplayBillDetails();
-                    } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
-                        System.out.println("Redirecting...");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Invalid input, please try again!");
+                // Displaying remaining seats for the date enetered by user
+                int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());
+                String formattedDate = ticketForPassenger.getFormattedDateOfJourney();
+                boolean isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
+                while (isDateFuture == false) {
+                    System.out.println("The booking is over for the specified date, enter a future date.");
+                    ticketForPassenger.getDateOfJourneyFromUser();
+                    formattedDate = ticketForPassenger.getFormattedDateOfJourney();
+                    isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
                 }
-                
-            } else { // else block if seats are not available
-                System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
+                drawLine();
+                System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + formattedDate + " is: " + "\033[0;0m" + availableSeats);
+                drawLine();
+                // Checking if seats are available
+                if (availableSeats > 0) {
+                    System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
+                    try {
+                        int continueBooking = Integer.parseInt(scanner.nextLine());
+                        if (continueBooking < 1 || continueBooking > 2) {
+                            throw new IllegalArgumentException();
+                        }
+                        if (continueBooking == 1) {
+                            ticketForPassenger.getOtherPassengerInfo();
+                            ticketForPassenger.getSeatsRequired();
+                            // Checking whether the user requesting seats less than or equal to the available number of seats
+                            while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
+                                System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
+                                ticketForPassenger.getSeatsRequired();
+                            } // Adding passenger to the reserved list
+                            getPassengerList().add(ticketForPassenger);
+                            // Mapping the ticket details
+                            ticketForPassenger.mapAndDisplayTicketDetails();
+                            // Mapping the details for bill
+                            ticketForPassenger.mapAndDisplayBillDetails();
+                        } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
+                            System.out.println("Redirecting...");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input, please try again!");
+                    }
+                } else { // else block if seats are not available
+                    System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
+                }
+            } else {
+                System.out.println("The requested agency is not available, try: " + getAvailableAgencies());
             }
         } else { // else block if the user requested other areas than the service areas
             System.out.println("Service is not available in those areas, try: " + getOperatingCities());
