@@ -360,13 +360,15 @@ class PassengerInfo {
         }
     }
 
+    OffersAndDiscount offers = new OffersAndDiscount();
+
     public void getCouponCodeFromUser() {
         System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
         String userCode = scanner.next();
-        if (ticketInfo.getCouponCode().equals(userCode)) {
+        if (offers.getCouponCode().equals(userCode)) {
             System.out.println("The coupon code is valid, discount will be made on the total bill.");
             mapAndDisplayTicketDetails();
-            mapAndDisplayBillDetails(ticketInfo.getDiscountPercentage());
+            mapAndDisplayBillDetails(offers.getDiscountPercentage());
         } else {
             System.out.println("The code is invalid so no discount will be made.");
             mapAndDisplayTicketDetails();
