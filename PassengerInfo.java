@@ -107,8 +107,6 @@ class PassengerInfo {
         ticketInfo.setTotalNumberOfSeats(scanner.nextInt());
     }
 
-    AdminInfo a = new AdminInfo();
-
     // ArrayList for filteredbusList based on from & to from user
     private ArrayList<BusInfo> fromToFilteredBusList = new ArrayList<>();
 
@@ -189,6 +187,8 @@ class PassengerInfo {
         }
         util.drawLine();
     }
+
+    AdminInfo a = new AdminInfo();
 
     public void showSortingFunctions() {
         int sortOption = 1;
@@ -364,7 +364,7 @@ class PassengerInfo {
         String fromCity = ticketInfo.getFromCity();
         String toCity = ticketInfo.getToCity();
         // Displaying Ticket
-        displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, agencyName, busNumber, fromCity, toCity);
+        ticketInfo.displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, agencyName, busNumber, fromCity, toCity);
     }
 
     // Map Bill Details
@@ -376,7 +376,7 @@ class PassengerInfo {
         double totalAmountPerTicket = getTotalCostOfTicket(a.getPassengerList(), a.getBusList());
         double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList());
         // Displaying the cost of ticket after tax calculation
-        displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, totalAmount);
+        ticketInfo.displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, totalAmount);
     }
 
     // Map Bill Details
@@ -390,45 +390,6 @@ class PassengerInfo {
         double discountedAmount = getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage;
         double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList()) - discountedAmount;
         // Displaying the cost of ticket after tax calculation
-        displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, discountInPercent, discountedAmount, totalAmount);
-    }
-
-    // Display Ticket
-    public void displayTicket(String ticketID, String passengerName, String passengerIdNumber, String formattedDate, String agencyName, int busNumber, String fromCity, String toCity) {
-        util.ticketLineMsg();
-        System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
-        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
-        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
-        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
-        System.out.println("\033[0;1m" + "Date Of Journey: " + "\033[0;0m" + formattedDate);
-        System.out.println("\033[0;1m" + "Agency Name: " + "\033[0;0m" + agencyName);
-        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
-        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
-        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
-    }
-
-    // Display Bill
-    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double totalAmount) {
-        util.billLineMsg();
-        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
-        System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
-        System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");
-        System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + taxAmount);
-        System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + totalAmountPerTicket);
-        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
-        util.drawDoubleLine();
-    }
-
-    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double discountInPercent, double discountedAmount, double totalAmount) {
-        util.billLineMsg();
-        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
-        System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
-        System.out.println("\033[0;1m" + "Tax Percentage: " + "\033[0;0m" + taxPercentage + "%");
-        System.out.println("\033[0;1m" + "Tax amount: " + "\033[0;0m" + "₹" + taxAmount);
-        System.out.println("\033[0;1m" + "The Total Cost per Ticket: " + "\033[0;0m" + "₹" + totalAmountPerTicket);
-        System.out.println("\033[0;1m" + "The Discount Percentage is: " + "\033[0;0m" + discountInPercent + "%");
-        System.out.println("\033[0;1m" + "The Discounted amount is: " + "\033[0;0m" + "₹" + discountedAmount);
-        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
-        util.drawDoubleLine();
+        ticketInfo.displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, discountInPercent, discountedAmount, totalAmount);
     }
 }
