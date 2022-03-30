@@ -407,11 +407,26 @@ class AdminInfo implements DisplayInformation {
         displayBusList();
     }
 
+    // Display Bookings for Admin
+    public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, String agencyName, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
+        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
+        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
+        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
+        System.out.println("\033[0;1m" + "Agency Name: " + "\033[0;0m" + agencyName);
+        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
+        System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + formattedDate);
+        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
+        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
+        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
+        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
+        util.drawDoubleLine();
+    }
+
     @Override // Show Bookings
     public void displayInfo() {
         System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
-            p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+            displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
         }
     }
 
@@ -421,7 +436,7 @@ class AdminInfo implements DisplayInformation {
         System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
         for (PassengerInfo p : getPassengerList()) {
             if (p.ticketInfo.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
-                p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
                 util.drawDoubleLine();
             }
         }

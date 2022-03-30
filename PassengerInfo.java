@@ -340,8 +340,8 @@ class PassengerInfo {
         String formattedDate = dateFormatter.format(dateOfJourney);
         String agencyName = ticketInfo.getAgencyName();
         int busNumber = ticketInfo.getBusNumber();
-        String fromCity = getFromCity(a.getPassengerList(), a.getBusList());
-        String toCity = getToCity(a.getPassengerList(), a.getBusList());
+        String fromCity = ticketInfo.getFromCity();
+        String toCity = ticketInfo.getToCity();
         // Displaying Ticket
         displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, agencyName, busNumber, fromCity, toCity);
     }
@@ -384,21 +384,6 @@ class PassengerInfo {
         System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
         System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
         System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
-    }
-
-    // Display Bookings for Admin
-    public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, String agencyName, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
-        System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
-        System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
-        System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
-        System.out.println("\033[0;1m" + "Agency Name: " + "\033[0;0m" + agencyName);
-        System.out.println("\033[0;1m" + "Bus Number: " + "\033[0;0m" + busNumber);
-        System.out.println("\033[0;1m" + "Date of Journey: " + "\033[0;0m" + formattedDate);
-        System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
-        System.out.println("\033[0;1m" + "Boarding: " + "\033[0;0m" + fromCity);
-        System.out.println("\033[0;1m" + "Destination: " + "\033[0;0m" + toCity);
-        System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
-        util.drawDoubleLine();
     }
 
     // Display Bill
