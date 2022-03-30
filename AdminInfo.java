@@ -593,7 +593,26 @@ class AdminInfo implements DisplayInformation {
                             } // Adding passenger to the reserved list
                             getPassengerList().add(ticketForPassenger);
                             // Coupon code and billing
-                            ticketForPassenger.checkForCouponCode();
+                            System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
+                            int selectedOption = scanner.nextInt();
+                            if (selectedOption == 1) {
+                                OffersAndDiscount offers = new OffersAndDiscount();
+                                System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
+                                offers.setAppliedCouponCode(scanner.next());
+                                if (offers.getCouponCode().equals(offers.getAppliedCouponCode())) {
+                                    System.out.println("The coupon code is valid, discount will be made on the total bill.");
+                                    ticketForPassenger.mapAndDisplayTicketDetails();
+                                    ticketForPassenger.mapAndDisplayBillDetails(offers.getDiscountPercentage());
+                                } else {
+                                    System.out.println("The code is invalid so no discount will be made.");
+                                    ticketForPassenger.mapAndDisplayTicketDetails();
+                                    ticketForPassenger.mapAndDisplayBillDetails();
+                                }
+                            } else {
+                                System.out.println("Redirecting to the bill...");
+                                ticketForPassenger.mapAndDisplayTicketDetails();
+                                ticketForPassenger.mapAndDisplayBillDetails();
+                            }
                         } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
                             System.out.println("Redirecting...");
                         }

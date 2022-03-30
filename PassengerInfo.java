@@ -346,35 +346,6 @@ class PassengerInfo {
         return ticketPriceWithTax;
     }
 
-    // Get coupon code from user
-    public void checkForCouponCode() {
-        System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m"
-                + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
-        int selectedOption = scanner.nextInt();
-        if (selectedOption == 1) {
-            getCouponCodeFromUser();
-        } else {
-            System.out.println("Redirecting to the bill...");
-            mapAndDisplayTicketDetails();
-            mapAndDisplayBillDetails();
-        }
-    }
-
-    OffersAndDiscount offers = new OffersAndDiscount();
-
-    public void getCouponCodeFromUser() {
-        System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
-        String userCode = scanner.next();
-        if (offers.getCouponCode().equals(userCode)) {
-            System.out.println("The coupon code is valid, discount will be made on the total bill.");
-            mapAndDisplayTicketDetails();
-            mapAndDisplayBillDetails(offers.getDiscountPercentage());
-        } else {
-            System.out.println("The code is invalid so no discount will be made.");
-            mapAndDisplayTicketDetails();
-            mapAndDisplayBillDetails();
-        }
-    }
     // Map Ticket Bookings
     public void mapAndDisplayTicketDetails() {
         String generatedTicketID = generateTicketID();
