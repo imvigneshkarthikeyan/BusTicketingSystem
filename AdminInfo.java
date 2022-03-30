@@ -146,30 +146,21 @@ class AdminInfo implements DisplayInformation {
         }
     }
 
-    public void drawDoubleLine() {
-        System.out.println("\033[0;1m" + "=========================================================================================================================================================" + "\033[0;0m");
-    }
-
-    public void drawLine() {
-        System.out.println("\033[0;1m" + "---------------------------------------------------------------------------------------------------------------------------------------------------------" + "\033[0;0m");
-    }
+    Utilities util = new Utilities();
 
     // Welcome message
     public void displayWelcomeMessage() {
-        drawDoubleLine();
-        System.out.println("\033[0;1m" + "============================================================ Welcome to Bus Ticketing System ============================================================" + "\033[0;0m");
-        System.out.println("\033[0;1m" + "============================================================ Total Buses are displayed below ============================================================" + "\033[0;0m");
-        drawDoubleLine();
+        util.welcomeMsg();
     }
 
     public void displayOptionsMessage() {
-        drawDoubleLine();
+        util.drawDoubleLine();
         System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
     }
 
     // Displaying BusList in a for each loop
     public void displayBusList() {
-        drawDoubleLine();
+        util.drawDoubleLine();
         System.out.println("\033[0;1m" + "The following buses are available:" + "\033[0;0m");
         for (BusInfo b : getBusList()) {
             b.displayInfo();
@@ -185,7 +176,7 @@ class AdminInfo implements DisplayInformation {
         while (!isSucessful) {
             try {
                 System.out.println("Enter 1: To create a normal bus. \nEnter 2: To create Luxury Bus");
-                int busType = Integer.parseInt(scanner.nextLine());
+                int busType = Integer.parseInt(scanner.next());
                 if (busType < 1 || busType > 2) {
                     throw new IllegalArgumentException();
                 }
@@ -213,7 +204,7 @@ class AdminInfo implements DisplayInformation {
                     int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
                     getBusList().add(new BusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newCostOfTicket, newApproxJourneyHrs));
                     // Displaying the list of buses after adding
-                    drawLine();
+                    util.drawLine();
                     displayBusList();
                 } else if (busType == 2) { // To add Special bus
                     System.out.println("Enter the Bus Number");
@@ -242,7 +233,7 @@ class AdminInfo implements DisplayInformation {
                     int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
                     getBusList().add(new SpecialBusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket, newApproxJourneyHrs));
                     // Displaying the list of buses after adding
-                    drawLine();
+                    util.drawLine();
                     displayBusList();
                 }
                 isSucessful = true;
@@ -254,23 +245,23 @@ class AdminInfo implements DisplayInformation {
 
     // Displaying the BusInfo along with index number
     public void displayBusWithIndex() {
-        drawLine();
+        util.drawLine();
         int index = 0;
         for (BusInfo b : getBusList()) {
             System.out.print("Index Number: " + index++ + "| ");
             b.displayInfo();
         }
-        drawLine();
+        util.drawLine();
     }
 
     public void displaySpecialBusWithIndex() {
-        drawLine();
+        util.drawLine();
         int index = 0;
         for (BusInfo b : getFilteredSpecialBusList()) {
             System.out.print("Index Number: " + index++ + "| ");
             b.displayInfo();
         }
-        drawLine();
+        util.drawLine();
     }
 
     // EditBus for admin panel
@@ -280,7 +271,7 @@ class AdminInfo implements DisplayInformation {
             try {
                 System.out.println("Editing the Bus...");
                 System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
-                int editBusOption = Integer.parseInt(scanner.nextLine());
+                int editBusOption = Integer.parseInt(scanner.next());
                 if (editBusOption < 1 || editBusOption > 2) {
                     throw new IllegalArgumentException();
                 }
@@ -291,7 +282,7 @@ class AdminInfo implements DisplayInformation {
                     System.out.println("Enter the Index number of the bus to be updated: ");
                     int busToBeUpdated = scanner.nextInt();
                     // Asking for the field that has to be updated
-                    drawLine();
+                    util.drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
                     System.out.println("1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Bus Facility \n6.Cost of the ticket \n7.Approx Journey Hours \nEnter any other number to quit");
                     int optionToBeUpdated = scanner.nextInt();
@@ -349,7 +340,7 @@ class AdminInfo implements DisplayInformation {
                     System.out.println("Enter the Index number of the bus to be updated: ");
                     int busToBeUpdated = scanner.nextInt();
                     // Asking for the field that has to be updated
-                    drawLine();
+                    util.drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
                     System.out.println(
                             "1.Bus Number \n2.From City \n3.To City \n4.Bus Capacity \n5.Cost of the ticket \n6. Approx Journey Hrs \nEnter any other number to quit");
@@ -412,7 +403,7 @@ class AdminInfo implements DisplayInformation {
         int busToBeRemoved = scanner.nextInt();
         getBusList().remove(busToBeRemoved);
         // Displaying the BusList after removing
-        drawLine();
+        util.drawLine();
         displayBusList();
     }
 
@@ -431,7 +422,7 @@ class AdminInfo implements DisplayInformation {
         for (PassengerInfo p : getPassengerList()) {
             if (p.ticketInfo.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
                 p.displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
-                drawDoubleLine();
+                util.drawDoubleLine();
             }
         }
     }
@@ -477,13 +468,13 @@ class AdminInfo implements DisplayInformation {
 
     // Admin's Function
     public void adminFunction() {
-        drawLine();
+        util.drawLine();
         displayBusList();
-        drawLine();
+        util.drawLine();
         // Operations which can be performed by the admin
         System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display All Bookings \n5.Filter Bookings based on Agency \n6.Display all the buses \n7.Update Operating Cities \n8.Update Available Agencies \n9.To logout");
         try {
-            int operationOption = Integer.parseInt(scanner.nextLine());
+            int operationOption = Integer.parseInt(scanner.next());
             if (operationOption < 1 || operationOption > 9) {
                 throw new IllegalArgumentException();
             }
@@ -565,21 +556,21 @@ class AdminInfo implements DisplayInformation {
                 // Displaying remaining seats for the date enetered by user
                 int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());
                 String formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-                boolean isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
+                boolean isDateFuture = util.isDateFuture(formattedDate, "dd/MM/yyyy");
                 while (isDateFuture == false) {
                     System.out.println("The booking is over for the specified date, enter a future date.");
                     ticketForPassenger.getDateOfJourneyFromUser();
                     formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-                    isDateFuture = ticketForPassenger.isDateFuture(formattedDate, "dd/MM/yyyy");
+                    isDateFuture = util.isDateFuture(formattedDate, "dd/MM/yyyy");
                 }
-                drawLine();
+                util.drawLine();
                 System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + formattedDate + " is: " + "\033[0;0m" + availableSeats);
-                drawLine();
+                util.drawLine();
                 // Checking if seats are available
                 if (availableSeats > 0) {
                     System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
                     try {
-                        int continueBooking = Integer.parseInt(scanner.nextLine());
+                        int continueBooking = Integer.parseInt(scanner.next());
                         if (continueBooking < 1 || continueBooking > 2) {
                             throw new IllegalArgumentException();
                         }

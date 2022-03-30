@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.*;
 
 class TicketInfo {
     private Date dateOfJourney;
@@ -63,5 +63,10 @@ class TicketInfo {
 
     public void setTicketID(String ticketID) {
         this.ticketID = ticketID;
+    }
+
+    public String generateTicketID() {
+        setTicketID(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
+        return getTicketID();
     }
 }
