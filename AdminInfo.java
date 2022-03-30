@@ -145,11 +145,10 @@ class AdminInfo implements DisplayInformation {
         }
     }
 
-    BusInfo busInfo = new BusInfo();
-    SpecialBusInfo specialBus = new SpecialBusInfo();
-
     // Add NewBus for admin panel
     public void addNewBus() {
+        BusInfo busInfo = new BusInfo();
+        SpecialBusInfo specialBus = new SpecialBusInfo();
         boolean isSucessful = false;
         while (!isSucessful) {
             try {
@@ -244,6 +243,8 @@ class AdminInfo implements DisplayInformation {
 
     // EditBus for admin panel
     public void editBus() {
+        BusInfo busInfo = new BusInfo();
+        SpecialBusInfo specialBus = new SpecialBusInfo();
         boolean isSucessful = false;
         while (!isSucessful) {
             try {

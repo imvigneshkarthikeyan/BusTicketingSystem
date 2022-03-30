@@ -8,6 +8,11 @@ class TicketInfo {
     private String toCity;
     private int busNumber;
     private String ticketID;
+    private double ticketAmount;
+    private double taxPercentage;
+    private double taxAmount;
+    private double totalAmountPerTicket;
+    private double totalAmount;
     
     public int getBusNumber() {
         return busNumber;
@@ -65,6 +70,46 @@ class TicketInfo {
         this.ticketID = ticketID;
     }
 
+    public double getTicketAmount() {
+        return ticketAmount;
+    }
+
+    public void setTicketAmount(double ticketAmount) {
+        this.ticketAmount = ticketAmount;
+    }
+
+    public double getTaxPercentage() {
+        return taxPercentage;
+    }
+
+    public void setTaxPercentage(double taxPercentage) {
+        this.taxPercentage = taxPercentage;
+    }
+
+    public double getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(double taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public double getTotalAmountPerTicket() {
+        return totalAmountPerTicket;
+    }
+
+    public void setTotalAmountPerTicket(double totalAmountPerTicket) {
+        this.totalAmountPerTicket = totalAmountPerTicket;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public String generateTicketID() {
         setTicketID(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
         return getTicketID();
@@ -73,7 +118,7 @@ class TicketInfo {
     Utilities util = new Utilities();
 
     // Display Ticket
-    public void displayTicket(String ticketID, String passengerName, String passengerIdNumber, String formattedDate, String agencyName, int busNumber, String fromCity, String toCity) {
+    public void displayTicket(String passengerName, String passengerIdNumber, String formattedDate) {
         util.ticketLineMsg();
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
@@ -87,7 +132,7 @@ class TicketInfo {
     }
 
     // Display Bill
-    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double totalAmount) {
+    public void displayBill() {
         util.billLineMsg();
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
@@ -98,7 +143,7 @@ class TicketInfo {
         util.drawDoubleLine();
     }
 
-    public void displayBill(int totalNumberOfSeats, double ticketAmount, double taxPercentage, double taxAmount, double totalAmountPerTicket, double discountInPercent, double discountedAmount, double totalAmount) {
+    public void displayBill(double discountInPercent, double discountedAmount) {
         util.billLineMsg();
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);

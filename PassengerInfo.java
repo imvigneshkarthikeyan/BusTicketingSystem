@@ -188,9 +188,8 @@ class PassengerInfo {
         util.drawLine();
     }
 
-    AdminInfo a = new AdminInfo();
-
     public void showSortingFunctions() {
+        AdminInfo a = new AdminInfo();
         int sortOption = 1;
         while (sortOption == 1 || sortOption == 2 || sortOption == 3) {
             System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \n4: To continue booking");
@@ -352,44 +351,45 @@ class PassengerInfo {
 
     // Map Ticket Bookings
     public void mapAndDisplayTicketDetails() {
-        String generatedTicketID = ticketInfo.generateTicketID();
-        ticketInfo.setTicketID(generatedTicketID);
+        ticketInfo.setTicketID(ticketInfo.generateTicketID());
         String passengerName = getPassengerName();
         String passengerIdNumber = getPassengerIdNumber();
         Date dateOfJourney = ticketInfo.getDateOfJourney();
         DateFormat dateFormatter = util.dateFormatter();
         String formattedDate = dateFormatter.format(dateOfJourney);
-        String agencyName = ticketInfo.getAgencyName();
-        int busNumber = ticketInfo.getBusNumber();
-        String fromCity = ticketInfo.getFromCity();
-        String toCity = ticketInfo.getToCity();
+        ticketInfo.setAgencyName(ticketInfo.getAgencyName());
+        ticketInfo.setBusNumber(ticketInfo.getBusNumber());
+        ticketInfo.setFromCity(ticketInfo.getFromCity());
+        ticketInfo.setToCity(ticketInfo.getToCity());
         // Displaying Ticket
-        ticketInfo.displayTicket(generatedTicketID, passengerName, passengerIdNumber, formattedDate, agencyName, busNumber, fromCity, toCity);
+        ticketInfo.displayTicket(passengerName, passengerIdNumber, formattedDate);
     }
 
     // Map Bill Details
     public void mapAndDisplayBillDetails() {
-        int totalNumberOfSeats = ticketInfo.getTotalNumberOfSeats();
-        double ticketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
-        double taxPercentage = PassengerInfo.taxPercentage * 100;
-        double taxAmount = getTaxOfTicket(a.getPassengerList(), a.getBusList());
-        double totalAmountPerTicket = getTotalCostOfTicket(a.getPassengerList(), a.getBusList());
-        double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList());
+        AdminInfo a = new AdminInfo();
+        ticketInfo.setTotalNumberOfSeats(ticketInfo.getTotalNumberOfSeats());
+        ticketInfo.setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
+        ticketInfo.setTaxPercentage(PassengerInfo.taxPercentage * 100);
+        ticketInfo.setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
+        ticketInfo.setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
+        ticketInfo.setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()));
         // Displaying the cost of ticket after tax calculation
-        ticketInfo.displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, totalAmount);
+        ticketInfo.displayBill();
     }
 
     // Map Bill Details
     public void mapAndDisplayBillDetails(double discoutPercentage) {
-        int totalNumberOfSeats = ticketInfo.getTotalNumberOfSeats();
-        double ticketAmount = getCostOfTicket(a.getPassengerList(), a.getBusList());
-        double taxPercentage = PassengerInfo.taxPercentage * 100;
-        double taxAmount = getTaxOfTicket(a.getPassengerList(), a.getBusList());
-        double totalAmountPerTicket = getTotalCostOfTicket(a.getPassengerList(), a.getBusList());
+        AdminInfo a = new AdminInfo();
+        ticketInfo.setTotalNumberOfSeats(ticketInfo.getTotalNumberOfSeats());
+        ticketInfo.setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
+        ticketInfo.setTaxPercentage(PassengerInfo.taxPercentage * 100);
+        ticketInfo.setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
+        ticketInfo.setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
         double discountInPercent = discoutPercentage * 100;
         double discountedAmount = getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage;
-        double totalAmount = getTotalCost(a.getPassengerList(), a.getBusList()) - discountedAmount;
+        ticketInfo.setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()) - discountedAmount);
         // Displaying the cost of ticket after tax calculation
-        ticketInfo.displayBill(totalNumberOfSeats, ticketAmount, taxPercentage, taxAmount, totalAmountPerTicket, discountInPercent, discountedAmount, totalAmount);
+        ticketInfo.displayBill(discountInPercent, discountedAmount);
     }
 }
