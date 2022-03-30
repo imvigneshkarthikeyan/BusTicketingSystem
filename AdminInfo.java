@@ -93,28 +93,6 @@ class AdminInfo implements DisplayInformation {
         this.busList = busList;
     }
 
-    // ArrayList for filteredbusList based on from & to from user
-    private ArrayList<BusInfo> fromToFilteredBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getFromToFilteredBusList() {
-        return fromToFilteredBusList;
-    }
-
-    public void setFromToFilteredBusList(ArrayList<BusInfo> fromToFilteredBusList) {
-        this.fromToFilteredBusList = fromToFilteredBusList;
-    }
-
-    // ArrayList for filteredBusList based on agency name
-    private ArrayList<BusInfo> agencyFilteredBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getAgencyFilteredBusList() {
-        return agencyFilteredBusList;
-    }
-
-    public void setAgencyFilteredBusList(ArrayList<BusInfo> agencyFilteredBusList) {
-        this.agencyFilteredBusList = agencyFilteredBusList;
-    }
-
     // ArrayList for Passenger List
     private ArrayList<PassengerInfo> passengerList = new ArrayList<>();
 
@@ -562,9 +540,9 @@ class AdminInfo implements DisplayInformation {
         // Checking if the filtered bus list is empty or not based upon from to request from user
         if (ticketForPassenger.isFromToFilteredBusListEmpty(getPassengerList(), getBusList()) == false) {
             ticketForPassenger.getAgencyNameFromUser();
-            ticketForPassenger.filterAgencyBusList(getPassengerList(), getFromToFilteredBusList());
-            ticketForPassenger.displayAgencyFilteredBusList(getPassengerList(), getFromToFilteredBusList());
-            if (ticketForPassenger.isAgencyFilteredBusListEmpty(getPassengerList(), getFromToFilteredBusList()) == false) {
+            ticketForPassenger.filterAgencyBusList(getPassengerList(), ticketForPassenger.getFromToFilteredBusList());
+            ticketForPassenger.displayAgencyFilteredBusList(getPassengerList(),  ticketForPassenger.getFromToFilteredBusList());
+            if (ticketForPassenger.isAgencyFilteredBusListEmpty(getPassengerList(),  ticketForPassenger.getFromToFilteredBusList()) == false) {
                 ticketForPassenger.showSortingFunctions();
                 ticketForPassenger.getBusNumberFromUser();
                 ticketForPassenger.getDateOfJourneyFromUser();

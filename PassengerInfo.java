@@ -109,33 +109,54 @@ class PassengerInfo {
 
     AdminInfo a = new AdminInfo();
 
+    // ArrayList for filteredbusList based on from & to from user
+    private ArrayList<BusInfo> fromToFilteredBusList = new ArrayList<>();
+
+    public ArrayList<BusInfo> getFromToFilteredBusList() {
+        return fromToFilteredBusList;
+    }
+
+    public void setFromToFilteredBusList(ArrayList<BusInfo> fromToFilteredBusList) {
+        this.fromToFilteredBusList = fromToFilteredBusList;
+    }
     // Filtering
     public void filterFromToBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         for (BusInfo bus : busList) {
             if (bus.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
-                a.getFromToFilteredBusList().add(bus);
+                getFromToFilteredBusList().add(bus);
             }
         }
     }
 
     public void displayFromToFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : a.getFromToFilteredBusList()) {
+        for (BusInfo bus : getFromToFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
         util.drawLine();
     }
 
+    // ArrayList for filteredBusList based on agency name
+    private ArrayList<BusInfo> agencyFilteredBusList = new ArrayList<>();
+
+    public ArrayList<BusInfo> getAgencyFilteredBusList() {
+        return agencyFilteredBusList;
+    }
+
+    public void setAgencyFilteredBusList(ArrayList<BusInfo> agencyFilteredBusList) {
+        this.agencyFilteredBusList = agencyFilteredBusList;
+    }
+
     public void filterAgencyBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : a.getFromToFilteredBusList()) {
+        for (BusInfo bus : getFromToFilteredBusList()) {
             if (bus.getAgencyName().equalsIgnoreCase(ticketInfo.getAgencyName())) {
-                a.getAgencyFilteredBusList().add(bus);
+                getAgencyFilteredBusList().add(bus);
             }
         }
     }
 
     public void displayAgencyFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : a.getAgencyFilteredBusList()) {
+        for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -143,8 +164,8 @@ class PassengerInfo {
     }
 
     public void displayJourneyHrsSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getAgencyFilteredBusList(), new JourneyComparator());
-        for (BusInfo bus : a.getAgencyFilteredBusList()) {
+        Collections.sort(getAgencyFilteredBusList(), new JourneyComparator());
+        for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -152,8 +173,8 @@ class PassengerInfo {
     }
 
     public void displayTicketCostSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getAgencyFilteredBusList(), new CostComparator());
-        for (BusInfo bus : a.getAgencyFilteredBusList()) {
+        Collections.sort(getAgencyFilteredBusList(), new CostComparator());
+        for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -161,8 +182,8 @@ class PassengerInfo {
     }
 
     public void displayBusNumberSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Collections.sort(a.getAgencyFilteredBusList(), new BusNumberComparator());
-        for (BusInfo bus : a.getAgencyFilteredBusList()) {
+        Collections.sort(getAgencyFilteredBusList(), new BusNumberComparator());
+        for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -203,14 +224,14 @@ class PassengerInfo {
     }
 
     public boolean isFromToFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (a.getFromToFilteredBusList().isEmpty()) {
+        if (getFromToFilteredBusList().isEmpty()) {
             return true;
         }
         return false;
     }
 
     public boolean isAgencyFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (a.getAgencyFilteredBusList().isEmpty()) {
+        if (getAgencyFilteredBusList().isEmpty()) {
             return true;
         }
         return false;
