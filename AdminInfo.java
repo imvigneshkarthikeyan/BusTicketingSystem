@@ -553,7 +553,9 @@ class AdminInfo implements DisplayInformation {
                 System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + formattedDate + " is: " + "\033[0;0m" + availableSeats);
                 util.drawLine();
                 // Checking if seats are available
-                if (availableSeats > 0) {
+                boolean isSucessful = false;
+                while (!isSucessful) {
+                    if (availableSeats > 0) {
                     System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
                     try {
                         int continueBooking = Integer.parseInt(scanner.next());
@@ -570,8 +572,14 @@ class AdminInfo implements DisplayInformation {
                             } // Adding passenger to the reserved list
                             getPassengerList().add(ticketForPassenger);
                             // Coupon code and billing
+                            boolean checkLoop = false;
+                            while (!checkLoop) {
                             System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
-                            int selectedOption = scanner.nextInt();
+                            try {
+                            int selectedOption = Integer.parseInt(scanner.next());
+                            if (selectedOption < 1 || selectedOption > 2) {
+                                throw new IllegalArgumentException();
+                            }
                             if (selectedOption == 1) {
                                 OffersAndDiscount offers = new OffersAndDiscount();
                                 System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
@@ -590,14 +598,22 @@ class AdminInfo implements DisplayInformation {
                                 ticketForPassenger.mapAndDisplayTicketDetails();
                                 ticketForPassenger.mapAndDisplayBillDetails();
                             }
+                            checkLoop = true;
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Invalid input, please try again!");
+                            }
+                            }
                         } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
                             System.out.println("Redirecting...");
                         }
-                    } catch (Exception e) {
+                        isSucessful = true;
+                        } catch (IllegalArgumentException e) {
                         System.out.println("Invalid input, please try again!");
                     }
                 } else { // else block if seats are not available
                     System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
+                    break;
+                }
                 }
             } else {
                 System.out.println("The requested agency is not available, try: " + getAvailableAgencies());

@@ -61,26 +61,35 @@ class PassengerInfo {
     }
 
     public void getBusNumberFromUser() {
-        try {
+        boolean isSucessful = false;
+        while (!isSucessful) {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
-            int newBusNumber = Integer.parseInt(scanner.next());
-            ticketInfo.setBusNumber(newBusNumber);
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid, try again!");
+            try {
+                int newBusNumber = Integer.parseInt(scanner.next());
+                ticketInfo.setBusNumber(newBusNumber);
+                isSucessful = true;
+            } catch (Exception e) {
+                System.out.println("Invalid bus Number, try again!");
+                isSucessful = false;
+            }
         }
     }
 
     public void getDateOfJourneyFromUser() {
         Utilities util = new Utilities();
+        boolean isSucessful = false;
+        while (!isSucessful) {
         System.out.println("\033[0;1m" + "Enter the date of journey in DD/MM/YYYY" + "\033[0;0m");
-        String dateInput = scanner.next();
-        // Converting the string to date
-        DateFormat dateFormat = util.dateFormatter();
         try {
+            String dateInput = scanner.next();
+            // Converting the string to date
+            DateFormat dateFormat = util.dateFormatter();
             ticketInfo.setDateOfJourney(dateFormat.parse(dateInput));
+            isSucessful = true;
         } catch (ParseException e) {
-            // Auto-generated catch block
             System.out.println("Invalid date, try again!");
+            isSucessful = false;
+        }    
         }
     }
 
