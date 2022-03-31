@@ -368,17 +368,14 @@ class PassengerInfo {
     public void mapAndDisplayTicketDetails() {
         Utilities util = new Utilities();
         ticketInfo.setTicketID(ticketInfo.generateTicketID());
-        String passengerName = getPassengerName();
-        String passengerIdNumber = getPassengerIdNumber();
-        Date dateOfJourney = ticketInfo.getDateOfJourney();
         DateFormat dateFormatter = util.dateFormatter();
-        String formattedDate = dateFormatter.format(dateOfJourney);
+        String formattedDate = dateFormatter.format(ticketInfo.getDateOfJourney());
         ticketInfo.setAgencyName(ticketInfo.getAgencyName());
         ticketInfo.setBusNumber(ticketInfo.getBusNumber());
         ticketInfo.setFromCity(ticketInfo.getFromCity());
         ticketInfo.setToCity(ticketInfo.getToCity());
         // Displaying Ticket
-        ticketInfo.displayTicket(passengerName, passengerIdNumber, formattedDate);
+        ticketInfo.displayTicket(getPassengerName(), getPassengerIdNumber(), formattedDate);
     }
 
     // Map Bill Details
