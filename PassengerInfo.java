@@ -30,7 +30,10 @@ class PassengerInfo {
         this.passengerPhoneNumber = passengerPhoneNumber;
     }
 
+    TicketInfo ticketInfo = new TicketInfo();
+
     public String getFormattedDateOfJourney() {
+        Utilities util = new Utilities();
         DateFormat dateFormatter = util.dateFormatter();
         String formattedDate = dateFormatter.format(ticketInfo.getDateOfJourney());
         return formattedDate;
@@ -43,9 +46,6 @@ class PassengerInfo {
     public void setPassengerIdNumber(String passengerIdNumber) {
         this.passengerIdNumber = passengerIdNumber;
     }
-
-    TicketInfo ticketInfo = new TicketInfo();
-    Utilities util = new Utilities();
 
     // Constructor
     PassengerInfo() {
@@ -71,6 +71,7 @@ class PassengerInfo {
     }
 
     public void getDateOfJourneyFromUser() {
+        Utilities util = new Utilities();
         System.out.println("\033[0;1m" + "Enter the date of journey in DD/MM/YYYY" + "\033[0;0m");
         String dateInput = scanner.next();
         // Converting the string to date
@@ -127,6 +128,7 @@ class PassengerInfo {
     }
 
     public void displayFromToFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         for (BusInfo bus : getFromToFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
@@ -154,6 +156,7 @@ class PassengerInfo {
     }
 
     public void displayAgencyFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
@@ -162,6 +165,7 @@ class PassengerInfo {
     }
 
     public void displayJourneyHrsSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         Collections.sort(getAgencyFilteredBusList(), new JourneyComparator());
         for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
@@ -171,6 +175,7 @@ class PassengerInfo {
     }
 
     public void displayTicketCostSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         Collections.sort(getAgencyFilteredBusList(), new CostComparator());
         for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
@@ -180,6 +185,7 @@ class PassengerInfo {
     }
 
     public void displayBusNumberSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         Collections.sort(getAgencyFilteredBusList(), new BusNumberComparator());
         for (BusInfo bus : getAgencyFilteredBusList()) {
             util.drawDoubleLine();
@@ -351,6 +357,7 @@ class PassengerInfo {
 
     // Map Ticket Bookings
     public void mapAndDisplayTicketDetails() {
+        Utilities util = new Utilities();
         ticketInfo.setTicketID(ticketInfo.generateTicketID());
         String passengerName = getPassengerName();
         String passengerIdNumber = getPassengerIdNumber();

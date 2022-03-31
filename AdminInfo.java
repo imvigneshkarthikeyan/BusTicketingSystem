@@ -124,20 +124,21 @@ class AdminInfo implements DisplayInformation {
         }
     }
 
-    Utilities util = new Utilities();
-
     // Welcome message
     public void displayWelcomeMessage() {
+        Utilities util = new Utilities();
         util.welcomeMsg();
     }
 
     public void displayOptionsMessage() {
+        Utilities util = new Utilities();
         util.drawDoubleLine();
         System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
     }
 
     // Displaying BusList in a for each loop
     public void displayBusList() {
+        Utilities util = new Utilities();
         util.drawDoubleLine();
         System.out.println("\033[0;1m" + "The following buses are available:" + "\033[0;0m");
         for (BusInfo b : getBusList()) {
@@ -149,6 +150,7 @@ class AdminInfo implements DisplayInformation {
     public void addNewBus() {
         BusInfo busInfo = new BusInfo();
         SpecialBusInfo specialBus = new SpecialBusInfo();
+        Utilities util = new Utilities();
         boolean isSucessful = false;
         while (!isSucessful) {
             try {
@@ -172,14 +174,7 @@ class AdminInfo implements DisplayInformation {
                     busInfo.setCostOfTicket(scanner.nextDouble());
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    int newBusNumber = busInfo.getBusNumber();
-                    String newAgencyName = busInfo.getAgencyName();
-                    String newFromCity = busInfo.getFromCity();
-                    String newToCity = busInfo.getToCity();
-                    int newBusCapacity = busInfo.getBusCapacity();
-                    double newCostOfTicket = busInfo.getCostOfTicket();
-                    int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().add(new BusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newCostOfTicket, newApproxJourneyHrs));
+                    getBusList().add(new BusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
                     // Displaying the list of buses after adding
                     util.drawLine();
                     displayBusList();
@@ -200,15 +195,7 @@ class AdminInfo implements DisplayInformation {
                     busInfo.setCostOfTicket(scanner.nextDouble());
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    int newBusNumber = busInfo.getBusNumber();
-                    String newAgencyName = busInfo.getAgencyName();
-                    String newFromCity = busInfo.getFromCity();
-                    String newToCity = busInfo.getToCity();
-                    int newBusCapacity = busInfo.getBusCapacity();
-                    String newBusFacility = specialBus.getBusFacility();
-                    double newCostOfTicket = busInfo.getCostOfTicket();
-                    int newApproxJourneyHrs = busInfo.getApproxJourneyHrs();
-                    getBusList().add(new SpecialBusInfo(newBusNumber, newAgencyName, newFromCity, newToCity, newBusCapacity, newBusFacility, newCostOfTicket, newApproxJourneyHrs));
+                    getBusList().add(new SpecialBusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), specialBus.getBusFacility(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
                     // Displaying the list of buses after adding
                     util.drawLine();
                     displayBusList();
@@ -222,6 +209,7 @@ class AdminInfo implements DisplayInformation {
 
     // Displaying the BusInfo along with index number
     public void displayBusWithIndex() {
+        Utilities util = new Utilities();
         util.drawLine();
         int index = 0;
         for (BusInfo b : getBusList()) {
@@ -232,6 +220,7 @@ class AdminInfo implements DisplayInformation {
     }
 
     public void displaySpecialBusWithIndex() {
+        Utilities util = new Utilities();
         util.drawLine();
         int index = 0;
         for (BusInfo b : getFilteredSpecialBusList()) {
@@ -245,6 +234,7 @@ class AdminInfo implements DisplayInformation {
     public void editBus() {
         BusInfo busInfo = new BusInfo();
         SpecialBusInfo specialBus = new SpecialBusInfo();
+        Utilities util = new Utilities();
         boolean isSucessful = false;
         while (!isSucessful) {
             try {
@@ -373,6 +363,7 @@ class AdminInfo implements DisplayInformation {
 
     // Delete bus for admin panel
     public void deleteBus() {
+        Utilities util = new Utilities();
         System.out.println("Deleting the Bus...");
         displayBusWithIndex();
         System.out.println("Enter the index number of the Bus that has to be removed");
@@ -385,6 +376,7 @@ class AdminInfo implements DisplayInformation {
 
     // Display Bookings for Admin
     public void displayBookings(String ticketID, String passengerName, String passengerIdNumber, String agencyName, int busNumber, String formattedDate, int totalNumberOfSeats, String fromCity, String toCity, double totalAmount) {
+        Utilities util = new Utilities();
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
         System.out.println("\033[0;1m" + "Passenger Name: " + "\033[0;0m" + passengerName);
         System.out.println("\033[0;1m" + "Aadhar Number: " + "\033[0;0m" + passengerIdNumber);
@@ -407,6 +399,7 @@ class AdminInfo implements DisplayInformation {
     }
 
     public void displayAgencyBookings() {
+        Utilities util = new Utilities();
         System.out.println("Enter the agency name to fetch bookings: ");
         String agencyNameToSearch = scanner.next();
         System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
@@ -459,6 +452,7 @@ class AdminInfo implements DisplayInformation {
 
     // Admin's Function
     public void adminFunction() {
+        Utilities util = new Utilities();
         util.drawLine();
         displayBusList();
         util.drawLine();
@@ -532,6 +526,7 @@ class AdminInfo implements DisplayInformation {
     // Start a new booking
     public void startNewBooking() {
         PassengerInfo ticketForPassenger = new PassengerInfo();
+        Utilities util = new Utilities();
         // Filtering Bus List based on From and To
         ticketForPassenger.filterFromToBusList(getPassengerList(), getBusList());
         ticketForPassenger.displayFromToFilteredBusList(getPassengerList(), getBusList());

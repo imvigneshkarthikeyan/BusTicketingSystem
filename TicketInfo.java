@@ -115,10 +115,10 @@ class TicketInfo {
         return getTicketID();
     }
 
-    Utilities util = new Utilities();
 
     // Display Ticket
     public void displayTicket(String passengerName, String passengerIdNumber, String formattedDate) {
+        Utilities util = new Utilities();
         util.ticketLineMsg();
         System.out.println("\033[0;1m" + "Reservation Status:" + "\033[0;0m" + "Success!");
         System.out.println("\033[0;1m" + "Ticket ID: " + "\033[0;0m" + ticketID);
@@ -133,6 +133,7 @@ class TicketInfo {
 
     // Display Bill
     public void displayBill() {
+        Utilities util = new Utilities();
         util.billLineMsg();
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
@@ -144,6 +145,7 @@ class TicketInfo {
     }
 
     public void displayBill(double discountInPercent, double discountedAmount) {
+        Utilities util = new Utilities();
         util.billLineMsg();
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);
         System.out.println("\033[0;1m" + "Ticket Cost: " + "\033[0;0m" + "₹" + ticketAmount);
