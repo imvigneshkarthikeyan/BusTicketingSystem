@@ -21,7 +21,7 @@ public class Main {
                         adminInfo.startNewBooking();
                         break;
                     case 2:
-                        adminInfo.adminOperations();
+                        adminInfo.adminLogin();
                         break;
                     case 3:
                         System.out.println("Quiting the application");
