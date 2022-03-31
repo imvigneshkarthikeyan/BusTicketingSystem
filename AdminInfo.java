@@ -235,8 +235,6 @@ class AdminInfo implements DisplayInformation {
         BusInfo busInfo = new BusInfo();
         SpecialBusInfo specialBus = new SpecialBusInfo();
         Utilities util = new Utilities();
-        boolean isSucessful = false;
-        while (!isSucessful) {
             try {
                 System.out.println("Editing the Bus...");
                 System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
@@ -354,12 +352,10 @@ class AdminInfo implements DisplayInformation {
                     }
                     displayBusList();
                 }
-                isSucessful = true;
             } catch (Exception e) {
                 System.out.println("Invalid input, please try again!");
             }
         }
-    }
 
     // Delete bus for admin panel
     public void deleteBus() {
@@ -370,6 +366,8 @@ class AdminInfo implements DisplayInformation {
         int busToBeRemoved = scanner.nextInt();
         getBusList().remove(busToBeRemoved);
         // Displaying the BusList after removing
+        util.drawLine();
+        System.out.println("The selected bus was removed successfully");
         util.drawLine();
         displayBusList();
     }
@@ -392,9 +390,17 @@ class AdminInfo implements DisplayInformation {
 
     @Override // Show Bookings
     public void displayInfo() {
-        System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
-        for (PassengerInfo p : getPassengerList()) {
-            displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+        if (getPassengerList().isEmpty()) {
+            System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
+            System.out.println("No bookings till now!");
+        } else {
+            System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
+            for (PassengerInfo p : getPassengerList()) {
+                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(),
+                        p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(),
+                        p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(),
+                        p.getTotalCost(getPassengerList(), getBusList()));
+            }
         }
     }
 
