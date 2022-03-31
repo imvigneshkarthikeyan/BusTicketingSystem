@@ -313,8 +313,7 @@ class AdminInfo implements DisplayInformation {
                         case 1:
                             System.out.println("Enter the new Bus Number that has to be updated: ");
                             busInfo.setBusNumber(scanner.nextInt());
-                            int updatedBusNumber = busInfo.getBusNumber();
-                            getBusList().get(busToBeUpdated).setBusNumber(updatedBusNumber);
+                            getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
                             break;
                         case 2:
                             System.out.println("Enter the new Agency Name that has to be updated: ");
@@ -363,8 +362,7 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Deleting the Bus...");
         displayBusWithIndex();
         System.out.println("Enter the index number of the Bus that has to be removed");
-        int busToBeRemoved = scanner.nextInt();
-        getBusList().remove(busToBeRemoved);
+        getBusList().remove(scanner.nextInt());
         // Displaying the BusList after removing
         util.drawLine();
         System.out.println("The selected bus was removed successfully");
@@ -438,8 +436,7 @@ class AdminInfo implements DisplayInformation {
         // Using console to read admin pin as invisible
         Console console = System.console();
         System.out.println("Entering into Admin Login...");
-        char[] readPin = console.readPassword("Enter the pin to proceed: ");
-        String pinNum = new String(readPin);
+        String pinNum = new String(console.readPassword("Enter the pin to proceed: "));
         return pinNum;
     }
 

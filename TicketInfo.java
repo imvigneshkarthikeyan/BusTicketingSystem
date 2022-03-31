@@ -12,6 +12,7 @@ class TicketInfo {
     private double taxPercentage;
     private double taxAmount;
     private double totalAmountPerTicket;
+    private double discountedAmount;
     private double totalAmount;
     
     public int getBusNumber() {
@@ -102,6 +103,14 @@ class TicketInfo {
         this.totalAmountPerTicket = totalAmountPerTicket;
     }
 
+    public double getDiscountedAmount() {
+        return discountedAmount;
+    }
+
+    public void setDiscountedAmount(double discountedAmount) {
+        this.discountedAmount = discountedAmount;
+    }
+
     public double getTotalAmount() {
         return totalAmount;
     }
@@ -144,7 +153,7 @@ class TicketInfo {
         util.drawDoubleLine();
     }
 
-    public void displayBill(double discountInPercent, double discountedAmount) {
+    public void displayBill(double discountInPercent) {
         Utilities util = new Utilities();
         util.billLineMsg();
         System.out.println("\033[0;1m" + "Total No:of Seats: " + "\033[0;0m" + totalNumberOfSeats);

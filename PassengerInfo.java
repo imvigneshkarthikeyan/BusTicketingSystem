@@ -65,8 +65,7 @@ class PassengerInfo {
         while (!isSucessful) {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
             try {
-                int newBusNumber = Integer.parseInt(scanner.next());
-                ticketInfo.setBusNumber(newBusNumber);
+                ticketInfo.setBusNumber(Integer.parseInt(scanner.next()));
                 isSucessful = true;
             } catch (Exception e) {
                 System.out.println("Invalid bus Number, try again!");
@@ -81,10 +80,9 @@ class PassengerInfo {
         while (!isSucessful) {
         System.out.println("\033[0;1m" + "Enter the date of journey in DD/MM/YYYY" + "\033[0;0m");
         try {
-            String dateInput = scanner.next();
             // Converting the string to date
             DateFormat dateFormat = util.dateFormatter();
-            ticketInfo.setDateOfJourney(dateFormat.parse(dateInput));
+            ticketInfo.setDateOfJourney(dateFormat.parse(scanner.next()));
             isSucessful = true;
         } catch (ParseException e) {
             System.out.println("Invalid date, try again!");
@@ -222,6 +220,7 @@ class PassengerInfo {
                         break;
                     case 3:
                         displayBusNumberSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
                     case 4:
                         System.out.println("Redirecting...");
                         break;
@@ -233,7 +232,6 @@ class PassengerInfo {
                 System.out.println("Invalid input, please try again!");
                 sortOption = 1;
             }
-
         }
     }
 
@@ -400,9 +398,9 @@ class PassengerInfo {
         ticketInfo.setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
         ticketInfo.setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
         double discountInPercent = discoutPercentage * 100;
-        double discountedAmount = getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage;
-        ticketInfo.setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()) - discountedAmount);
+        ticketInfo.setDiscountedAmount(getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage);
+        ticketInfo.setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()) - ticketInfo.getDiscountedAmount());
         // Displaying the cost of ticket after tax calculation
-        ticketInfo.displayBill(discountInPercent, discountedAmount);
+        ticketInfo.displayBill(discountInPercent);
     }
 }
