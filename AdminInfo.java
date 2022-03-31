@@ -251,7 +251,7 @@ class AdminInfo implements DisplayInformation {
                     // Asking for the field that has to be updated
                     util.drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println("1.Bus Number \n2.Agency \n3.From City \n4.To City \n5.Bus Capacity \n6.Bus Facility \n7.Cost of the ticket \n8.Approx Journey Hours \nEnter any other number to quit");
+                    System.out.println("1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
                     int optionToBeUpdated = scanner.nextInt();
                     switch (optionToBeUpdated) {
                         case 1:
@@ -390,16 +390,14 @@ class AdminInfo implements DisplayInformation {
 
     @Override // Show Bookings
     public void displayInfo() {
+        Utilities util = new Utilities();
         if (getPassengerList().isEmpty()) {
-            System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
+            util.drawBookingLine();
             System.out.println("No bookings till now!");
         } else {
-            System.out.println("\033[0;1m" + "==================================================================== BOOKINGS =====================================================================" + "\033[0;0m");
+            util.drawBookingLine();
             for (PassengerInfo p : getPassengerList()) {
-                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(),
-                        p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(),
-                        p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(),
-                        p.getTotalCost(getPassengerList(), getBusList()));
+                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
             }
         }
     }
@@ -408,7 +406,7 @@ class AdminInfo implements DisplayInformation {
         Utilities util = new Utilities();
         System.out.println("Enter the agency name to fetch bookings: ");
         String agencyNameToSearch = scanner.next();
-        System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
+        util.drawBookingLine(agencyNameToSearch);
         for (PassengerInfo p : getPassengerList()) {
             if (p.ticketInfo.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
                 displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
@@ -422,9 +420,8 @@ class AdminInfo implements DisplayInformation {
         InputStreamReader r = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(r);
         System.out.println("Enter the list of cities operating separated by comma: ");
-        String newMessage = br.readLine();
-        setOperatingCities(newMessage);
-        System.out.println("Updated Operating Cities are: " + newMessage);
+        setOperatingCities(br.readLine());
+        System.out.println("Updated Operating Cities are: " + getOperatingCities());
     }
 
     // Update Available Agencies Message
@@ -432,9 +429,8 @@ class AdminInfo implements DisplayInformation {
         InputStreamReader r = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(r);
         System.out.println("Enter the list of agencies separated by comma: ");
-        String newMessage = br.readLine();
-        setAvailableAgencies(newMessage);
-        System.out.println("Updated agencies are: " + newMessage);
+        setAvailableAgencies(br.readLine());
+        System.out.println("Updated agencies are: " + getAvailableAgencies());
     }
 
     // Authentication for Admin PIN
@@ -463,7 +459,7 @@ class AdminInfo implements DisplayInformation {
         displayBusList();
         util.drawLine();
         // Operations which can be performed by the admin
-        System.out.println("Enter option: \n1:Add a new bus \n2:Edit a Bus \n3:Delete a Bus \n4.Display All Bookings \n5.Filter Bookings based on Agency \n6.Display all the buses \n7.Update Operating Cities \n8.Update Available Agencies \n9.To logout");
+        System.out.println("Enter option: \n1: Add a new bus \n2: Edit a Bus \n3: Delete a Bus \n4: Display All Bookings \n5: Filter Bookings based on Agency \n6: Display all the buses \n7: Update Operating Cities \n8: Update Available Agencies \n9: To logout");
         try {
             int operationOption = Integer.parseInt(scanner.next());
             if (operationOption < 1 || operationOption > 9) {
