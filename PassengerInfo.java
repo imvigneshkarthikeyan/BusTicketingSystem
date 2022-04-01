@@ -61,15 +61,20 @@ class PassengerInfo {
     }
 
     public void getBusNumberFromUser() {
-        boolean isSucessful = false;
-        while (!isSucessful) {
+        boolean validateBusNumber = false;
+        while (!validateBusNumber) {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
             try {
-                ticketInfo.setBusNumber(Integer.parseInt(scanner.next()));
-                isSucessful = true;
+                AdminInfo a = new AdminInfo();
+                int newBusNumber = Integer.parseInt(scanner.next());
+                validateBusNumber = a.getBusList().stream().map(BusInfo::getBusNumber).anyMatch(b -> b == newBusNumber);
+                ticketInfo.setBusNumber(newBusNumber);
+                if (!validateBusNumber) {
+                    System.out.println("Try Again, enter the available bus number");
+                }
             } catch (Exception e) {
                 System.out.println("Invalid bus Number, try again!");
-                isSucessful = false;
+                validateBusNumber = false;
             }
         }
     }
@@ -111,8 +116,17 @@ class PassengerInfo {
     }
 
     public void getSeatsRequired() {
+        boolean isSucessful = false;
+        while (!isSucessful) {
         System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
-        ticketInfo.setTotalNumberOfSeats(scanner.nextInt());
+        try {
+            ticketInfo.setTotalNumberOfSeats(Integer.parseInt(scanner.next()));
+            isSucessful = true;
+        } catch (Exception e) {
+            System.out.println("Invalid, Please try again!");
+            isSucessful = false;
+        }
+        }
     }
 
     // ArrayList for filteredbusList based on from & to from user

@@ -104,24 +104,15 @@ class AdminInfo implements DisplayInformation {
         this.passengerList = passengerList;
     }
 
-    // FilterList For Special Bus
-    private ArrayList<BusInfo> filteredSpecialBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getFilteredSpecialBusList() {
-        return filteredSpecialBusList;
-    }
-
-    public void setFilteredSpecialBusList(ArrayList<BusInfo> filteredSpecialBusList) {
-        this.filteredSpecialBusList = filteredSpecialBusList;
-    }
-
     // Filtering Special Bus
-    public void filterSpecialBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+        ArrayList<BusInfo> filteredBusList = new ArrayList<BusInfo>();
         for (BusInfo bus : getBusList()) {
             if (bus instanceof SpecialBusInfo) {
-                getFilteredSpecialBusList().add(bus);
+                filteredBusList.add(bus);
             }
         }
+        return filteredBusList;
     }
 
     // Welcome message
@@ -208,27 +199,17 @@ class AdminInfo implements DisplayInformation {
     }
 
     // Displaying the BusInfo along with index number
-    public void displayBusWithIndex() {
+    public void displayBusWithIndex(ArrayList<BusInfo> buses) {
         Utilities util = new Utilities();
         util.drawLine();
         int index = 0;
-        for (BusInfo b : getBusList()) {
+        for (BusInfo b : buses) {
             System.out.print("Index Number: " + index++ + "| ");
             b.displayInfo();
         }
         util.drawLine();
     }
 
-    public void displaySpecialBusWithIndex() {
-        Utilities util = new Utilities();
-        util.drawLine();
-        int index = 0;
-        for (BusInfo b : getFilteredSpecialBusList()) {
-            System.out.print("Index Number: " + index++ + "| ");
-            b.displayInfo();
-        }
-        util.drawLine();
-    }
 
     // EditBus for admin panel
     public void editBus() {
@@ -243,16 +224,16 @@ class AdminInfo implements DisplayInformation {
                     throw new IllegalArgumentException();
                 }
                 if (editBusOption == 1) {
-                    filterSpecialBusList(getPassengerList(), getBusList());
-                    displaySpecialBusWithIndex();
+                    ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getPassengerList(), getBusList());
+                    displayBusWithIndex(filteredBuses);
                     // Getting the index number that has to be updated from user
                     System.out.println("Enter the Index number of the bus to be updated: ");
                     int busToBeUpdated = scanner.nextInt();
-                    while (getFilteredSpecialBusList().size() <= busToBeUpdated) {
+                    while (filteredBuses.size() <= busToBeUpdated) {
                         System.out.println("Enter the index number properly from the given list.");
                         busToBeUpdated = scanner.nextInt();
                     }
-                    if (getFilteredSpecialBusList().size() > busToBeUpdated){
+                    if (filteredBuses.size() > busToBeUpdated){
                         // Asking for the field that has to be updated
                         util.drawLine();
                         System.out.println("Select the option of the field which has to be updated: ");
@@ -307,7 +288,7 @@ class AdminInfo implements DisplayInformation {
                     displayBusList();
                     }
                 } else if (editBusOption == 2) {
-                    displayBusWithIndex();
+                    displayBusWithIndex(busList);
                     // Getting the index number that has to be updated from user
                     System.out.println("Enter the Index number of the bus to be updated: ");
                     int busToBeUpdated = scanner.nextInt();
@@ -372,7 +353,7 @@ class AdminInfo implements DisplayInformation {
     public void deleteBus() {
         Utilities util = new Utilities();
         System.out.println("Deleting the Bus...");
-        displayBusWithIndex();
+        displayBusWithIndex(busList);
         System.out.println("Enter the index number of the Bus that has to be removed");
         getBusList().remove(scanner.nextInt());
         // Displaying the BusList after removing
