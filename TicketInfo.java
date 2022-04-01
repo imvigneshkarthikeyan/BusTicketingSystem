@@ -9,7 +9,7 @@ class TicketInfo {
     private int busNumber;
     private String ticketID;
     private double ticketAmount;
-    private double taxPercentage;
+    private double taxPercentage = 0.05;
     private double taxAmount;
     private double totalAmountPerTicket;
     private double discountedAmount;

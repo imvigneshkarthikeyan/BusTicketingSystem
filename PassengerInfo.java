@@ -6,11 +6,6 @@ class PassengerInfo {
     private String passengerName;
     private String passengerPhoneNumber;
     private String passengerIdNumber;
-    // Using TaxPercentage as Static, as a copy of TaxPercentage is not required in all the objects.
-    private static double taxPercentage;
-    static {
-        taxPercentage = 0.05;
-    }
 
     // GettersSetters for private attributes
     public String getPassengerName() {
@@ -66,9 +61,8 @@ class PassengerInfo {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
             try {
                 AdminInfo a = new AdminInfo();
-                int newBusNumber = Integer.parseInt(scanner.next());
-                validateBusNumber = a.getBusList().stream().map(BusInfo::getBusNumber).anyMatch(b -> b == newBusNumber);
-                ticketInfo.setBusNumber(newBusNumber);
+                ticketInfo.setBusNumber(Integer.parseInt(scanner.next()));
+                validateBusNumber = a.getBusList().stream().map(BusInfo::getBusNumber).anyMatch(b -> b == ticketInfo.getBusNumber());
                 if (!validateBusNumber) {
                     System.out.println("Try Again, enter the available bus number");
                 }
@@ -342,7 +336,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating GST of 5%
-                taxPrice = ticketPrice * taxPercentage;
+                taxPrice = ticketPrice * ticketInfo.getTaxPercentage();
             }
         }
         return taxPrice;
@@ -356,7 +350,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                ticketPriceWithTax = ticketPrice + (ticketPrice * taxPercentage);
+                ticketPriceWithTax = ticketPrice + (ticketPrice * ticketInfo.getTaxPercentage());
             }
         }
         return ticketPriceWithTax;
@@ -370,7 +364,7 @@ class PassengerInfo {
             if (bus.getBusNumber() == ticketInfo.getBusNumber()) {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                ticketPriceWithTax = ticketInfo.getTotalNumberOfSeats() * ticketPrice + (ticketInfo.getTotalNumberOfSeats() * ticketPrice * taxPercentage);
+                ticketPriceWithTax = ticketInfo.getTotalNumberOfSeats() * ticketPrice + (ticketInfo.getTotalNumberOfSeats() * ticketPrice * ticketInfo.getTaxPercentage());
             }
         }
         return ticketPriceWithTax;
@@ -395,7 +389,7 @@ class PassengerInfo {
         AdminInfo a = new AdminInfo();
         ticketInfo.setTotalNumberOfSeats(ticketInfo.getTotalNumberOfSeats());
         ticketInfo.setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
-        ticketInfo.setTaxPercentage(PassengerInfo.taxPercentage * 100);
+        ticketInfo.setTaxPercentage(ticketInfo.getTaxPercentage() * 100);
         ticketInfo.setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
         ticketInfo.setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
         ticketInfo.setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()));
@@ -408,7 +402,7 @@ class PassengerInfo {
         AdminInfo a = new AdminInfo();
         ticketInfo.setTotalNumberOfSeats(ticketInfo.getTotalNumberOfSeats());
         ticketInfo.setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
-        ticketInfo.setTaxPercentage(PassengerInfo.taxPercentage * 100);
+        ticketInfo.setTaxPercentage(ticketInfo.getTaxPercentage() * 100);
         ticketInfo.setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
         ticketInfo.setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
         double discountInPercent = discoutPercentage * 100;
