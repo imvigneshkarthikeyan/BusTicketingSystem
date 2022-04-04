@@ -34,6 +34,11 @@ class Utilities {
         drawDoubleLine();
     }
 
+    public void displayOptionsMessage() {
+        drawDoubleLine();
+        System.out.println("\033[0;1m" + "Enter option:" + "\033[0;0m" + "\n1: Start a new Booking \n2: Login as Admin \n3: Quit\n");
+    }
+
     public void ticketLineMsg() {
         drawDoubleLine();
         System.out.println("======================================================================== TICKET ========================================================================");

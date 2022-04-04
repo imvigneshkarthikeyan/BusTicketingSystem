@@ -11,7 +11,7 @@ public class Main {
         adminInfo.displayBusList();
         // Loop for the Application
         while (selectedOption == 1 || selectedOption == 2) {
-            adminInfo.displayOptionsMessage();
+            util.displayOptionsMessage();
             try {
                 selectedOption = Integer.parseInt(scanner.nextLine());
                 if (selectedOption < 1 || selectedOption > 3) {
@@ -33,7 +33,8 @@ public class Main {
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input, please try again!");
                 selectedOption = 1;
-            } catch (Exception e) {
+            } 
+            catch (Exception e) {
                 System.out.println("Try again!");
             }
         }

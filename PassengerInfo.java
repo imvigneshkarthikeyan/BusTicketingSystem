@@ -26,19 +26,19 @@ class PassengerInfo {
         this.passengerPhoneNumber = passengerPhoneNumber;
     }
 
-    TicketInfo ticketInfo = new TicketInfo();
-
-    public String getFormattedDateOfJourney() {
-        Utilities util = new Utilities();
-        return util.dateFormatter().format(ticketInfo.getDateOfJourney());
-    }
-
     public String getPassengerIdNumber() {
         return passengerIdNumber;
     }
 
     public void setPassengerIdNumber(String passengerIdNumber) {
         this.passengerIdNumber = passengerIdNumber;
+    }
+
+    TicketInfo ticketInfo = new TicketInfo();
+
+    public String getFormattedDateOfJourney() {
+        Utilities util = new Utilities();
+        return util.dateFormatter().format(ticketInfo.getDateOfJourney());
     }
 
     // Constructor
@@ -90,20 +90,20 @@ class PassengerInfo {
 
     public void getOtherPassengerInfo() {
         System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
-        passengerName = scanner.next();
+        setPassengerName(scanner.next());
         System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
-        passengerPhoneNumber = scanner.next();
+        setPassengerPhoneNumber(scanner.next());
         // Phone Number Validation
-        while (passengerPhoneNumber.length() != 10) {
+        while (getPassengerPhoneNumber().length() != 10) {
             System.out.println("Please enter a valid 10 digit phone number \n Eg: 9876543210");
-            passengerPhoneNumber = scanner.next();
+            setPassengerPhoneNumber(scanner.next());
         }
         System.out.println("\033[0;1m" + "Enter the Aadhar Number" + "\033[0;0m");
-        passengerIdNumber = scanner.next();
+        setPassengerIdNumber(scanner.next());
         // ID Number Validation
-        while (passengerIdNumber.length() != 12) {
+        while (getPassengerIdNumber().length() != 12) {
             System.out.println("Enter a Valid 12 Digit Aadhar Number without spaces \nEg: 814273020135");
-            passengerIdNumber = scanner.next();
+            setPassengerIdNumber(scanner.next());
         }
     }
 
