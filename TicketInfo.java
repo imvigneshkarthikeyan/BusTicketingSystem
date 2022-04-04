@@ -1,4 +1,6 @@
+import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 class TicketInfo {
     private Date dateOfJourney;
@@ -14,7 +16,10 @@ class TicketInfo {
     private double totalAmountPerTicket;
     private double discountedAmount;
     private double totalAmount;
-    
+
+    Scanner scanner = new Scanner(System.in);
+    PassengerInfo p = new PassengerInfo();
+
     public int getBusNumber() {
         return busNumber;
     }
@@ -124,7 +129,6 @@ class TicketInfo {
         return getTicketID();
     }
 
-
     // Display Ticket
     public void displayTicket(String passengerName, String passengerIdNumber, String formattedDate) {
         Utilities util = new Utilities();
@@ -165,5 +169,352 @@ class TicketInfo {
         System.out.println("\033[0;1m" + "The Discounted amount is: " + "\033[0;0m" + "₹" + discountedAmount);
         System.out.println("\033[0;1m" + "The Total Cost: " + "\033[0;0m" + "₹" + totalAmount);
         util.drawDoubleLine();
+    }
+
+    // Constructor
+    TicketInfo() {
+        System.out.println("\033[0;1m" + "Enter the Boarding city" + "\033[0;0m");
+        setFromCity(scanner.next());
+        System.out.println("\033[0;1m" + "Enter the Destination city" + "\033[0;0m");
+        setToCity(scanner.next());
+    }
+
+    public String getFormattedDateOfJourney() {
+        Utilities util = new Utilities();
+        return util.dateFormatter().format(getDateOfJourney());
+    }
+
+    public void getAgencyNameFromUser() {
+        System.out.println("\033[0;1m" + "Enter the travel agency name" + "\033[0;0m");
+        setAgencyName(scanner.next());
+    }
+
+    public void getBusNumberFromUser() {
+        boolean validateBusNumber = false;
+        while (!validateBusNumber) {
+            System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
+            try {
+                AdminInfo a = new AdminInfo();
+                setBusNumber(Integer.parseInt(scanner.next()));
+                validateBusNumber = a.getBusList().stream().map(BusInfo::getBusNumber)
+                        .anyMatch(b -> b == getBusNumber());
+                if (!validateBusNumber) {
+                    System.out.println("Try Again, enter the available bus number");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid bus Number, try again!");
+                validateBusNumber = false;
+            }
+        }
+    }
+
+    public void getDateOfJourneyFromUser() {
+        Utilities util = new Utilities();
+        boolean isSucessful = false;
+        while (!isSucessful) {
+            System.out.println("\033[0;1m" + "Enter the date of journey in DD/MM/YYYY" + "\033[0;0m");
+            try {
+                // Converting the string to date
+                setDateOfJourney(util.dateFormatter().parse(scanner.next()));
+                isSucessful = true;
+            } catch (ParseException e) {
+                System.out.println("Invalid date, try again!");
+                isSucessful = false;
+            }
+        }
+    }
+
+    public void getOtherPassengerInfo() {
+        System.out.println("\033[0;1m" + "Enter the name of the Passenger" + "\033[0;0m");
+        p.setPassengerName(scanner.next());
+        System.out.println("\033[0;1m" + "Enter the phone number" + "\033[0;0m");
+        p.setPassengerPhoneNumber(scanner.next());
+        // Phone Number Validation
+        while (p.getPassengerPhoneNumber().length() != 10) {
+            System.out.println("Please enter a valid 10 digit phone number \n Eg: 9876543210");
+            p.setPassengerPhoneNumber(scanner.next());
+        }
+        System.out.println("\033[0;1m" + "Enter the Aadhar Number" + "\033[0;0m");
+        p.setPassengerIdNumber(scanner.next());
+        // ID Number Validation
+        while (p.getPassengerIdNumber().length() != 12) {
+            System.out.println("Enter a Valid 12 Digit Aadhar Number without spaces \nEg: 814273020135");
+            p.setPassengerIdNumber(scanner.next());
+        }
+    }
+
+    public void getSeatsRequired() {
+        boolean isSucessful = false;
+        while (!isSucessful) {
+            System.out.println("\033[0;1m" + "Enter total no:of seats needed" + "\033[0;0m");
+            try {
+                setTotalNumberOfSeats(Integer.parseInt(scanner.next()));
+                isSucessful = true;
+            } catch (Exception e) {
+                System.out.println("Invalid, Please try again!");
+                isSucessful = false;
+            }
+        }
+    }
+
+    // Searching bus based on From, To and Agency.
+    public ArrayList<BusInfo> fromToSearchList() {
+        AdminInfo adminInfo = new AdminInfo();
+        ArrayList<BusInfo> fromToSearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream()
+                .filter(b -> b.getFromCity().equalsIgnoreCase(getFromCity())
+                        && b.getToCity().equalsIgnoreCase(getToCity()))
+                .collect(Collectors.toList());
+        return fromToSearchBusList;
+    }
+
+    public ArrayList<BusInfo> agencySearchList() {
+        AdminInfo adminInfo = new AdminInfo();
+        ArrayList<BusInfo> agencySearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream()
+                .filter(b -> b.getAgencyName().equalsIgnoreCase(getAgencyName())
+                        && b.getFromCity().equalsIgnoreCase(getFromCity())
+                        && b.getToCity().equalsIgnoreCase(getToCity()))
+                .collect(Collectors.toList());
+        return agencySearchBusList;
+    }
+
+    public void displaySearchList(ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
+        for (BusInfo bus : busList) {
+            util.drawDoubleLine();
+            bus.displayInfo();
+        }
+        util.drawLine();
+    }
+
+    public boolean isBusListEmpty(ArrayList<BusInfo> busList) {
+        if (busList.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Sorting
+    public void displayJourneyHrsSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
+            ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
+        Collections.sort(agencySearchList(), new JourneyComparator());
+        for (BusInfo bus : agencySearchList()) {
+            util.drawDoubleLine();
+            bus.displayInfo();
+        }
+        util.drawLine();
+    }
+
+    public void displayTicketCostSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
+            ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
+        Collections.sort(agencySearchList(), new CostComparator());
+        for (BusInfo bus : agencySearchList()) {
+            util.drawDoubleLine();
+            bus.displayInfo();
+        }
+        util.drawLine();
+    }
+
+    public void displayBusNumberSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
+            ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
+        Collections.sort(agencySearchList(), new BusNumberComparator());
+        for (BusInfo bus : agencySearchList()) {
+            util.drawDoubleLine();
+            bus.displayInfo();
+        }
+        util.drawLine();
+    }
+
+    public void showSortingFunctions() {
+        AdminInfo a = new AdminInfo();
+        int sortOption = 1;
+        while (sortOption == 1 || sortOption == 2 || sortOption == 3) {
+            System.out.println(
+                    "Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \n4: To continue booking");
+            try {
+                sortOption = Integer.parseInt(scanner.next());
+                if (sortOption < 1 || sortOption > 4) {
+                    throw new IllegalArgumentException();
+                }
+                switch (sortOption) {
+                    case 1:
+                        displayJourneyHrsSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
+                    case 2:
+                        displayTicketCostSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
+                    case 3:
+                        displayBusNumberSortedFilteredBusList(a.getPassengerList(), a.getBusList());
+                        break;
+                    case 4:
+                        System.out.println("Redirecting...");
+                        break;
+                    default:
+                        System.out.println("Enter 1 - 4");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input, please try again!");
+                sortOption = 1;
+            }
+        }
+    }
+
+    // Availability Checker
+    public int displayRemainingSeats(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        int availableSeats = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                availableSeats = bus.getBusCapacity();
+            }
+        }
+        for (TicketInfo t : ticketList) {
+            if (t.getBusNumber() == getBusNumber()
+                    && t.getDateOfJourney().equals(getDateOfJourney())) {
+                availableSeats = availableSeats - t.getTotalNumberOfSeats();
+            }
+        }
+        return availableSeats;
+    }
+
+    boolean isAvailable(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        // Fetching the BusCapacity from the BusNumber entered by the user
+        int busCapacity = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                busCapacity = bus.getBusCapacity();
+            }
+        }
+        // Using this as a counter
+        int reservedTickets = 0;
+        for (TicketInfo t : ticketList) {
+            if (t.getBusNumber() == getBusNumber()
+                    && t.getDateOfJourney().equals(getDateOfJourney())) {
+                reservedTickets = reservedTickets + t.getTotalNumberOfSeats();
+            }
+        }
+        // Checking the capacity and returning accordingly
+        if (reservedTickets + getTotalNumberOfSeats() <= busCapacity) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // For Displaying in the ticket section
+    public String getFromCity(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        String fromCity = "";
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                fromCity = bus.getFromCity();
+            }
+        }
+        return fromCity;
+    }
+
+    public String getToCity(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        String toCity = "";
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                toCity = bus.getToCity();
+            }
+        }
+        return toCity;
+    }
+
+    // Displaying the ticket amount
+    public double getCostOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        double ticketPrice = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                ticketPrice = bus.getCostOfTicket();
+            }
+        }
+        return ticketPrice;
+    }
+
+    // Displaying the Tax amount
+    public double getTaxOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        double ticketPrice = 0;
+        double taxPrice = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                ticketPrice = bus.getCostOfTicket();
+                // Calculating GST of 5%
+                taxPrice = ticketPrice * getTaxPercentage();
+            }
+        }
+        return taxPrice;
+    }
+
+    // Displaying the total amount for single ticket
+    public double getTotalCostOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        double ticketPrice = 0;
+        double ticketPriceWithTax = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                ticketPrice = bus.getCostOfTicket();
+                // Calculating Total cost including GST.
+                ticketPriceWithTax = ticketPrice + (ticketPrice * getTaxPercentage());
+            }
+        }
+        return ticketPriceWithTax;
+    }
+
+    // Calculating the total amount with total seats booked
+    public double getTotalCost(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+        double ticketPrice = 0;
+        double ticketPriceWithTax = 0;
+        for (BusInfo bus : busList) {
+            if (bus.getBusNumber() == getBusNumber()) {
+                ticketPrice = bus.getCostOfTicket();
+                // Calculating Total cost including GST.
+                ticketPriceWithTax = getTotalNumberOfSeats() * ticketPrice
+                        + (getTotalNumberOfSeats() * ticketPrice * getTaxPercentage());
+            }
+        }
+        return ticketPriceWithTax;
+    }
+
+    // Map Ticket Bookings
+    public void mapAndDisplayTicketDetails() {
+        Utilities util = new Utilities();
+        setTicketID(generateTicketID());
+        setAgencyName(getAgencyName());
+        setBusNumber(getBusNumber());
+        setFromCity(getFromCity());
+        setToCity(getToCity());
+        // Displaying Ticket
+        displayTicket(p.getPassengerName(), p.getPassengerIdNumber(), util.dateFormatter().format(getDateOfJourney()));
+    }
+
+    // Map Bill Details
+    public void mapAndDisplayBillDetails() {
+        AdminInfo a = new AdminInfo();
+        setTotalNumberOfSeats(getTotalNumberOfSeats());
+        setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
+        setTaxPercentage(getTaxPercentage() * 100);
+        setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
+        setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
+        setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()));
+        // Displaying the cost of ticket after tax calculation
+        displayBill();
+    }
+
+    // Map Bill Details
+    public void mapAndDisplayBillDetails(double discoutPercentage) {
+        AdminInfo a = new AdminInfo();
+        setTotalNumberOfSeats(getTotalNumberOfSeats());
+        setTicketAmount(getCostOfTicket(a.getPassengerList(), a.getBusList()));
+        setTaxPercentage(getTaxPercentage() * 100);
+        setTaxAmount(getTaxOfTicket(a.getPassengerList(), a.getBusList()));
+        setTotalAmountPerTicket(getTotalCostOfTicket(a.getPassengerList(), a.getBusList()));
+        double discountInPercent = discoutPercentage * 100;
+        setDiscountedAmount(getTotalCost(a.getPassengerList(), a.getBusList()) * discoutPercentage);
+        setTotalAmount(getTotalCost(a.getPassengerList(), a.getBusList()) - getDiscountedAmount());
+        // Displaying the cost of ticket after tax calculation
+        displayBill(discountInPercent);
     }
 }

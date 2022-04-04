@@ -94,18 +94,18 @@ class AdminInfo implements DisplayInformation {
     }
 
     // ArrayList for Passenger List
-    private ArrayList<PassengerInfo> passengerList = new ArrayList<>();
+    private ArrayList<TicketInfo> ticketList = new ArrayList<>();
 
-    public ArrayList<PassengerInfo> getPassengerList() {
-        return passengerList;
+    public ArrayList<TicketInfo> getPassengerList() {
+        return ticketList;
     }
 
-    public void setPassengerList(ArrayList<PassengerInfo> passengerList) {
-        this.passengerList = passengerList;
+    public void setPassengerList(ArrayList<TicketInfo> ticketList) {
+        this.ticketList = ticketList;
     }
 
     // Filtering Special Bus
-    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
         ArrayList<BusInfo> filteredBusList = new ArrayList<BusInfo>();
         for (BusInfo bus : getBusList()) {
             if (bus instanceof SpecialBusInfo) {
@@ -204,144 +204,143 @@ class AdminInfo implements DisplayInformation {
         util.drawLine();
     }
 
-
     // EditBus for admin panel
     public void editBus() {
         BusInfo busInfo = new BusInfo();
         SpecialBusInfo specialBus = new SpecialBusInfo();
         Utilities util = new Utilities();
-            try {
-                System.out.println("Editing the Bus...");
-                System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
-                int editBusOption = Integer.parseInt(scanner.next());
-                if (editBusOption < 1 || editBusOption > 2) {
-                    throw new IllegalArgumentException();
-                }
-                if (editBusOption == 1) {
-                    ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getPassengerList(), getBusList());
-                    displayBusWithIndex(filteredBuses);
-                    // Getting the index number that has to be updated from user
-                    System.out.println("Enter the Index number of the bus to be updated: ");
-                    int busToBeUpdated = scanner.nextInt();
-                    while (filteredBuses.size() <= busToBeUpdated) {
-                        System.out.println("Enter the index number properly from the given list.");
-                        busToBeUpdated = scanner.nextInt();
-                    }
-                    if (filteredBuses.size() > busToBeUpdated){
-                        // Asking for the field that has to be updated
-                        util.drawLine();
-                        System.out.println("Select the option of the field which has to be updated: ");
-                        System.out.println("1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
-                        int optionToBeUpdated = scanner.nextInt();
-                        switch (optionToBeUpdated) {
-                            case 1:
-                                System.out.println("Enter the new Bus Number that has to be updated: ");
-                                busInfo.setBusNumber(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
-                                break;
-                            case 2:
-                                System.out.println("Enter the new Agency Name that has to be updated: ");
-                                busInfo.setAgencyName(scanner.next());
-                                getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
-                                break;
-                            case 3:
-                                System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                                busInfo.setFromCity(scanner.next());
-                                getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
-                                break;
-                            case 4:
-                                System.out.println("Enter the new Bus Destination that has to be updated: ");
-                                busInfo.setToCity(scanner.next());
-                                getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
-                                break;
-                            case 5:
-                                System.out.println("Enter the new Capacity that has to be updated: ");
-                                busInfo.setBusCapacity(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
-                                break;
-                            case 6:
-                                System.out.println("Enter the new Bus Facility that has to be updated: ");
-                                specialBus.setBusFacility(scanner.next());
-                                ((SpecialBusInfo) getBusList().get(busToBeUpdated))
-                                        .setBusFacility(specialBus.getBusFacility());
-                                break;
-                            case 7:
-                                System.out.println("Enter the new Cost that has to be updated: ");
-                                busInfo.setCostOfTicket(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
-                                break;
-                            case 8:
-                                System.out.println("Enter the new approximate journey in hrs: ");
-                                busInfo.setApproxJourneyHrs(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
-                                break;
-                            default:
-                                System.out.println("Getting out from admin panel");
-                                break;
-                        }
-                    displayBusList();
-                    }
-                } else if (editBusOption == 2) {
-                    displayBusWithIndex(busList);
-                    // Getting the index number that has to be updated from user
-                    System.out.println("Enter the Index number of the bus to be updated: ");
-                    int busToBeUpdated = scanner.nextInt();
-                    while (getBusList().size() <= busToBeUpdated) {
-                        System.out.println("Enter the index number properly from the given list.");
-                        busToBeUpdated = scanner.nextInt();
-                    }
-                    if (getBusList().size() > busToBeUpdated) {
-                        util.drawLine();
-                        System.out.println("Select the option of the field which has to be updated: ");
-                        System.out.println("1.Bus Number \n2.Agency \n3.From City \n4.To City \n5.Bus Capacity \n6.Cost of the ticket \n7. Approx Journey Hrs \nEnter any other number to quit");
-                        int optionToBeUpdated = scanner.nextInt();
-                        switch (optionToBeUpdated) {
-                            case 1:
-                                System.out.println("Enter the new Bus Number that has to be updated: ");
-                                busInfo.setBusNumber(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
-                                break;
-                            case 2:
-                                System.out.println("Enter the new Agency Name that has to be updated: ");
-                                busInfo.setAgencyName(scanner.next());
-                                getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
-                                break;
-                            case 3:
-                                System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                                busInfo.setFromCity(scanner.next());
-                                getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
-                                break;
-                            case 4:
-                                System.out.println("Enter the new Bus Destination that has to be updated: ");
-                                busInfo.setToCity(scanner.next());
-                                getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
-                                break;
-                            case 5:
-                                System.out.println("Enter the new Capacity that has to be updated: ");
-                                busInfo.setBusCapacity(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
-                                break;
-                            case 6:
-                                System.out.println("Enter the new Cost that has to be updated: ");
-                                busInfo.setCostOfTicket(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
-                                break;
-                            case 7:
-                                System.out.println("Enter the new approximate journey in hrs: ");
-                                busInfo.setApproxJourneyHrs(scanner.nextInt());
-                                getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
-                                break;
-                            default:
-                                System.out.println("Getting out from admin panel");
-                                break;
-                        }
-                        displayBusList();
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid input, please try again!");
+        try {
+            System.out.println("Editing the Bus...");
+            System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
+            int editBusOption = Integer.parseInt(scanner.next());
+            if (editBusOption < 1 || editBusOption > 2) {
+                throw new IllegalArgumentException();
             }
+            if (editBusOption == 1) {
+                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getPassengerList(), getBusList());
+                displayBusWithIndex(filteredBuses);
+                // Getting the index number that has to be updated from user
+                System.out.println("Enter the Index number of the bus to be updated: ");
+                int busToBeUpdated = scanner.nextInt();
+                while (filteredBuses.size() <= busToBeUpdated) {
+                    System.out.println("Enter the index number properly from the given list.");
+                    busToBeUpdated = scanner.nextInt();
+                }
+                if (filteredBuses.size() > busToBeUpdated) {
+                    // Asking for the field that has to be updated
+                    util.drawLine();
+                    System.out.println("Select the option of the field which has to be updated: ");
+                    System.out.println("1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
+                    int optionToBeUpdated = scanner.nextInt();
+                    switch (optionToBeUpdated) {
+                        case 1:
+                            System.out.println("Enter the new Bus Number that has to be updated: ");
+                            busInfo.setBusNumber(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
+                            break;
+                        case 2:
+                            System.out.println("Enter the new Agency Name that has to be updated: ");
+                            busInfo.setAgencyName(scanner.next());
+                            getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
+                            break;
+                        case 3:
+                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
+                            busInfo.setFromCity(scanner.next());
+                            getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
+                            break;
+                        case 4:
+                            System.out.println("Enter the new Bus Destination that has to be updated: ");
+                            busInfo.setToCity(scanner.next());
+                            getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
+                            break;
+                        case 5:
+                            System.out.println("Enter the new Capacity that has to be updated: ");
+                            busInfo.setBusCapacity(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
+                            break;
+                        case 6:
+                            System.out.println("Enter the new Bus Facility that has to be updated: ");
+                            specialBus.setBusFacility(scanner.next());
+                            ((SpecialBusInfo) getBusList().get(busToBeUpdated))
+                                    .setBusFacility(specialBus.getBusFacility());
+                            break;
+                        case 7:
+                            System.out.println("Enter the new Cost that has to be updated: ");
+                            busInfo.setCostOfTicket(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
+                            break;
+                        case 8:
+                            System.out.println("Enter the new approximate journey in hrs: ");
+                            busInfo.setApproxJourneyHrs(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
+                            break;
+                        default:
+                            System.out.println("Getting out from admin panel");
+                            break;
+                    }
+                    displayBusList();
+                }
+            } else if (editBusOption == 2) {
+                displayBusWithIndex(busList);
+                // Getting the index number that has to be updated from user
+                System.out.println("Enter the Index number of the bus to be updated: ");
+                int busToBeUpdated = scanner.nextInt();
+                while (getBusList().size() <= busToBeUpdated) {
+                    System.out.println("Enter the index number properly from the given list.");
+                    busToBeUpdated = scanner.nextInt();
+                }
+                if (getBusList().size() > busToBeUpdated) {
+                    util.drawLine();
+                    System.out.println("Select the option of the field which has to be updated: ");
+                    System.out.println("1.Bus Number \n2.Agency \n3.From City \n4.To City \n5.Bus Capacity \n6.Cost of the ticket \n7. Approx Journey Hrs \nEnter any other number to quit");
+                    int optionToBeUpdated = scanner.nextInt();
+                    switch (optionToBeUpdated) {
+                        case 1:
+                            System.out.println("Enter the new Bus Number that has to be updated: ");
+                            busInfo.setBusNumber(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
+                            break;
+                        case 2:
+                            System.out.println("Enter the new Agency Name that has to be updated: ");
+                            busInfo.setAgencyName(scanner.next());
+                            getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
+                            break;
+                        case 3:
+                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
+                            busInfo.setFromCity(scanner.next());
+                            getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
+                            break;
+                        case 4:
+                            System.out.println("Enter the new Bus Destination that has to be updated: ");
+                            busInfo.setToCity(scanner.next());
+                            getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
+                            break;
+                        case 5:
+                            System.out.println("Enter the new Capacity that has to be updated: ");
+                            busInfo.setBusCapacity(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
+                            break;
+                        case 6:
+                            System.out.println("Enter the new Cost that has to be updated: ");
+                            busInfo.setCostOfTicket(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
+                            break;
+                        case 7:
+                            System.out.println("Enter the new approximate journey in hrs: ");
+                            busInfo.setApproxJourneyHrs(scanner.nextInt());
+                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
+                            break;
+                        default:
+                            System.out.println("Getting out from admin panel");
+                            break;
+                    }
+                    displayBusList();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid input, please try again!");
         }
+    }
 
     // Delete bus for admin panel
     public void deleteBus() {
@@ -381,8 +380,8 @@ class AdminInfo implements DisplayInformation {
             System.out.println("No bookings till now!");
         } else {
             util.drawBookingLine();
-            for (PassengerInfo p : getPassengerList()) {
-                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+            for (TicketInfo t : getPassengerList()) {
+                displayBookings(t.getTicketID(), t.p.getPassengerName(), t.p.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getPassengerList(), getBusList()));
             }
         }
     }
@@ -392,9 +391,9 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Enter the agency name to fetch bookings: ");
         String agencyNameToSearch = scanner.next();
         util.drawBookingLine(agencyNameToSearch);
-        for (PassengerInfo p : getPassengerList()) {
-            if (p.ticketInfo.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
-                displayBookings(p.ticketInfo.getTicketID(), p.getPassengerName(), p.getPassengerIdNumber(), p.ticketInfo.getAgencyName(), p.ticketInfo.getBusNumber(), p.getFormattedDateOfJourney(), p.ticketInfo.getTotalNumberOfSeats(), p.ticketInfo.getFromCity(), p.ticketInfo.getToCity(), p.getTotalCost(getPassengerList(), getBusList()));
+        for (TicketInfo t : getPassengerList()) {
+            if (t.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
+                displayBookings(t.getTicketID(), t.p.getPassengerName(), t.p.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getPassengerList(), getBusList()));
                 util.drawDoubleLine();
             }
         }
@@ -511,7 +510,7 @@ class AdminInfo implements DisplayInformation {
 
     // Start a new booking
     public void startNewBooking() {
-        PassengerInfo ticketForPassenger = new PassengerInfo();
+        TicketInfo ticketForPassenger = new TicketInfo();
         Utilities util = new Utilities();
         // Filtering Bus List based on From and To
         ticketForPassenger.fromToSearchList();
@@ -522,7 +521,7 @@ class AdminInfo implements DisplayInformation {
             ticketForPassenger.agencySearchList();
             ticketForPassenger.displaySearchList(ticketForPassenger.agencySearchList());
             if (ticketForPassenger.isBusListEmpty(ticketForPassenger.agencySearchList()) == false) {
-                // ticketForPassenger.showSortingFunctions();
+                ticketForPassenger.showSortingFunctions();
                 ticketForPassenger.getBusNumberFromUser();
                 ticketForPassenger.getDateOfJourneyFromUser();
                 // Displaying remaining seats for the date enetered by user
@@ -534,70 +533,70 @@ class AdminInfo implements DisplayInformation {
                     isDateFuture = util.isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
                 }
                 util.drawLine();
-                System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + ticketForPassenger.getFormattedDateOfJourney() + " is: " + "\033[0;0m" + availableSeats);
+                System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.getBusNumber() + " on " + ticketForPassenger.getFormattedDateOfJourney() + " is: " + "\033[0;0m" + availableSeats);
                 util.drawLine();
                 // Checking if seats are available
                 boolean isSucessful = false;
                 while (!isSucessful) {
                     if (availableSeats > 0) {
-                    System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
-                    try {
-                        int continueBooking = Integer.parseInt(scanner.next());
-                        if (continueBooking < 1 || continueBooking > 2) {
-                            throw new IllegalArgumentException();
-                        }
-                        if (continueBooking == 1) {
-                            ticketForPassenger.getOtherPassengerInfo();
-                            ticketForPassenger.getSeatsRequired();
-                            // Checking whether the user requesting seats less than or equal to the available number of seats
-                            while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
-                                System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
-                                ticketForPassenger.getSeatsRequired();
-                            } // Adding passenger to the reserved list
-                            getPassengerList().add(ticketForPassenger);
-                            // Coupon code and billing
-                            boolean checkLoop = false;
-                            while (!checkLoop) {
-                            System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
-                            try {
-                            int selectedOption = Integer.parseInt(scanner.next());
-                            if (selectedOption < 1 || selectedOption > 2) {
+                        System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
+                        try {
+                            int continueBooking = Integer.parseInt(scanner.next());
+                            if (continueBooking < 1 || continueBooking > 2) {
                                 throw new IllegalArgumentException();
                             }
-                            if (selectedOption == 1) {
-                                OffersAndDiscount offers = new OffersAndDiscount();
-                                System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
-                                offers.setAppliedCouponCode(scanner.next());
-                                if (offers.getCouponCode().equals(offers.getAppliedCouponCode())) {
-                                    System.out.println("The coupon code is valid, discount will be made on the total bill.");
-                                    ticketForPassenger.mapAndDisplayTicketDetails();
-                                    ticketForPassenger.mapAndDisplayBillDetails(offers.getDiscountPercentage());
-                                } else {
-                                    System.out.println("The code is invalid so no discount will be made.");
-                                    ticketForPassenger.mapAndDisplayTicketDetails();
-                                    ticketForPassenger.mapAndDisplayBillDetails();
+                            if (continueBooking == 1) {
+                                ticketForPassenger.getOtherPassengerInfo();
+                                ticketForPassenger.getSeatsRequired();
+                                // Checking whether the user requesting seats less than or equal to the available number of seats
+                                while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
+                                    System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
+                                    ticketForPassenger.getSeatsRequired();
+                                } // Adding passenger to the reserved list
+                                getPassengerList().add(ticketForPassenger);
+                                // Coupon code and billing
+                                boolean checkLoop = false;
+                                while (!checkLoop) {
+                                    System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
+                                    try {
+                                        int selectedOption = Integer.parseInt(scanner.next());
+                                        if (selectedOption < 1 || selectedOption > 2) {
+                                            throw new IllegalArgumentException();
+                                        }
+                                        if (selectedOption == 1) {
+                                            OffersAndDiscount offers = new OffersAndDiscount();
+                                            System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");
+                                            offers.setAppliedCouponCode(scanner.next());
+                                            if (offers.getCouponCode().equals(offers.getAppliedCouponCode())) {
+                                                System.out.println("The coupon code is valid, discount will be made on the total bill.");
+                                                ticketForPassenger.mapAndDisplayTicketDetails();
+                                                ticketForPassenger.mapAndDisplayBillDetails(offers.getDiscountPercentage());
+                                            } else {
+                                                System.out.println("The code is invalid so no discount will be made.");
+                                                ticketForPassenger.mapAndDisplayTicketDetails();
+                                                ticketForPassenger.mapAndDisplayBillDetails();
+                                            }
+                                        } else {
+                                            System.out.println("Redirecting to the bill...");
+                                            ticketForPassenger.mapAndDisplayTicketDetails();
+                                            ticketForPassenger.mapAndDisplayBillDetails();
+                                        }
+                                        checkLoop = true;
+                                    } catch (IllegalArgumentException e) {
+                                        System.out.println("Invalid input, please try again!");
+                                    }
                                 }
-                            } else {
-                                System.out.println("Redirecting to the bill...");
-                                ticketForPassenger.mapAndDisplayTicketDetails();
-                                ticketForPassenger.mapAndDisplayBillDetails();
+                            } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
+                                System.out.println("Redirecting...");
                             }
-                            checkLoop = true;
-                            } catch (IllegalArgumentException e) {
-                                System.out.println("Invalid input, please try again!");
-                            }
-                            }
-                        } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
-                            System.out.println("Redirecting...");
-                        }
-                        isSucessful = true;
+                            isSucessful = true;
                         } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid input, please try again!");
+                            System.out.println("Invalid input, please try again!");
+                        }
+                    } else { // else block if seats are not available
+                        System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
+                        break;
                     }
-                } else { // else block if seats are not available
-                    System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
-                    break;
-                }
                 }
             } else {
                 System.out.println("The requested agency is not available, try: " + getAvailableAgencies());
