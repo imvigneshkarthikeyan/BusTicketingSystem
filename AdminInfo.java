@@ -115,12 +115,6 @@ class AdminInfo implements DisplayInformation {
         return filteredBusList;
     }
 
-    // Welcome message
-    public void displayWelcomeMessage() {
-        Utilities util = new Utilities();
-        util.welcomeMsg();
-    }
-
     public void displayOptionsMessage() {
         Utilities util = new Utilities();
         util.drawDoubleLine();

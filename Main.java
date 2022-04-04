@@ -3,10 +3,11 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         AdminInfo adminInfo = new AdminInfo();
+        Utilities util = new Utilities();
         // Option given by User
         int selectedOption = 1;
         Scanner scanner = new Scanner(System.in);
-        adminInfo.displayWelcomeMessage();
+        util.displayWelcomeMessage();
         adminInfo.displayBusList();
         // Loop for the Application
         while (selectedOption == 1 || selectedOption == 2) {
