@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 import java.text.*;
 
 class PassengerInfo {
@@ -29,9 +30,7 @@ class PassengerInfo {
 
     public String getFormattedDateOfJourney() {
         Utilities util = new Utilities();
-        DateFormat dateFormatter = util.dateFormatter();
-        String formattedDate = dateFormatter.format(ticketInfo.getDateOfJourney());
-        return formattedDate;
+        return util.dateFormatter().format(ticketInfo.getDateOfJourney());
     }
 
     public String getPassengerIdNumber() {
@@ -80,8 +79,7 @@ class PassengerInfo {
         System.out.println("\033[0;1m" + "Enter the date of journey in DD/MM/YYYY" + "\033[0;0m");
         try {
             // Converting the string to date
-            DateFormat dateFormat = util.dateFormatter();
-            ticketInfo.setDateOfJourney(dateFormat.parse(scanner.next()));
+            ticketInfo.setDateOfJourney(util.dateFormatter().parse(scanner.next()));
             isSucessful = true;
         } catch (ParseException e) {
             System.out.println("Invalid date, try again!");
@@ -123,66 +121,40 @@ class PassengerInfo {
         }
     }
 
-    // ArrayList for filteredbusList based on from & to from user
-    private ArrayList<BusInfo> fromToFilteredBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getFromToFilteredBusList() {
-        return fromToFilteredBusList;
+    // Searching bus based on From, To and Agency.
+    public ArrayList<BusInfo> fromToSearchList() {
+        AdminInfo adminInfo = new AdminInfo();
+        ArrayList<BusInfo> fromToSearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream().filter(b -> b.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && b.getToCity().equalsIgnoreCase(ticketInfo.getToCity())).collect(Collectors.toList());
+        return fromToSearchBusList;
     }
 
-    public void setFromToFilteredBusList(ArrayList<BusInfo> fromToFilteredBusList) {
-        this.fromToFilteredBusList = fromToFilteredBusList;
+    public ArrayList<BusInfo> agencySearchList() {
+        AdminInfo adminInfo = new AdminInfo();
+        ArrayList<BusInfo> agencySearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream().filter(b -> b.getAgencyName().equalsIgnoreCase(ticketInfo.getAgencyName()) && b.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && b.getToCity().equalsIgnoreCase(ticketInfo.getToCity())).collect(Collectors.toList());
+        return agencySearchBusList;
     }
-    // Filtering
-    public void filterFromToBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
+
+    public void displaySearchList(ArrayList<BusInfo> busList) {
+        Utilities util = new Utilities();
         for (BusInfo bus : busList) {
-            if (bus.getFromCity().equalsIgnoreCase(ticketInfo.getFromCity()) && bus.getToCity().equalsIgnoreCase(ticketInfo.getToCity())) {
-                getFromToFilteredBusList().add(bus);
-            }
-        }
-    }
-
-    public void displayFromToFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Utilities util = new Utilities();
-        for (BusInfo bus : getFromToFilteredBusList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
         util.drawLine();
     }
 
-    // ArrayList for filteredBusList based on agency name
-    private ArrayList<BusInfo> agencyFilteredBusList = new ArrayList<>();
-
-    public ArrayList<BusInfo> getAgencyFilteredBusList() {
-        return agencyFilteredBusList;
-    }
-
-    public void setAgencyFilteredBusList(ArrayList<BusInfo> agencyFilteredBusList) {
-        this.agencyFilteredBusList = agencyFilteredBusList;
-    }
-
-    public void filterAgencyBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        for (BusInfo bus : getFromToFilteredBusList()) {
-            if (bus.getAgencyName().equalsIgnoreCase(ticketInfo.getAgencyName())) {
-                getAgencyFilteredBusList().add(bus);
-            }
+    public boolean isBusListEmpty(ArrayList<BusInfo> busList) {
+        if (busList.isEmpty()) {
+            return true;
         }
+        return false;
     }
 
-    public void displayAgencyFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        Utilities util = new Utilities();
-        for (BusInfo bus : getAgencyFilteredBusList()) {
-            util.drawDoubleLine();
-            bus.displayInfo();
-        }
-        util.drawLine();
-    }
-
+    // Sorting
     public void displayJourneyHrsSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         Utilities util = new Utilities();
-        Collections.sort(getAgencyFilteredBusList(), new JourneyComparator());
-        for (BusInfo bus : getAgencyFilteredBusList()) {
+        Collections.sort(agencySearchList(), new JourneyComparator());
+        for (BusInfo bus : agencySearchList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -191,8 +163,8 @@ class PassengerInfo {
 
     public void displayTicketCostSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         Utilities util = new Utilities();
-        Collections.sort(getAgencyFilteredBusList(), new CostComparator());
-        for (BusInfo bus : getAgencyFilteredBusList()) {
+        Collections.sort(agencySearchList(), new CostComparator());
+        for (BusInfo bus : agencySearchList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -201,8 +173,8 @@ class PassengerInfo {
 
     public void displayBusNumberSortedFilteredBusList(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
         Utilities util = new Utilities();
-        Collections.sort(getAgencyFilteredBusList(), new BusNumberComparator());
-        for (BusInfo bus : getAgencyFilteredBusList()) {
+        Collections.sort(agencySearchList(), new BusNumberComparator());
+        for (BusInfo bus : agencySearchList()) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -241,20 +213,6 @@ class PassengerInfo {
                 sortOption = 1;
             }
         }
-    }
-
-    public boolean isFromToFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (getFromToFilteredBusList().isEmpty()) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isAgencyFilteredBusListEmpty(ArrayList<PassengerInfo> passengerList, ArrayList<BusInfo> busList) {
-        if (getAgencyFilteredBusList().isEmpty()) {
-            return true;
-        }
-        return false;
     }
 
     // Availability Checker
@@ -374,14 +332,12 @@ class PassengerInfo {
     public void mapAndDisplayTicketDetails() {
         Utilities util = new Utilities();
         ticketInfo.setTicketID(ticketInfo.generateTicketID());
-        DateFormat dateFormatter = util.dateFormatter();
-        String formattedDate = dateFormatter.format(ticketInfo.getDateOfJourney());
         ticketInfo.setAgencyName(ticketInfo.getAgencyName());
         ticketInfo.setBusNumber(ticketInfo.getBusNumber());
         ticketInfo.setFromCity(ticketInfo.getFromCity());
         ticketInfo.setToCity(ticketInfo.getToCity());
         // Displaying Ticket
-        ticketInfo.displayTicket(getPassengerName(), getPassengerIdNumber(), formattedDate);
+        ticketInfo.displayTicket(getPassengerName(), getPassengerIdNumber(), util.dateFormatter().format(ticketInfo.getDateOfJourney()));
     }
 
     // Map Bill Details

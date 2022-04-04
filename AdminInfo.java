@@ -514,29 +514,27 @@ class AdminInfo implements DisplayInformation {
         PassengerInfo ticketForPassenger = new PassengerInfo();
         Utilities util = new Utilities();
         // Filtering Bus List based on From and To
-        ticketForPassenger.filterFromToBusList(getPassengerList(), getBusList());
-        ticketForPassenger.displayFromToFilteredBusList(getPassengerList(), getBusList());
+        ticketForPassenger.fromToSearchList();
+        ticketForPassenger.displaySearchList(ticketForPassenger.fromToSearchList());
         // Checking if the filtered bus list is empty or not based upon from to request from user
-        if (ticketForPassenger.isFromToFilteredBusListEmpty(getPassengerList(), getBusList()) == false) {
+        if (ticketForPassenger.isBusListEmpty(ticketForPassenger.fromToSearchList()) == false) {
             ticketForPassenger.getAgencyNameFromUser();
-            ticketForPassenger.filterAgencyBusList(getPassengerList(), ticketForPassenger.getFromToFilteredBusList());
-            ticketForPassenger.displayAgencyFilteredBusList(getPassengerList(),  ticketForPassenger.getFromToFilteredBusList());
-            if (ticketForPassenger.isAgencyFilteredBusListEmpty(getPassengerList(),  ticketForPassenger.getFromToFilteredBusList()) == false) {
-                ticketForPassenger.showSortingFunctions();
+            ticketForPassenger.agencySearchList();
+            ticketForPassenger.displaySearchList(ticketForPassenger.agencySearchList());
+            if (ticketForPassenger.isBusListEmpty(ticketForPassenger.agencySearchList()) == false) {
+                // ticketForPassenger.showSortingFunctions();
                 ticketForPassenger.getBusNumberFromUser();
                 ticketForPassenger.getDateOfJourneyFromUser();
                 // Displaying remaining seats for the date enetered by user
                 int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());
-                String formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-                boolean isDateFuture = util.isDateFuture(formattedDate, "dd/MM/yyyy");
+                boolean isDateFuture = util.isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
                 while (isDateFuture == false) {
                     System.out.println("The booking is over for the specified date, enter a future date.");
                     ticketForPassenger.getDateOfJourneyFromUser();
-                    formattedDate = ticketForPassenger.getFormattedDateOfJourney();
-                    isDateFuture = util.isDateFuture(formattedDate, "dd/MM/yyyy");
+                    isDateFuture = util.isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
                 }
                 util.drawLine();
-                System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + formattedDate + " is: " + "\033[0;0m" + availableSeats);
+                System.out.println("\033[0;1m" + "The no:of seats available for Bus Number " + ticketForPassenger.ticketInfo.getBusNumber() + " on " + ticketForPassenger.getFormattedDateOfJourney() + " is: " + "\033[0;0m" + availableSeats);
                 util.drawLine();
                 // Checking if seats are available
                 boolean isSucessful = false;
