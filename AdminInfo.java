@@ -96,7 +96,7 @@ class AdminInfo implements DisplayInformation {
     // ArrayList for Ticket List
     private ArrayList<TicketInfo> ticketList = new ArrayList<>();
 
-    public ArrayList<TicketInfo> getPassengerList() {
+    public ArrayList<TicketInfo> getTicketList() {
         return ticketList;
     }
 
@@ -217,7 +217,7 @@ class AdminInfo implements DisplayInformation {
                 throw new IllegalArgumentException();
             }
             if (editBusOption == 1) {
-                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getPassengerList(), getBusList());
+                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getTicketList(), getBusList());
                 displayBusWithIndex(filteredBuses);
                 // Getting the index number that has to be updated from user
                 System.out.println("Enter the Index number of the bus to be updated: ");
@@ -375,13 +375,13 @@ class AdminInfo implements DisplayInformation {
     @Override // Show Bookings
     public void displayInfo() {
         Utilities util = new Utilities();
-        if (getPassengerList().isEmpty()) {
+        if (getTicketList().isEmpty()) {
             util.drawBookingLine();
             System.out.println("No bookings till now!");
         } else {
             util.drawBookingLine();
-            for (TicketInfo t : getPassengerList()) {
-                displayBookings(t.getTicketID(), t.p.getPassengerName(), t.p.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getPassengerList(), getBusList()));
+            for (TicketInfo t : getTicketList()) {
+                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getTicketList(), getBusList()));
             }
         }
     }
@@ -391,9 +391,9 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Enter the agency name to fetch bookings: ");
         String agencyNameToSearch = scanner.next();
         util.drawBookingLine(agencyNameToSearch);
-        for (TicketInfo t : getPassengerList()) {
+        for (TicketInfo t : getTicketList()) {
             if (t.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
-                displayBookings(t.getTicketID(), t.p.getPassengerName(), t.p.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getPassengerList(), getBusList()));
+                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getTicketList(), getBusList()));
                 util.drawDoubleLine();
             }
         }
@@ -533,7 +533,7 @@ class AdminInfo implements DisplayInformation {
                 }
                 ticketForPassenger.getDateOfJourneyFromUser();
                 // Displaying remaining seats for the date enetered by user
-                int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());
+                int availableSeats = ticketForPassenger.displayRemainingSeats(getTicketList(), getBusList());
                 boolean isDateFuture = util.isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
                 while (isDateFuture == false) {
                     System.out.println("The booking is over for the specified date, enter a future date.");
@@ -554,14 +554,14 @@ class AdminInfo implements DisplayInformation {
                                 throw new IllegalArgumentException();
                             }
                             if (continueBooking == 1) {
-                                ticketForPassenger.getOtherPassengerInfo();
+                                ticketForPassenger.passengerInfo.getPassengerDetails();
                                 ticketForPassenger.getSeatsRequired();
                                 // Checking whether the user requesting seats less than or equal to the available number of seats
-                                while (ticketForPassenger.isAvailable(getPassengerList(), getBusList()) == false) {
+                                while (ticketForPassenger.isAvailable(getTicketList(), getBusList()) == false) {
                                     System.out.println("You have requested for more seats than available seats, Try to enter the available seats properly.");
                                     ticketForPassenger.getSeatsRequired();
                                 } // Adding passenger to the reserved list
-                                getPassengerList().add(ticketForPassenger);
+                                getTicketList().add(ticketForPassenger);
                                 // Coupon code and billing
                                 boolean checkLoop = false;
                                 while (!checkLoop) {
