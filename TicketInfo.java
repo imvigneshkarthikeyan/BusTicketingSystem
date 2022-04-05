@@ -438,7 +438,7 @@ class TicketInfo {
             if (bus.getBusNumber() == getBusNumber()) {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating GST of 5%
-                taxPrice = ticketPrice * getTaxPercentage();
+                taxPrice = ticketPrice * (getTaxPercentage()/100);
             }
         }
         return taxPrice;
@@ -452,7 +452,7 @@ class TicketInfo {
             if (bus.getBusNumber() == getBusNumber()) {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
-                ticketPriceWithTax = ticketPrice + (ticketPrice * getTaxPercentage());
+                ticketPriceWithTax = ticketPrice + (ticketPrice * (getTaxPercentage()/100));
             }
         }
         return ticketPriceWithTax;
@@ -467,7 +467,7 @@ class TicketInfo {
                 ticketPrice = bus.getCostOfTicket();
                 // Calculating Total cost including GST.
                 ticketPriceWithTax = getTotalNumberOfSeats() * ticketPrice
-                        + (getTotalNumberOfSeats() * ticketPrice * getTaxPercentage());
+                        + (getTotalNumberOfSeats() * ticketPrice * (getTaxPercentage()/100));
             }
         }
         return ticketPriceWithTax;
