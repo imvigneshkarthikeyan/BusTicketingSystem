@@ -93,7 +93,7 @@ class AdminInfo implements DisplayInformation {
         this.busList = busList;
     }
 
-    // ArrayList for Passenger List
+    // ArrayList for Ticket List
     private ArrayList<TicketInfo> ticketList = new ArrayList<>();
 
     public ArrayList<TicketInfo> getPassengerList() {
@@ -522,7 +522,15 @@ class AdminInfo implements DisplayInformation {
             ticketForPassenger.displaySearchList(ticketForPassenger.agencySearchList());
             if (ticketForPassenger.isBusListEmpty(ticketForPassenger.agencySearchList()) == false) {
                 ticketForPassenger.showSortingFunctions();
-                ticketForPassenger.getBusNumberFromUser();
+                while(true) {
+                    try {
+                    ticketForPassenger.getBusNumberFromUser();
+                } catch (BusNumberException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                break;
+                }
                 ticketForPassenger.getDateOfJourneyFromUser();
                 // Displaying remaining seats for the date enetered by user
                 int availableSeats = ticketForPassenger.displayRemainingSeats(getPassengerList(), getBusList());

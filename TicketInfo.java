@@ -189,22 +189,17 @@ class TicketInfo {
         setAgencyName(scanner.next());
     }
 
-    public void getBusNumberFromUser() {
+    public void getBusNumberFromUser() throws BusNumberException {
         boolean validateBusNumber = false;
         while (!validateBusNumber) {
             System.out.println("\033[0;1m" + "Enter the Bus Number" + "\033[0;0m");
-            try {
                 AdminInfo a = new AdminInfo();
                 setBusNumber(Integer.parseInt(scanner.next()));
                 validateBusNumber = a.getBusList().stream().map(BusInfo::getBusNumber)
                         .anyMatch(b -> b == getBusNumber());
                 if (!validateBusNumber) {
-                    System.out.println("Try Again, enter the available bus number");
+                    throw new BusNumberException("Try Again, enter the available bus number");
                 }
-            } catch (Exception e) {
-                System.out.println("Invalid bus Number, try again!");
-                validateBusNumber = false;
-            }
         }
     }
 
