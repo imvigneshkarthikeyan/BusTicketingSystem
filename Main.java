@@ -3,13 +3,14 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         AdminInfo adminInfo = new AdminInfo();
+        AdminFunctions adminFunctions = new AdminFunctions();
         Booking booking = new Booking();
         Utilities util = new Utilities();
         // Option given by User
         int selectedOption = 1;
         Scanner scanner = new Scanner(System.in);
         util.displayWelcomeMessage();
-        adminInfo.displayBusList();
+        adminFunctions.displayBusList(adminInfo.getBusList());
         // Loop for the Application
         while (selectedOption == 1 || selectedOption == 2) {
             util.displayOptionsMessage();

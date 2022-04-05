@@ -104,246 +104,36 @@ class AdminInfo implements DisplayInformation {
         this.ticketList = ticketList;
     }
 
-    // Filtering Special Bus
-    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
-        ArrayList<BusInfo> filteredBusList = new ArrayList<BusInfo>();
-        for (BusInfo bus : getBusList()) {
-            if (bus instanceof SpecialBusInfo) {
-                filteredBusList.add(bus);
-            }
-        }
-        return filteredBusList;
-    }
-
-    // Displaying BusList in a for each loop
-    public void displayBusList() {
-        Utilities util = new Utilities();
-        util.drawDoubleLine();
-        System.out.println("\033[0;1m" + "The following buses are available:" + "\033[0;0m");
-        for (BusInfo b : getBusList()) {
-            b.displayInfo();
+    // Login as Admin & Admin Operation
+    public void adminLogin() {
+        String adminKey = getAdminKey();
+        // Using console to read admin pin as invisible
+        String pinNum = readPinInConsole();
+        // Checking if the pin is correct
+        if (adminKey.equals(pinNum) == true) {
+            System.out.println("The key is correct...Redirecting to Admin portal");
+            adminOperation();
+        } else { // else block for wrong pin
+            forgotPIN();
         }
     }
 
-    // Add NewBus for admin panel
-    public void addNewBus() {
-        BusInfo busInfo = new BusInfo();
-        SpecialBusInfo specialBus = new SpecialBusInfo();
-        Utilities util = new Utilities();
-        boolean isSucessful = false;
-        while (!isSucessful) {
-            try {
-                System.out.println("Enter 1: To create a normal bus. \nEnter 2: To create Luxury Bus");
-                int busType = Integer.parseInt(scanner.next());
-                util.throwException(busType, 1, 2);
-                if (busType == 1) { // To Add normal Bus
-                    System.out.println("Enter the Bus Number");
-                    busInfo.setBusNumber(scanner.nextInt());
-                    System.out.println("Enter the Agency Name");
-                    busInfo.setAgencyName(scanner.next());
-                    System.out.println("Enter the Travel Origin");
-                    busInfo.setFromCity(scanner.next());
-                    System.out.println("Enter the Destination");
-                    busInfo.setToCity(scanner.next());
-                    System.out.println("Enter the capacity of the bus");
-                    busInfo.setBusCapacity(scanner.nextInt());
-                    System.out.println("Enter the Cost of the ticket");
-                    busInfo.setCostOfTicket(scanner.nextDouble());
-                    System.out.println("Enter the Approximate Time for Journey");
-                    busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    getBusList().add(new BusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
-                    // Displaying the list of buses after adding
-                    util.drawLine();
-                    displayBusList();
-                } else if (busType == 2) { // To add Special bus
-                    System.out.println("Enter the Bus Number");
-                    busInfo.setBusNumber(scanner.nextInt());
-                    System.out.println("Enter the Agency Name");
-                    busInfo.setAgencyName(scanner.next());
-                    System.out.println("Enter the Travel Origin");
-                    busInfo.setFromCity(scanner.next());
-                    System.out.println("Enter the Destination");
-                    busInfo.setToCity(scanner.next());
-                    System.out.println("Enter the capacity of the bus");
-                    busInfo.setBusCapacity(scanner.nextInt());
-                    System.out.println("Enter the Bus Facility");
-                    specialBus.setBusFacility(scanner.next());
-                    System.out.println("Enter the Cost of the ticket");
-                    busInfo.setCostOfTicket(scanner.nextDouble());
-                    System.out.println("Enter the Approximate Time for Journey");
-                    busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    getBusList().add(new SpecialBusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), specialBus.getBusFacility(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
-                    // Displaying the list of buses after adding
-                    util.drawLine();
-                    displayBusList();
-                }
-                isSucessful = true;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid input, please try again!");
-            }
-        }
+    // Authentication for Admin PIN
+    public String readPinInConsole() {
+        // Using console to read admin pin as invisible
+        Console console = System.console();
+        System.out.println("Entering into Admin Login...");
+        String pinNum = new String(console.readPassword("Enter the pin to proceed: "));
+        return pinNum;
     }
 
-    // Displaying the BusInfo along with index number
-    public void displayBusWithIndex(ArrayList<BusInfo> buses) {
-        Utilities util = new Utilities();
-        util.drawLine();
-        int index = 0;
-        for (BusInfo b : buses) {
-            System.out.print("Index Number: " + index++ + "| ");
-            b.displayInfo();
+    // ForgotPin
+    public void forgotPIN() {
+        System.out.println("The key is incorrect. Forgot Pin? Click 1");
+        int forgotPinOption = scanner.nextInt();
+        if (forgotPinOption == 1) {
+            System.out.println("The Hint for PIN is:\n" + forgetAdminKey());
         }
-        util.drawLine();
-    }
-
-    // EditBus for admin panel
-    public void editBus() {
-        BusInfo busInfo = new BusInfo();
-        SpecialBusInfo specialBus = new SpecialBusInfo();
-        Utilities util = new Utilities();
-        try {
-            System.out.println("Editing the Bus...");
-            System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
-            int editBusOption = Integer.parseInt(scanner.next());
-            util.throwException(editBusOption, 1, 2);
-            if (editBusOption == 1) {
-                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(getTicketList(), getBusList());
-                displayBusWithIndex(filteredBuses);
-                // Getting the index number that has to be updated from user
-                System.out.println("Enter the Index number of the bus to be updated: ");
-                int busToBeUpdated = scanner.nextInt();
-                while (filteredBuses.size() <= busToBeUpdated) {
-                    System.out.println("Enter the index number properly from the given list.");
-                    busToBeUpdated = scanner.nextInt();
-                }
-                if (filteredBuses.size() > busToBeUpdated) {
-                    // Asking for the field that has to be updated
-                    util.drawLine();
-                    System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println("1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
-                    int optionToBeUpdated = scanner.nextInt();
-                    switch (optionToBeUpdated) {
-                        case 1:
-                            System.out.println("Enter the new Bus Number that has to be updated: ");
-                            busInfo.setBusNumber(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
-                            break;
-                        case 2:
-                            System.out.println("Enter the new Agency Name that has to be updated: ");
-                            busInfo.setAgencyName(scanner.next());
-                            getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
-                            break;
-                        case 3:
-                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                            busInfo.setFromCity(scanner.next());
-                            getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
-                            break;
-                        case 4:
-                            System.out.println("Enter the new Bus Destination that has to be updated: ");
-                            busInfo.setToCity(scanner.next());
-                            getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
-                            break;
-                        case 5:
-                            System.out.println("Enter the new Capacity that has to be updated: ");
-                            busInfo.setBusCapacity(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
-                            break;
-                        case 6:
-                            System.out.println("Enter the new Bus Facility that has to be updated: ");
-                            specialBus.setBusFacility(scanner.next());
-                            ((SpecialBusInfo) getBusList().get(busToBeUpdated))
-                                    .setBusFacility(specialBus.getBusFacility());
-                            break;
-                        case 7:
-                            System.out.println("Enter the new Cost that has to be updated: ");
-                            busInfo.setCostOfTicket(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
-                            break;
-                        case 8:
-                            System.out.println("Enter the new approximate journey in hrs: ");
-                            busInfo.setApproxJourneyHrs(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
-                            break;
-                        default:
-                            System.out.println("Getting out from admin panel");
-                            break;
-                    }
-                    displayBusList();
-                }
-            } else if (editBusOption == 2) {
-                displayBusWithIndex(busList);
-                // Getting the index number that has to be updated from user
-                System.out.println("Enter the Index number of the bus to be updated: ");
-                int busToBeUpdated = scanner.nextInt();
-                while (getBusList().size() <= busToBeUpdated) {
-                    System.out.println("Enter the index number properly from the given list.");
-                    busToBeUpdated = scanner.nextInt();
-                }
-                if (getBusList().size() > busToBeUpdated) {
-                    util.drawLine();
-                    System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println("1.Bus Number \n2.Agency \n3.From City \n4.To City \n5.Bus Capacity \n6.Cost of the ticket \n7. Approx Journey Hrs \nEnter any other number to quit");
-                    int optionToBeUpdated = scanner.nextInt();
-                    switch (optionToBeUpdated) {
-                        case 1:
-                            System.out.println("Enter the new Bus Number that has to be updated: ");
-                            busInfo.setBusNumber(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setBusNumber(busInfo.getBusNumber());
-                            break;
-                        case 2:
-                            System.out.println("Enter the new Agency Name that has to be updated: ");
-                            busInfo.setAgencyName(scanner.next());
-                            getBusList().get(busToBeUpdated).setAgencyName(busInfo.getAgencyName());
-                            break;
-                        case 3:
-                            System.out.println("Enter the new Bus Travel Origin that has to be updated: ");
-                            busInfo.setFromCity(scanner.next());
-                            getBusList().get(busToBeUpdated).setFromCity(busInfo.getFromCity());
-                            break;
-                        case 4:
-                            System.out.println("Enter the new Bus Destination that has to be updated: ");
-                            busInfo.setToCity(scanner.next());
-                            getBusList().get(busToBeUpdated).setToCity(busInfo.getToCity());
-                            break;
-                        case 5:
-                            System.out.println("Enter the new Capacity that has to be updated: ");
-                            busInfo.setBusCapacity(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setBusCapacity(busInfo.getBusCapacity());
-                            break;
-                        case 6:
-                            System.out.println("Enter the new Cost that has to be updated: ");
-                            busInfo.setCostOfTicket(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setCostOfTicket(busInfo.getCostOfTicket());
-                            break;
-                        case 7:
-                            System.out.println("Enter the new approximate journey in hrs: ");
-                            busInfo.setApproxJourneyHrs(scanner.nextInt());
-                            getBusList().get(busToBeUpdated).setApproxJourneyHrs(busInfo.getApproxJourneyHrs());
-                            break;
-                        default:
-                            System.out.println("Getting out from admin panel");
-                            break;
-                    }
-                    displayBusList();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Invalid input, please try again!");
-        }
-    }
-
-    // Delete bus for admin panel
-    public void deleteBus() {
-        Utilities util = new Utilities();
-        System.out.println("Deleting the Bus...");
-        displayBusWithIndex(busList);
-        System.out.println("Enter the index number of the Bus that has to be removed");
-        getBusList().remove(scanner.nextInt());
-        // Displaying the BusList after removing
-        util.drawLine();
-        System.out.println("The selected bus was removed successfully");
-        util.drawLine();
-        displayBusList();
     }
 
     // Display Bookings for Admin
@@ -407,29 +197,12 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Updated agencies are: " + getAvailableAgencies());
     }
 
-    // Authentication for Admin PIN
-    public String readPinInConsole() {
-        // Using console to read admin pin as invisible
-        Console console = System.console();
-        System.out.println("Entering into Admin Login...");
-        String pinNum = new String(console.readPassword("Enter the pin to proceed: "));
-        return pinNum;
-    }
-
-    // ForgotPin
-    public void forgotPIN() {
-        System.out.println("The key is incorrect. Forgot Pin? Click 1");
-        int forgotPinOption = scanner.nextInt();
-        if (forgotPinOption == 1) {
-            System.out.println("The Hint for PIN is:\n" + forgetAdminKey());
-        }
-    }
-
     // Admin's Function
     public void adminOperation() {
         Utilities util = new Utilities();
+        AdminFunctions adminFunctions = new AdminFunctions();
         util.drawLine();
-        displayBusList();
+        adminFunctions.displayBusList(getBusList());
         util.drawLine();
         // Operations which can be performed by the admin
         System.out.println("Enter option: \n1: Add a new bus \n2: Edit a Bus \n3: Delete a Bus \n4: Display All Bookings \n5: Filter Bookings based on Agency \n6: Display all the buses \n7: Update Operating Cities \n8: Update Available Agencies \n9: To logout");
@@ -439,13 +212,13 @@ class AdminInfo implements DisplayInformation {
             // Adding new Bus
             switch (operationOption) {
                 case 1:
-                    addNewBus();
+                    adminFunctions.addNewBus(getBusList());
                     break;
                 case 2:
-                    editBus();
+                    adminFunctions.editBus(getTicketList(), getBusList());
                     break;
                 case 3:
-                    deleteBus();
+                    adminFunctions.deleteBus(getBusList());
                     break;
                 case 4:
                     displayInfo();
@@ -454,7 +227,7 @@ class AdminInfo implements DisplayInformation {
                     displayAgencyBookings();
                     break;
                 case 6:
-                    displayBusList();
+                    adminFunctions.displayBusList(getBusList());
                     break;
                 case 7:
                     try {
@@ -479,20 +252,6 @@ class AdminInfo implements DisplayInformation {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid input, try again");
-        }
-    }
-
-    // Login as Admin & Admin Operation
-    public void adminLogin() {
-        String adminKey = getAdminKey();
-        // Using console to read admin pin as invisible
-        String pinNum = readPinInConsole();
-        // Checking if the pin is correct
-        if (adminKey.equals(pinNum) == true) {
-            System.out.println("The key is correct...Redirecting to Admin portal");
-            adminOperation();
-        } else { // else block for wrong pin
-            forgotPIN();
         }
     }
 }
