@@ -294,14 +294,13 @@ class TicketInfo {
 
     public void showSortingFunctions() {
         AdminInfo a = new AdminInfo();
+        Utilities util = new Utilities();
         int sortOption = 1;
         while (sortOption == 1 || sortOption == 2 || sortOption == 3) {
             System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \n4: To continue booking");
             try {
                 sortOption = Integer.parseInt(scanner.next());
-                if (sortOption < 1 || sortOption > 4) {
-                    throw new IllegalArgumentException();
-                }
+                util.throwException(sortOption, 1, 4);
                 switch (sortOption) {
                     case 1:
                         displayJourneyHrsSortedFilteredBusList(a.getTicketList(), a.getBusList());

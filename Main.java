@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         AdminInfo adminInfo = new AdminInfo();
+        Booking booking = new Booking();
         Utilities util = new Utilities();
         // Option given by User
         int selectedOption = 1;
@@ -14,12 +15,10 @@ public class Main {
             util.displayOptionsMessage();
             try {
                 selectedOption = Integer.parseInt(scanner.nextLine());
-                if (selectedOption < 1 || selectedOption > 3) {
-                    throw new IllegalArgumentException();
-                }
+                util.throwException(selectedOption, 1, 3);
                 switch (selectedOption) {
                     case 1:
-                        adminInfo.startNewBooking();
+                        booking.startNewBooking(adminInfo);
                         break;
                     case 2:
                         adminInfo.adminLogin();
