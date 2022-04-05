@@ -291,9 +291,9 @@ class TicketInfo {
     // Sorting
     public void displayJourneyHrsSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
             ArrayList<BusInfo> busList) {
+        ArrayList<BusInfo> journeyHrsSortedList = (ArrayList<BusInfo>) agencySearchList().stream().sorted(Comparator.comparingInt(BusInfo::getApproxJourneyHrs)).collect(Collectors.toList());
         Utilities util = new Utilities();
-        Collections.sort(agencySearchList(), new JourneyComparator());
-        for (BusInfo bus : agencySearchList()) {
+        for (BusInfo bus : journeyHrsSortedList) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -303,8 +303,9 @@ class TicketInfo {
     public void displayTicketCostSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
             ArrayList<BusInfo> busList) {
         Utilities util = new Utilities();
-        Collections.sort(agencySearchList(), new CostComparator());
-        for (BusInfo bus : agencySearchList()) {
+        ArrayList<BusInfo> ticketCostSortedList = (ArrayList<BusInfo>) agencySearchList().stream()
+                .sorted(Comparator.comparingDouble(BusInfo::getCostOfTicket)).collect(Collectors.toList());
+        for (BusInfo bus : ticketCostSortedList) {
             util.drawDoubleLine();
             bus.displayInfo();
         }
@@ -314,8 +315,9 @@ class TicketInfo {
     public void displayBusNumberSortedFilteredBusList(ArrayList<TicketInfo> ticketList,
             ArrayList<BusInfo> busList) {
         Utilities util = new Utilities();
-        Collections.sort(agencySearchList(), new BusNumberComparator());
-        for (BusInfo bus : agencySearchList()) {
+        ArrayList<BusInfo> busNumberSortedList = (ArrayList<BusInfo>) agencySearchList().stream()
+                .sorted(Comparator.comparingInt(BusInfo::getBusNumber)).collect(Collectors.toList());
+        for (BusInfo bus : busNumberSortedList) {
             util.drawDoubleLine();
             bus.displayInfo();
         }

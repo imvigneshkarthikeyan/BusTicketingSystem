@@ -1,5 +1,3 @@
-import java.util.*;
-
 interface DisplayInformation {
     void displayInfo();
 }
@@ -94,44 +92,5 @@ class BusInfo implements DisplayInformation {
         this.busCapacity = getBusCapacity();
         this.costOfTicket = getCostOfTicket();
         this.approxJourneyHrs = getApproxJourneyHrs();
-    }
-}
-
-class JourneyComparator implements Comparator<BusInfo> {
-    @Override
-    public int compare(BusInfo b1, BusInfo b2) {
-        if (b1.getApproxJourneyHrs() == b2.getApproxJourneyHrs()) {
-            return 0;
-        } else if (b1.getApproxJourneyHrs() > b2.getApproxJourneyHrs()) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-}
-
-class CostComparator implements Comparator<BusInfo> {
-    @Override
-    public int compare(BusInfo b1, BusInfo b2) {
-        if (b1.getCostOfTicket() == b2.getCostOfTicket()) {
-            return 0;
-        } else if (b1.getCostOfTicket() > b2.getCostOfTicket()) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-}
-
-class BusNumberComparator implements Comparator<BusInfo> {
-    @Override
-    public int compare(BusInfo b1, BusInfo b2) {
-        if (b1.getBusNumber() == b2.getBusNumber()) {
-            return 0;
-        } else if (b1.getBusNumber() > b2.getBusNumber()) {
-            return 1;
-        } else {
-            return -1;
-        }
     }
 }

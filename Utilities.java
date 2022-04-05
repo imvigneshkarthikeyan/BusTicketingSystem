@@ -57,9 +57,3 @@ class Utilities {
         System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
     }
 }
-
-class BusNumberException extends Exception{
-    public BusNumberException(String s) {
-        super(s);
-    }
-}
