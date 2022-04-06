@@ -200,9 +200,9 @@ class AdminInfo implements DisplayInformation {
     // Admin's Function
     public void adminOperation() {
         Utilities util = new Utilities();
-        AdminFunctions adminFunctions = new AdminFunctions();
+        BusOperations busOperations = new BusOperations();
         util.drawLine();
-        adminFunctions.displayBusList(getBusList());
+        busOperations.displayBusList(getBusList());
         util.drawLine();
         // Operations which can be performed by the admin
         System.out.println("Enter option: \n1: Add a new bus \n2: Edit a Bus \n3: Delete a Bus \n4: Display All Bookings \n5: Filter Bookings based on Agency \n6: Display all the buses \n7: Update Operating Cities \n8: Update Available Agencies \n9: To logout");
@@ -212,13 +212,13 @@ class AdminInfo implements DisplayInformation {
             // Adding new Bus
             switch (operationOption) {
                 case 1:
-                    adminFunctions.addNewBus(getBusList());
+                    busOperations.addNewBus(getBusList());
                     break;
                 case 2:
-                    adminFunctions.editBus(getTicketList(), getBusList());
+                    busOperations.editBus(getTicketList(), getBusList());
                     break;
                 case 3:
-                    adminFunctions.deleteBus(getBusList());
+                    busOperations.deleteBus(getBusList());
                     break;
                 case 4:
                     displayInfo();
@@ -227,7 +227,7 @@ class AdminInfo implements DisplayInformation {
                     displayAgencyBookings();
                     break;
                 case 6:
-                    adminFunctions.displayBusList(getBusList());
+                    busOperations.displayBusList(getBusList());
                     break;
                 case 7:
                     try {

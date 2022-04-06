@@ -1,7 +1,3 @@
-interface DisplayInformation {
-    void displayInfo();
-}
-
 class BusInfo implements DisplayInformation {
     private int busNumber;
     private String agencyName;

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class AdminFunctions {
+class BusOperations {
     Scanner scanner = new Scanner(System.in);
 
     // Displaying BusList in a for each loop
