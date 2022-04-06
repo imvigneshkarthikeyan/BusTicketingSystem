@@ -73,7 +73,6 @@ class Booking {
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid input, please try again!");
                 }
-
             } else { // else block if seats are not available
                 System.out.println("As there are no seats available for the date selected, try in different Bus/Date");
                 break;

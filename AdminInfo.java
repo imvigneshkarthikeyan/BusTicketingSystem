@@ -161,7 +161,7 @@ class AdminInfo implements DisplayInformation {
         } else {
             util.drawBookingLine();
             for (TicketInfo t : getTicketList()) {
-                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getTicketList(), getBusList()));
+                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getBusList()));
             }
         }
     }
@@ -173,7 +173,7 @@ class AdminInfo implements DisplayInformation {
         util.drawBookingLine(agencyNameToSearch);
         for (TicketInfo t : getTicketList()) {
             if (t.getAgencyName().equalsIgnoreCase(agencyNameToSearch)) {
-                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getTicketList(), getBusList()));
+                displayBookings(t.getTicketID(), t.passengerInfo.getPassengerName(), t.passengerInfo.getPassengerIdNumber(), t.getAgencyName(), t.getBusNumber(), t.getFormattedDateOfJourney(), t.getTotalNumberOfSeats(), t.getFromCity(), t.getToCity(), t.getTotalCost(getBusList()));
                 util.drawDoubleLine();
             }
         }
@@ -214,7 +214,7 @@ class AdminInfo implements DisplayInformation {
                     busOperations.addNewBus(getBusList());
                     break;
                 case 2:
-                    busOperations.editBus(getTicketList(), getBusList());
+                    busOperations.editBus(getBusList());
                     break;
                 case 3:
                     busOperations.deleteBus(getBusList());

@@ -259,7 +259,7 @@ class TicketInfo {
     }
 
     // Sorting
-    public void displayJourneyHrsSortedFilteredBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList, AdminInfo adminInfo) {
+    public void displayJourneyHrsSortedFilteredBusList(ArrayList<BusInfo> busList, AdminInfo adminInfo) {
         ArrayList<BusInfo> journeyHrsSortedList = (ArrayList<BusInfo>) agencySearchList(adminInfo).stream().sorted(Comparator.comparingInt(BusInfo::getApproxJourneyHrs)).collect(Collectors.toList());
         Utilities util = new Utilities();
         for (BusInfo bus : journeyHrsSortedList) {
@@ -269,7 +269,7 @@ class TicketInfo {
         util.drawLine();
     }
 
-    public void displayTicketCostSortedFilteredBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList, AdminInfo adminInfo) {
+    public void displayTicketCostSortedFilteredBusList(ArrayList<BusInfo> busList, AdminInfo adminInfo) {
         Utilities util = new Utilities();
         ArrayList<BusInfo> ticketCostSortedList = (ArrayList<BusInfo>) agencySearchList(adminInfo).stream().sorted(Comparator.comparingDouble(BusInfo::getCostOfTicket)).collect(Collectors.toList());
         for (BusInfo bus : ticketCostSortedList) {
@@ -279,7 +279,7 @@ class TicketInfo {
         util.drawLine();
     }
 
-    public void displayBusNumberSortedFilteredBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList, AdminInfo adminInfo) {
+    public void displayBusNumberSortedFilteredBusList(ArrayList<BusInfo> busList, AdminInfo adminInfo) {
         Utilities util = new Utilities();
         ArrayList<BusInfo> busNumberSortedList = (ArrayList<BusInfo>) agencySearchList(adminInfo).stream().sorted(Comparator.comparingInt(BusInfo::getBusNumber)).collect(Collectors.toList());
         for (BusInfo bus : busNumberSortedList) {
@@ -299,14 +299,13 @@ class TicketInfo {
                 util.optionValidator(sortOption, 1, 4);
                 switch (sortOption) {
                     case 1:
-                        displayJourneyHrsSortedFilteredBusList(adminInfo.getTicketList(), 
-                                adminInfo.getBusList(), adminInfo);
+                        displayJourneyHrsSortedFilteredBusList(adminInfo.getBusList(), adminInfo);
                         break;
                     case 2:
-                        displayTicketCostSortedFilteredBusList(adminInfo.getTicketList(), adminInfo.getBusList(), adminInfo);
+                        displayTicketCostSortedFilteredBusList(adminInfo.getBusList(), adminInfo);
                         break;
                     case 3:
-                        displayBusNumberSortedFilteredBusList(adminInfo.getTicketList(), adminInfo.getBusList(), adminInfo);
+                        displayBusNumberSortedFilteredBusList(adminInfo.getBusList(), adminInfo);
                         break;
                     case 4:
                         System.out.println("Redirecting...");
@@ -362,7 +361,7 @@ class TicketInfo {
     }
 
     // Displaying the ticket amount
-    public double getCostOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public double getCostOfTicket(ArrayList<BusInfo> busList) {
         double ticketPrice = 0;
         for (BusInfo bus : busList) {
             if (bus.getBusNumber() == getBusNumber()) {
@@ -373,7 +372,7 @@ class TicketInfo {
     }
 
     // Displaying the Tax amount
-    public double getTaxOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public double getTaxOfTicket(ArrayList<BusInfo> busList) {
         double ticketPrice = 0;
         double taxPrice = 0;
         for (BusInfo bus : busList) {
@@ -387,7 +386,7 @@ class TicketInfo {
     }
 
     // Displaying the total amount for single ticket
-    public double getTotalCostOfTicket(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public double getTotalCostOfTicket(ArrayList<BusInfo> busList) {
         double ticketPrice = 0;
         double ticketPriceWithTax = 0;
         for (BusInfo bus : busList) {
@@ -401,7 +400,7 @@ class TicketInfo {
     }
 
     // Calculating the total amount with total seats booked
-    public double getTotalCost(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public double getTotalCost(ArrayList<BusInfo> busList) {
         double ticketPrice = 0;
         double ticketPriceWithTax = 0;
         for (BusInfo bus : busList) {
@@ -429,11 +428,11 @@ class TicketInfo {
     // Map Bill Details
     public void mapAndDisplayBillDetails(AdminInfo adminInfo) {
         setTotalNumberOfSeats(getTotalNumberOfSeats());
-        setTicketAmount(getCostOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
+        setTicketAmount(getCostOfTicket(adminInfo.getBusList()));
         setTaxPercentage(getTaxPercentage() * 100);
-        setTaxAmount(getTaxOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
-        setTotalAmountPerTicket(getTotalCostOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
-        setTotalAmount(getTotalCost(adminInfo.getTicketList(), adminInfo.getBusList()));
+        setTaxAmount(getTaxOfTicket(adminInfo.getBusList()));
+        setTotalAmountPerTicket(getTotalCostOfTicket(adminInfo.getBusList()));
+        setTotalAmount(getTotalCost(adminInfo.getBusList()));
         // Displaying the cost of ticket after tax calculation
         displayBill();
     }
@@ -441,13 +440,13 @@ class TicketInfo {
     // Map Bill Details
     public void mapAndDisplayBillDetails(AdminInfo adminInfo, double discoutPercentage) {
         setTotalNumberOfSeats(getTotalNumberOfSeats());
-        setTicketAmount(getCostOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
+        setTicketAmount(getCostOfTicket(adminInfo.getBusList()));
         setTaxPercentage(getTaxPercentage() * 100);
-        setTaxAmount(getTaxOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
-        setTotalAmountPerTicket(getTotalCostOfTicket(adminInfo.getTicketList(), adminInfo.getBusList()));
+        setTaxAmount(getTaxOfTicket(adminInfo.getBusList()));
+        setTotalAmountPerTicket(getTotalCostOfTicket(adminInfo.getBusList()));
         double discountInPercent = discoutPercentage * 100;
-        setDiscountedAmount(getTotalCost(adminInfo.getTicketList(), adminInfo.getBusList()) * discoutPercentage);
-        setTotalAmount(getTotalCost(adminInfo.getTicketList(), adminInfo.getBusList()) - getDiscountedAmount());
+        setDiscountedAmount(getTotalCost(adminInfo.getBusList()) * discoutPercentage);
+        setTotalAmount(getTotalCost(adminInfo.getBusList()) - getDiscountedAmount());
         // Displaying the cost of ticket after tax calculation
         displayBill(discountInPercent);
     }

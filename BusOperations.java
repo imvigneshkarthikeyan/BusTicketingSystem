@@ -40,9 +40,7 @@ class BusOperations {
                     busInfo.setCostOfTicket(scanner.nextDouble());
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    busList.add(new BusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(),
-                            busInfo.getToCity(), busInfo.getBusCapacity(), busInfo.getCostOfTicket(),
-                            busInfo.getApproxJourneyHrs()));
+                    busList.add(new BusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
                     // Displaying the list of buses after adding
                     util.drawLine();
                     displayBusList(busList);
@@ -63,9 +61,7 @@ class BusOperations {
                     busInfo.setCostOfTicket(scanner.nextDouble());
                     System.out.println("Enter the Approximate Time for Journey");
                     busInfo.setApproxJourneyHrs(scanner.nextInt());
-                    busList.add(new SpecialBusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(),
-                            busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(),
-                            specialBus.getBusFacility(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
+                    busList.add(new SpecialBusInfo(busInfo.getBusNumber(), busInfo.getAgencyName(), busInfo.getFromCity(), busInfo.getToCity(), busInfo.getBusCapacity(), specialBus.getBusFacility(), busInfo.getCostOfTicket(), busInfo.getApproxJourneyHrs()));
                     // Displaying the list of buses after adding
                     util.drawLine();
                     displayBusList(busList);
@@ -90,7 +86,7 @@ class BusOperations {
     }
 
     // Filtering Special Bus
-    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public ArrayList<BusInfo> filterSpecialBusList(ArrayList<BusInfo> busList) {
         ArrayList<BusInfo> filteredBusList = new ArrayList<BusInfo>();
         for (BusInfo bus : busList) {
             if (bus instanceof SpecialBusInfo) {
@@ -101,7 +97,7 @@ class BusOperations {
     }
 
     // EditBus for admin panel
-    public void editBus(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
+    public void editBus(ArrayList<BusInfo> busList) {
         BusInfo busInfo = new BusInfo();
         SpecialBusInfo specialBus = new SpecialBusInfo();
         Utilities util = new Utilities();
@@ -111,7 +107,7 @@ class BusOperations {
             int editBusOption = Integer.parseInt(scanner.next());
             util.optionValidator(editBusOption, 1, 2);
             if (editBusOption == 1) {
-                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(ticketList, busList);
+                ArrayList<BusInfo> filteredBuses = filterSpecialBusList(busList);
                 displayBusWithIndex(filteredBuses);
                 // Getting the index number that has to be updated from user
                 System.out.println("Enter the Index number of the bus to be updated: ");
@@ -124,8 +120,7 @@ class BusOperations {
                     // Asking for the field that has to be updated
                     util.drawLine();
                     System.out.println("Select the option of the field which has to be updated: ");
-                    System.out.println(
-                            "1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
+                    System.out.println("1: Bus Number \n2: Agency \n3: From City \n4: To City \n5: Bus Capacity \n6: Bus Facility \n7: Cost of the ticket \n8: Approx Journey Hours \nEnter any other number: To Quit");
                     int optionToBeUpdated = scanner.nextInt();
                     switch (optionToBeUpdated) {
                         case 1:
@@ -156,8 +151,7 @@ class BusOperations {
                         case 6:
                             System.out.println("Enter the new Bus Facility that has to be updated: ");
                             specialBus.setBusFacility(scanner.next());
-                            ((SpecialBusInfo) busList.get(busToBeUpdated))
-                                    .setBusFacility(specialBus.getBusFacility());
+                            ((SpecialBusInfo) busList.get(busToBeUpdated)).setBusFacility(specialBus.getBusFacility());
                             break;
                         case 7:
                             System.out.println("Enter the new Cost that has to be updated: ");
