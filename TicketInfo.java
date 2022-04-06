@@ -233,18 +233,12 @@ class TicketInfo {
 
     // Searching bus based on From, To and Agency.
     public ArrayList<BusInfo> fromToSearchList(AdminInfo adminInfo) {
-        ArrayList<BusInfo> fromToSearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream().filter(
-                b -> b.getFromCity().equalsIgnoreCase(getFromCity()) && b.getToCity().equalsIgnoreCase(getToCity()))
-                .collect(Collectors.toList());
+        ArrayList<BusInfo> fromToSearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream().filter(b -> b.getFromCity().equalsIgnoreCase(getFromCity()) && b.getToCity().equalsIgnoreCase(getToCity())).collect(Collectors.toList());
         return fromToSearchBusList;
     }
 
     public ArrayList<BusInfo> agencySearchList(AdminInfo adminInfo) {
-        ArrayList<BusInfo> agencySearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream()
-                .filter(b -> b.getAgencyName().equalsIgnoreCase(getAgencyName())
-                        && b.getFromCity().equalsIgnoreCase(getFromCity())
-                        && b.getToCity().equalsIgnoreCase(getToCity()))
-                .collect(Collectors.toList());
+        ArrayList<BusInfo> agencySearchBusList = (ArrayList<BusInfo>) adminInfo.getBusList().stream().filter(b -> b.getAgencyName().equalsIgnoreCase(getAgencyName()) && b.getFromCity().equalsIgnoreCase(getFromCity()) && b.getToCity().equalsIgnoreCase(getToCity())).collect(Collectors.toList());
         return agencySearchBusList;
     }
 
@@ -277,8 +271,7 @@ class TicketInfo {
 
     public void displayTicketCostSortedFilteredBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList, AdminInfo adminInfo) {
         Utilities util = new Utilities();
-        ArrayList<BusInfo> ticketCostSortedList = (ArrayList<BusInfo>) agencySearchList(
-                adminInfo).stream().sorted(Comparator.comparingDouble(BusInfo::getCostOfTicket)).collect(Collectors.toList());
+        ArrayList<BusInfo> ticketCostSortedList = (ArrayList<BusInfo>) agencySearchList(adminInfo).stream().sorted(Comparator.comparingDouble(BusInfo::getCostOfTicket)).collect(Collectors.toList());
         for (BusInfo bus : ticketCostSortedList) {
             util.drawDoubleLine();
             bus.displayInfo();
@@ -288,8 +281,7 @@ class TicketInfo {
 
     public void displayBusNumberSortedFilteredBusList(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList, AdminInfo adminInfo) {
         Utilities util = new Utilities();
-        ArrayList<BusInfo> busNumberSortedList = (ArrayList<BusInfo>) agencySearchList(
-                adminInfo).stream().sorted(Comparator.comparingInt(BusInfo::getBusNumber)).collect(Collectors.toList());
+        ArrayList<BusInfo> busNumberSortedList = (ArrayList<BusInfo>) agencySearchList(adminInfo).stream().sorted(Comparator.comparingInt(BusInfo::getBusNumber)).collect(Collectors.toList());
         for (BusInfo bus : busNumberSortedList) {
             util.drawDoubleLine();
             bus.displayInfo();

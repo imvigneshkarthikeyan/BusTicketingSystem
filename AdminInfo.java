@@ -105,14 +105,14 @@ class AdminInfo implements DisplayInformation {
     }
 
     // Login as Admin & Admin Operation
-    public void adminLogin() {
+    public void adminLogin(BusOperations busOperations) {
         String adminKey = getAdminKey();
         // Using console to read admin pin as invisible
         String pinNum = readPinInConsole();
         // Checking if the pin is correct
         if (adminKey.equals(pinNum) == true) {
             System.out.println("The key is correct...Redirecting to Admin portal");
-            adminOperation();
+            adminOperation(busOperations);
         } else { // else block for wrong pin
             forgotPIN();
         }
@@ -198,9 +198,8 @@ class AdminInfo implements DisplayInformation {
     }
 
     // Admin's Function
-    public void adminOperation() {
+    public void adminOperation(BusOperations busOperations) {
         Utilities util = new Utilities();
-        BusOperations busOperations = new BusOperations();
         util.drawLine();
         busOperations.displayBusList(getBusList());
         util.drawLine();

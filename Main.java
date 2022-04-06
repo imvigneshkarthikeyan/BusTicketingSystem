@@ -22,7 +22,7 @@ public class Main {
                         booking.startNewBooking(adminInfo);
                         break;
                     case 2:
-                        adminInfo.adminLogin();
+                        adminInfo.adminLogin(busOperations);
                         break;
                     case 3:
                         System.out.println("Quiting the application");
