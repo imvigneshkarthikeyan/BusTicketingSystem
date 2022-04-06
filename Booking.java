@@ -109,18 +109,21 @@ class Booking {
                         ticketForPassenger.mapAndDisplayBillDetails(offers.getDiscountPercentage());
                     } else {
                         System.out.println("The code is invalid so no discount will be made.");
-                        ticketForPassenger.mapAndDisplayTicketDetails();
-                        ticketForPassenger.mapAndDisplayBillDetails();
+                        displayTicketAndGenerateBill(ticketForPassenger);
                     }
                 } else {
                     System.out.println("Redirecting to the bill...");
-                    ticketForPassenger.mapAndDisplayTicketDetails();
-                    ticketForPassenger.mapAndDisplayBillDetails();
+                    displayTicketAndGenerateBill(ticketForPassenger);
                 }
                 checkLoop = true;
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input, please try again!");
             }
         }
+    }
+
+    public void displayTicketAndGenerateBill(TicketInfo ticketForPassenger) {
+        ticketForPassenger.mapAndDisplayTicketDetails();
+        ticketForPassenger.mapAndDisplayBillDetails();
     }
 }

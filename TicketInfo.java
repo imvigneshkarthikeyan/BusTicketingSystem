@@ -352,8 +352,7 @@ class TicketInfo {
         // Using this as a counter
         int reservedTickets = 0;
         for (TicketInfo t : ticketList) {
-            if (t.getBusNumber() == getBusNumber()
-                    && t.getDateOfJourney().equals(getDateOfJourney())) {
+            if (t.getBusNumber() == getBusNumber() && t.getDateOfJourney().equals(getDateOfJourney())) {
                 reservedTickets = reservedTickets + t.getTotalNumberOfSeats();
             }
         }
@@ -363,27 +362,6 @@ class TicketInfo {
         } else {
             return false;
         }
-    }
-
-    // For Displaying in the ticket section
-    public String getFromCity(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
-        String fromCity = "";
-        for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
-                fromCity = bus.getFromCity();
-            }
-        }
-        return fromCity;
-    }
-
-    public String getToCity(ArrayList<TicketInfo> ticketList, ArrayList<BusInfo> busList) {
-        String toCity = "";
-        for (BusInfo bus : busList) {
-            if (bus.getBusNumber() == getBusNumber()) {
-                toCity = bus.getToCity();
-            }
-        }
-        return toCity;
     }
 
     // Displaying the ticket amount
