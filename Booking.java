@@ -6,13 +6,13 @@ class Booking {
     public void startNewBooking(AdminInfo adminInfo) {
         TicketInfo ticketForPassenger = new TicketInfo();
         Utilities util = new Utilities();
-        searchBusByFromAndTo(ticketForPassenger);
+        searchBusByFromAndTo(ticketForPassenger, adminInfo);
         // Checking if the filtered bus list is empty or not based upon from to search request from user
-        if (ticketForPassenger.isBusListEmpty(ticketForPassenger.fromToSearchList()) == false) {
-            searchBusByAgency(ticketForPassenger);
-            if (ticketForPassenger.isBusListEmpty(ticketForPassenger.agencySearchList()) == false) {
-                ticketForPassenger.showSortingFunctions();
-                getBusNumberAndDateFromUser(ticketForPassenger);
+        if (ticketForPassenger.isBusListEmpty(ticketForPassenger.fromToSearchList(adminInfo)) == false) {
+            searchBusByAgency(ticketForPassenger, adminInfo);
+            if (ticketForPassenger.isBusListEmpty(ticketForPassenger.agencySearchList(adminInfo)) == false) {
+                ticketForPassenger.showSortingFunctions(adminInfo);
+                getBusNumberAndDateFromUser(ticketForPassenger, adminInfo);
                 mainBooking(ticketForPassenger, adminInfo, util);
             } else {
                 System.out.println("The requested agency is not available, try: " + adminInfo.getAvailableAgencies());
@@ -22,22 +22,22 @@ class Booking {
         }
     }
 
-    public void searchBusByFromAndTo(TicketInfo ticketForPassenger) {
+    public void searchBusByFromAndTo(TicketInfo ticketForPassenger, AdminInfo adminInfo) {
         // Filtering Bus List based on From and To
-        ticketForPassenger.fromToSearchList();
-        ticketForPassenger.displaySearchList(ticketForPassenger.fromToSearchList());
+        ticketForPassenger.fromToSearchList(adminInfo);
+        ticketForPassenger.displaySearchList(ticketForPassenger.fromToSearchList(adminInfo));
     }
 
-    public void searchBusByAgency(TicketInfo ticketForPassenger) {
+    public void searchBusByAgency(TicketInfo ticketForPassenger, AdminInfo adminInfo) {
         ticketForPassenger.getAgencyNameFromUser();
-        ticketForPassenger.agencySearchList();
-        ticketForPassenger.displaySearchList(ticketForPassenger.agencySearchList());
+        ticketForPassenger.agencySearchList(adminInfo);
+        ticketForPassenger.displaySearchList(ticketForPassenger.agencySearchList(adminInfo));
     }
 
-    public void getBusNumberAndDateFromUser(TicketInfo ticketForPassenger) {
+    public void getBusNumberAndDateFromUser(TicketInfo ticketForPassenger, AdminInfo adminInfo) {
         while (true) {
             try {
-                ticketForPassenger.getBusNumberFromUser();
+                ticketForPassenger.getBusNumberFromUser(adminInfo);
             } catch (BusNumberException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -65,7 +65,7 @@ class Booking {
                     if (continueBooking == 1) {
                         checkAvailabilityAndAddPassenger(ticketForPassenger, adminInfo);
                         // Coupon code and billing
-                        getCouponCodeFromUser(ticketForPassenger, util);
+                        getCouponCodeFromUser(adminInfo, ticketForPassenger, util);
                     } else if (continueBooking == 2) { // else block for start a new booking if the available seats is not enough
                         System.out.println("Redirecting...");
                     }
@@ -92,7 +92,7 @@ class Booking {
         adminInfo.getTicketList().add(ticketForPassenger);
     }
 
-    public void getCouponCodeFromUser(TicketInfo ticketForPassenger, Utilities util) {
+    public void getCouponCodeFromUser(AdminInfo adminInfo, TicketInfo ticketForPassenger, Utilities util) {
         boolean checkLoop = false;
         while (!checkLoop) {
             System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
@@ -106,14 +106,14 @@ class Booking {
                     if (offers.getCouponCode().equals(offers.getAppliedCouponCode())) {
                         System.out.println("The coupon code is valid, discount will be made on the total bill.");
                         ticketForPassenger.mapAndDisplayTicketDetails();
-                        ticketForPassenger.mapAndDisplayBillDetails(offers.getDiscountPercentage());
+                        ticketForPassenger.mapAndDisplayBillDetails(adminInfo, offers.getDiscountPercentage());
                     } else {
                         System.out.println("The code is invalid so no discount will be made.");
-                        displayTicketAndGenerateBill(ticketForPassenger);
+                        displayTicketAndGenerateBill(adminInfo, ticketForPassenger);
                     }
                 } else {
                     System.out.println("Redirecting to the bill...");
-                    displayTicketAndGenerateBill(ticketForPassenger);
+                    displayTicketAndGenerateBill(adminInfo, ticketForPassenger);
                 }
                 checkLoop = true;
             } catch (IllegalArgumentException e) {
@@ -122,8 +122,8 @@ class Booking {
         }
     }
 
-    public void displayTicketAndGenerateBill(TicketInfo ticketForPassenger) {
+    public void displayTicketAndGenerateBill(AdminInfo adminInfo, TicketInfo ticketForPassenger) {
         ticketForPassenger.mapAndDisplayTicketDetails();
-        ticketForPassenger.mapAndDisplayBillDetails();
+        ticketForPassenger.mapAndDisplayBillDetails(adminInfo);
     }
 }
