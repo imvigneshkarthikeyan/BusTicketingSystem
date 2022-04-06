@@ -44,7 +44,7 @@ class Booking {
                         System.out.println("\033[0;1m" + "Enter number 1:" + "\033[0;0m" + "To continue booking in this bus" + "\033[0;1m" + "\nEnter number 2:" + "\033[0;0m" + "To start a new booking.");
                         try {
                             int continueBooking = Integer.parseInt(scanner.next());
-                            util.throwException(continueBooking, 1, 2);
+                            util.optionValidator(continueBooking, 1, 2);
                             if (continueBooking == 1) {
                                 ticketForPassenger.passengerInfo.getPassengerDetails();
                                 ticketForPassenger.getSeatsRequired();
@@ -60,7 +60,7 @@ class Booking {
                                     System.out.println("\033[0;1m" + "Enter 1:" + "\033[0;0m" + "If you have any coupon code" + "\033[0;1m" + "\nEnter 2:" + "\033[0;0m" + "To complete the booking without coupon code.");
                                     try {
                                         int selectedOption = Integer.parseInt(scanner.next());
-                                        util.throwException(selectedOption, 1, 2);
+                                        util.optionValidator(selectedOption, 1, 2);
                                         if (selectedOption == 1) {
                                             OffersAndDiscount offers = new OffersAndDiscount();
                                             System.out.println("\033[0;1m" + "Enter the coupon code" + "\033[0;0m");

@@ -16,7 +16,7 @@ public class Main {
             util.displayOptionsMessage();
             try {
                 selectedOption = Integer.parseInt(scanner.nextLine());
-                util.throwException(selectedOption, 1, 3);
+                util.optionValidator(selectedOption, 1, 3);
                 switch (selectedOption) {
                     case 1:
                         booking.startNewBooking(adminInfo);

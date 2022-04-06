@@ -57,7 +57,7 @@ class Utilities {
         System.out.println("\033[0;1m" + "==================================================================== " + agencyNameToSearch + " BOOKINGS =====================================================================" + "\033[0;0m");
     }
 
-    public void throwException(int option, int a, int b) {
+    public void optionValidator(int option, int a, int b) {
         if (option < a || option > b) {
             throw new IllegalArgumentException();
         }

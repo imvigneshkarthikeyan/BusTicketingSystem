@@ -208,7 +208,7 @@ class AdminInfo implements DisplayInformation {
         System.out.println("Enter option: \n1: Add a new bus \n2: Edit a Bus \n3: Delete a Bus \n4: Display All Bookings \n5: Filter Bookings based on Agency \n6: Display all the buses \n7: Update Operating Cities \n8: Update Available Agencies \n9: To logout");
         try {
             int operationOption = Integer.parseInt(scanner.next());
-            util.throwException(operationOption, 1, 9);
+            util.optionValidator(operationOption, 1, 9);
             // Adding new Bus
             switch (operationOption) {
                 case 1:

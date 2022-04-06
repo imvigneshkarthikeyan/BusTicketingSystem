@@ -24,7 +24,7 @@ class BusOperations {
             try {
                 System.out.println("Enter 1: To create a normal bus. \nEnter 2: To create Luxury Bus");
                 int busType = Integer.parseInt(scanner.next());
-                util.throwException(busType, 1, 2);
+                util.optionValidator(busType, 1, 2);
                 if (busType == 1) { // To Add normal Bus
                     System.out.println("Enter the Bus Number");
                     busInfo.setBusNumber(scanner.nextInt());
@@ -109,7 +109,7 @@ class BusOperations {
             System.out.println("Editing the Bus...");
             System.out.println("Enter 1: To edit Luxury Bus \nEnter 2: To edit Normal Bus");
             int editBusOption = Integer.parseInt(scanner.next());
-            util.throwException(editBusOption, 1, 2);
+            util.optionValidator(editBusOption, 1, 2);
             if (editBusOption == 1) {
                 ArrayList<BusInfo> filteredBuses = filterSpecialBusList(ticketList, busList);
                 displayBusWithIndex(filteredBuses);

@@ -300,7 +300,7 @@ class TicketInfo {
             System.out.println("Enter: \n1: To Sort based on Journey Hrs \n2: To Sort based on Ticket Cost \n3: To Sort based on Bus Number \n4: To continue booking");
             try {
                 sortOption = Integer.parseInt(scanner.next());
-                util.throwException(sortOption, 1, 4);
+                util.optionValidator(sortOption, 1, 4);
                 switch (sortOption) {
                     case 1:
                         displayJourneyHrsSortedFilteredBusList(a.getTicketList(), a.getBusList());
