@@ -41,7 +41,7 @@ The administrator can create, edit or delete the bus and specify the features li
 ### Flow of the console application:
 > Main Flow:
 1. User has to enter the boarding, destination and Agency name.
-2. Select the bus.
+2. Select the bus.(User can sort the buses based on Journey hours, cost of ticket, bus number as well)
 3. Enter the details.
 3. Book the ticket if available.
 4. Ask for Coupon code if available.
