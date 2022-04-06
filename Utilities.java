@@ -17,6 +17,15 @@ class Utilities {
         LocalDate inputDate = LocalDate.parse(date, dtf);
         return inputDate.isAfter(localDate);
     }
+    
+    public void validateDate(TicketInfo ticketForPassenger) {
+        boolean isDateFuture = isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
+        while (isDateFuture == false) {
+            System.out.println("The booking is over for the specified date, enter a future date.");
+            ticketForPassenger.getDateOfJourneyFromUser();
+            isDateFuture = isDateFuture(ticketForPassenger.getFormattedDateOfJourney(), "dd/MM/yyyy");
+        }
+    }
 
     public void drawDoubleLine() {
         System.out.println("\033[0;1m" + "=========================================================================================================================================================" + "\033[0;0m");
